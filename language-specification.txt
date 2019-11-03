@@ -1,0 +1,147 @@
+NOME: C--
+
+Estrutura geral de um programa:
+
+    Se admite escopo global 
+        => Sim
+
+    Como é identificado o ponto de início de execução 
+        => int Main() {}
+
+    Onde e como são admitidas definições de procedimentos/funções
+        =>  Todos os identificadores de funções devem ser 
+            precedidos do seu tipo de retorno e começar com letra
+            maiúscula. Seus parâmetros devem possuir os 
+            respectivos tipos.
+
+            Exemplo: 
+
+                functionType Function(typeA paramA, typeB paramB,...) {
+
+                    .
+                    .
+                    .
+
+                    return value;
+
+                }
+
+    Onde e como são feitas definições de variáveis globais/locais
+        =>  Variáveis globais devem possuir seu tipo precedido da
+            palavra "global".
+
+            Exemplo:
+
+                global int var;
+
+
+Nomes:                
+
+    Sensibilidade à caixa:
+        =>  Sim, todas as variáveis devem iniciar com letra 
+            minúscula e funções/procedimentos devem ser 
+            iniciadas com letra maiúscula.
+
+    Limite de tamanho:
+        =>  48 caracteres.
+
+    Formato: 
+        =>  ############ expressão regular (ER) #############
+
+
+Tipos e estruturas de dados:
+
+    Coerção:
+        =>  A linguagem é estáticamente tipada, ou seja, não
+            admite coerção.
+
+    Forma de declaração:
+        =>  A declaração de uma variável dever ser da forma: 
+        
+            <Type> identifier;
+
+            Onde o identificador caso seja uma variável, deve
+            possuir obrigatoriamente o primeiro caractere uma
+            letra minúscula, e caso uma função o primeiro 
+            caractere deve ser uma letra maiúscula. Outros
+            caracteres podem ser números, letras ou underline.
+
+    Compatibilidade nome ou estrutura:
+        =>  Nome
+
+    Tipos de dados primitivos:
+
+        => Inteiro
+
+            ~>  Deve ser identificado pela palavra reservada "int"
+                e representa um número inteiro de 64 bits. Seus 
+                literais são uma sequência de números inteiros.
+
+                Exemplo: 
+
+                    int integer;
+        
+        => Ponto Flutuante
+
+            ~>  Deve ser identificado pela palavra reservada "float"
+                e representa um número real de 64 bits. Seus
+                literais são uma sequência de números reais.
+
+                Exemplo: 
+
+                    float floating_point;
+
+        => Caractere
+
+            ~>  Deve ser identificado pela palavra reservada "char"
+                e representa 1 byte que guarda um valor de 0 a 127
+                referente a seu símbolo na tabela ASCII.
+
+                Exemplo: 
+
+                    char character;
+
+        => Arranjos Unidimensionais
+
+            ~>  Um vetor deve ter seu tamanho especificado entre 
+                colchetes logo após seu identificador.
+
+                Exemplo: 
+
+                    <Type> vector[size];
+
+                Ou também no formato:
+
+                    <Type>[size]
+                    
+                    Utilizado em identicação do tipo de retorno 
+                    de uma função.
+        
+        => Cadeia de Caracteres
+
+            ~>  Uma cadeia de caracteres é nada mais do que um vetor
+                de caracteres. Deve ser inicialiada da seguinte 
+                forma: 
+
+                    char string[size];
+
+                Operação de concatenação:
+                    =>  É formada pelo operador "++", que ao ser 
+                        aplicado concatena os dois lados da 
+                        operação.
+
+                        Exemplo:
+
+                        char string[size] = string1 ++ string2;
+
+
+        => Booleano
+
+            ~>  Deve ser identificado pela palavra reservada "bool"
+                e representa somente 2 possíveis valores: true e
+                false.
+
+                Exemplo: 
+
+                    bool boolean;
+                    
