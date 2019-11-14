@@ -1,4 +1,4 @@
-NOME: C--
+NOME: 
 
 Estrutura geral de um programa:
 
@@ -6,25 +6,11 @@ Estrutura geral de um programa:
         => Sim
 
     Como é identificado o ponto de início de execução 
-        => int Main() {}
-
-    Onde e como são admitidas definições de procedimentos/funções
-        =>  Todos os identificadores de funções devem ser 
-            precedidos do seu tipo de retorno e começar com letra
-            maiúscula. Seus parâmetros devem possuir os 
-            respectivos tipos.
-
-            Exemplo: 
-
-                functionType Function(typeA paramA, typeB paramB,...) {
-
-                    .
-                    .
-                    .
-
-                    return value;
-
-                }
+        => 
+            int Main() {
+                
+                return 0;
+            }
 
     Onde e como são feitas definições de variáveis globais/locais
         =>  Variáveis globais devem possuir seu tipo precedido da
@@ -35,18 +21,30 @@ Estrutura geral de um programa:
                 global int var;
 
 
-Nomes:                
+Palavras reservadas:
 
-    Sensibilidade à caixa:
-        =>  Sim, todas as variáveis devem iniciar com letra 
+    and, bool, char, do, during, else, false, float, from,
+    get, global, if, int, not, or, print, return, string, true
+
+
+identificador:        
+
+    Tem o tamanho máximo de 48 caracteres e as seguintes regras:
+
+        =>  Todas as variáveis devem iniciar com letra 
             minúscula e funções/procedimentos devem ser 
             iniciadas com letra maiúscula.
 
-    Limite de tamanho:
-        =>  48 caracteres.
+        =>  Os caracteres, a partir do segundo, podem ser letras, números ou underline.
 
-    Formato: 
-        =>  ############ expressão regular (ER) #############
+        => Não é permitido o uso de espaços.
+
+        => Não é permitido o uso de palavras reservadas como identificador.
+    
+    
+Comentário:
+    
+    Apenas comentários por linha, identificados por '#'
 
 
 Tipos e estruturas de dados:
@@ -103,12 +101,17 @@ Tipos e estruturas de dados:
 
         => Arranjos Unidimensionais
 
-            ~>  Um vetor deve ter seu tamanho especificado entre 
-                colchetes logo após seu identificador.
+            ~>  Um vetor deve ter seu tipo seguido pelo seu
+                identificador e logo após o seu tamanho 
+                especificado entre colchetes. Seus literais 
+                dependem do tipo utilizado e devem ser inclusos
+                dentro de colchetes seperados por vírgula. 
 
                 Exemplo: 
 
-                    <Type> vector[size];
+                    <Type> Identifier[size];
+
+                    <Type> Identifier[size] = [<values>]
 
                 Ou também no formato:
 
@@ -119,21 +122,10 @@ Tipos e estruturas de dados:
         
         => Cadeia de Caracteres
 
-            ~>  Uma cadeia de caracteres é nada mais do que um vetor
-                de caracteres. Deve ser inicialiada da seguinte 
-                forma: 
+            ~>  Deve ser identificado pela palavra reservada "string"
+                e representa uma sequência de caracteres: 
 
-                    char string[size];
-
-                Operação de concatenação:
-                    =>  É formada pelo operador "++", que ao ser 
-                        aplicado concatena os dois lados da 
-                        operação.
-
-                        Exemplo:
-
-                        char string[size] = string1 ++ string2;
-
+                    string string;
 
         => Booleano
 
@@ -145,3 +137,266 @@ Tipos e estruturas de dados:
 
                     bool boolean;
                     
+    Operações de cada tipo:
+
+        int     => Atribuição, Aritiméticos, Relacionais
+        float   => Atribuição, Aritiméticos(*), Relacionais
+        char    => Atribuição, Relacionais, Concatenação
+        string  => Atribuição, Relacionais(**), Concatenação
+        bool    => Atribuição, Lógicas 
+
+        * operador de resto não incluso
+        ** somente os operadores '==' e '!=' são aceitos.
+
+    Valores padrão
+
+        int     =>  0
+        float   =>  0.0
+        char    =>  ''
+        string  =>  null
+        bool    =>  false
+    
+Conjunto de Operadores:
+
+    Aritiméticos:
+
+        Soma            => +
+        Subtração       => -
+        Unário Negativo => - 
+        Multiplicação   => *
+        Divisão         => /
+        Resto           => %
+
+    Relacionais:
+
+        Igual           => ==
+        Menor que       => <
+        Maior que       => >
+        Menor ou igual  => <=
+        Maior ou igual  => >=
+        Diferente       => !=
+
+    Lógicos:
+
+        Negação Unária  => not 
+        Conjunção       => and
+        Disjunção       => or
+
+
+    Concatenação:
+
+        É formada pelo operador "&", que ao ser aplicado 
+        concatena os dois lados da operação se os dois
+        lados forem caractere ou cadeia de caracteres.
+
+        Exemplo:
+
+        string string = string1 & string2;
+        string string = character & string;
+
+    Precedência e Associatividade:
+
+        Precedência | Associatividade | Operadores
+       -------------|-----------------|--------------------
+        1           | à direita       | - (prefixo unário)
+        2           | à direita       | not
+        3           | à esquerda      | *, /, %
+        4           | à esquerda      | +, -
+        5           | à esquerda      | <, >, <=, >=
+        6           | à esquerda      | ==, !=
+        7           | à esquerda      | and
+        8           | à esquerda      | or
+        9           | à esquerda      | & 
+        10          | nenhuma         | ++, -- (sufixo unário)
+
+
+    Instruções:
+
+        Atribuição:
+
+            Definida pelo operador '=', sendo o lado esquerdo
+            o identificador a receber o valor e o direito o 
+            valor ou expressão a ser atribuído.
+
+        Estrutura condicional de uma e duas vias:
+
+            Definida da seguinte forma:
+
+                if expressao_logica {
+                    ...
+                    
+                    
+                } else {
+                    ...
+                }
+               
+        Estrutura iteratica com controle logico:
+
+            Definida da seguinte forma:
+
+                during expressao_logica {
+                    ...
+                }
+
+        Estrutura iterativa controlada por contador:
+
+            Definida da seguinte forma:
+
+                from id = expressao_aritmetica during expressao_logica do expressao_aritmetica {
+                    ...
+                }
+
+        Entrada e saída:
+
+            Entrada:
+
+                int a = get()
+
+            Saída:
+
+                print()
+
+    Funções:
+
+        Todas as funcões devem ser declaradas ante sde poderem ser
+        utilizadas. Todos os identificadores de funções devem ser 
+        precedidos do seu tipo de retorno e começar com letra
+        maiúscula. Seus parâmetros devem possuir os 
+        respectivos tipos.
+        Funções sem o 'return' retornam o valor padrão de cada tipo.
+
+            Exemplo: 
+
+                functionType Function(typeA paramA, typeB paramB,...) {
+
+                    .
+                    .
+                    .
+
+                    return value;
+
+                }
+
+
+    Programas exeplos:
+
+        Hello world:
+        
+            int Main() {
+
+                print("Hello World");
+                
+                return 0;
+            }
+            
+        Fibonacci:
+
+            int Fibonacci(int value) {
+
+                int a = 1;
+                int b = 1;
+                int next;
+
+                if value == 0 {
+                    return;
+                }
+
+                during next <= value {
+                    
+                    print(a);
+                    print(", ");
+                    next = a + b;
+                    a = b;
+                    b = next;
+                    
+                }
+
+                print(a);
+                print("\n");
+                
+                return;
+
+            }
+
+            int Main() {
+
+                int value = get();
+
+                Fibonacci(value);
+
+                return 0;           
+
+            }
+
+        ShellSort:
+
+            int[] ShellSort(int values[], int size) {
+
+                int i;
+                int j;
+                int num;
+                int gap = 1;
+
+                during gap < size {
+
+                    gap = gap * 3 + 1
+                
+                }
+
+                during gap > 0 {
+
+                    from i = gap during i < size do i++ {
+                        num = values[i];
+                        j = i;
+
+                        during (j > gap - 1) and (num <= values[j - gap]) {
+
+                            values[j] = values[j - gap];
+                            j = j - gap;
+
+                        }
+
+                        values[j] = num;
+                    }
+
+                    gap = gap / 3;
+
+                }
+
+                return values;
+
+            }
+
+            int Main() {
+
+                int i;
+
+                print("Enter the length of array:");
+                int size = get(); 
+
+                int values[size];
+
+                print("Enter the array");
+
+                from i = 0 during i < size do i++ {
+
+                    values[i] = get();
+                    print(values[i]);
+                    print(" ");
+            
+                }
+
+                values = ShellSort(values, size);
+
+                from i = 0 during i < size do i++ {
+
+                    print(values[i]);
+                    print(" ");
+            
+                }
+
+
+            }
+
+            
+                
