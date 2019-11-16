@@ -291,7 +291,7 @@ Conjunto de Operadores:
             
         Fibonacci:
 
-            int Fibonacci(int value) {
+            void Fibonacci(int value) {
 
                 int a = 1;
                 int b = 1;
@@ -313,9 +313,8 @@ Conjunto de Operadores:
 
                 print(a);
                 print("\n");
-                
-                return;
 
+                return;
             }
 
             int Main() {
@@ -398,5 +397,122 @@ Conjunto de Operadores:
 
             }
 
+    
             
+Especificação da Linguagem de Programação:
+
+    Os analisadores léxico e sintático da linguagem serão 
+    implementados em Java, utilizado o analisador preditivo
+    tabular.
+
+Especificação dos Tokens:
+
+    Lista de Tokens:
+
+        public enum Category {
+
+            unknown, main, int, float, string, bool, char, void, 
+            vecInt, vecFloat, vecStr, vecBool, vecChar, main,
+            comma, if, else, during, from, do, semiCol, 
+            begBrac, endBrac, begSqrBrac, endSqrBrac, 
+            begCurBrac, endCurBrac, print, get, return, opConc,
+            opAnd, opOr, opNot, opAtr, opEq, opDif, 
+            opAdd, opSub, opDiv, opMult, opMod, opLowThen, 
+            opHiThen, opLowThenE, opHiThenE, opGreThen, 
+            opGreThenE, funcId, nameId, cteInt, cteFloat, 
+            cteString, cteBool, cteChar, EOF.
+
+        } 
+
+    Expressões Regulares Auxiliares:
+
+        letter = '[a-zA-Z]'
+        letterLow = '[a-z]'
+        letterHig = '[A-Z]'
+        digit = '[0-9]'
+        symbol = '[ ./:;?!+-*\/_%@&#$<>=()[]{}|"']'
+
+    
+    Lexemas:
+
+        Main:
+            main = 'Main'
+
+        Identificador:
+            nameId = '(letterLow)(letter|digit|_)*'
+            funcId = '(letterHig)(letter|digit|_)*'
+
+        Tipos Primitivos:
+            int = 'int'
+            float = 'float'
+            char = 'char'
+            string = 'String'
+            bool = 'bool'
+
+        Delimitadores:
+
+            Escopo:
+                begCurBrac = '\{'
+                endCurBrac = '\}'
                 
+            Parâmetros:
+                begBrac = '\('
+                endBrac = '\)'
+
+            Array:
+                begSqrBrac = '\['
+                endSqrBrac = '\]'
+
+            Finalizador:
+                semiCol = ';'
+
+            Separador:
+                comma = ','
+
+        Definiçoes de tipos:
+
+            cteInt      = '-?digit+'
+            cteFloat    = '-?digit+(\.digit+)?'
+            cteBool     = '(true|false)'
+            cteChar     = ''(letter|digit|symbol_\')''
+            cteString   = '"(letter|digit|symbol_\")"'
+        
+        Palavras reservadas de fluxo:
+
+            if = 'if'
+            else = 'else'
+            from = 'from'
+            during = 'during'
+            do = 'do'
+            return = 'return'
+
+        Operadores lógicos:
+
+            opAnd = 'and'
+            opOr = 'or'
+            opNot = 'not'
+
+        Operadores Aritiméticos:
+
+            opAdd = '(+)'
+            opSub = '(-)'
+            opMult = '(*)'
+            opDiv = '(/)'
+            opMod = '(%)'
+
+        Operadores relacionais:
+
+            opEq = '(==)'
+            opDif = '(!=)'
+            opGreThen = '(>)'
+            opGreThenE = '(>=)'
+            opLowThen = '(<)'
+            opLowThenE = '(<=)'
+
+        Operador de Concatenação:
+
+            opConc = '&'
+
+        Fim de arquivo:
+
+            EOF = 'eof'
