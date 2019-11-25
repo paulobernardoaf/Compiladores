@@ -1,4 +1,4 @@
-NOME: 
+NOME: C--
 
 Estrutura geral de um programa:
 
@@ -411,8 +411,8 @@ Especificação dos Tokens:
 
         public enum Category {
 
-            unknown, main, int, float, string, bool, char, void, 
-            vecInt, vecFloat, vecStr, vecBool, vecChar, main,
+            main, global,  int, float, string, bool, char, 
+            void, vecInt, vecFloat, vecStr, vecBool, vecChar, main,
             comma, if, else, during, from, do, semiCol, 
             begBrac, endBrac, begSqrBrac, endSqrBrac, 
             begCurBrac, endCurBrac, print, get, return, opConc,
@@ -516,3 +516,6 @@ Especificação dos Tokens:
         Fim de arquivo:
 
             EOF = 'eof'
+
+Gramática:
+
