@@ -25,7 +25,8 @@ public class LexemeCategoryMap {
         MapLexemeCategory.put("else", CategoryList.Telse);
         MapLexemeCategory.put("during", CategoryList.Tduring);
         MapLexemeCategory.put("from", CategoryList.Tfrom);
-        MapLexemeCategory.put("do", CategoryList.Tdo);
+        MapLexemeCategory.put("increment", CategoryList.Tincrement);
+        MapLexemeCategory.put("to", CategoryList.Tto);
         MapLexemeCategory.put(",", CategoryList.Tcomma);
         MapLexemeCategory.put(";", CategoryList.TsemiCol);
         MapLexemeCategory.put("(", CategoryList.TbegBrac);

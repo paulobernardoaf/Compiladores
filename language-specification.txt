@@ -5,6 +5,9 @@ Estrutura geral de um programa:
     Se admite escopo global 
         => Sim
 
+    Se admite cast
+        => Não admite cast.
+
     Como é identificado o ponto de início de execução 
         => 
             int Main() {
@@ -19,6 +22,11 @@ Estrutura geral de um programa:
             Exemplo:
 
                 global int var;
+
+    Funções/Procedimentos devem ser declarados previamente antes de serem
+    implementados.
+
+    A modo de passagem de parâmetro é por cópia.
 
 
 Palavras reservadas:
@@ -50,7 +58,7 @@ Comentário:
 Tipos e estruturas de dados:
 
     Coerção:
-        =>  A linguagem é estáticamente tipada, ou seja, não
+        =>  A linguagem é estáticamente tipada e não
             admite coerção.
 
     Forma de declaração:
@@ -83,7 +91,9 @@ Tipos e estruturas de dados:
 
             ~>  Deve ser identificado pela palavra reservada "float"
                 e representa um número real de 64 bits. Seus
-                literais são uma sequência de números reais.
+                literais são da forma:
+
+                    digit+(\.digit+)?
 
                 Exemplo: 
 
@@ -102,30 +112,35 @@ Tipos e estruturas de dados:
         => Arranjos Unidimensionais
 
             ~>  Um vetor deve ter seu tipo seguido pelo seu
-                identificador e logo após o seu tamanho 
-                especificado entre colchetes. Seus literais 
+                tamanho especificado entre colchetes e logo
+                após o seu identificador. Seus literais
                 dependem do tipo utilizado e devem ser inclusos
                 dentro de colchetes seperados por vírgula. 
 
                 Exemplo: 
 
-                    <Type> Identifier[size];
+                    <Type>[size] identifier;
 
-                    <Type> Identifier[size] = [<values>]
+                    <Type>[size] identifier = [<values>];
 
-                Ou também no formato:
+                Os elementos de um arranjo podem ser acessados da seguinte
+                maneira:
 
-                    <Type>[size]
-                    
-                    Utilizado em identicação do tipo de retorno 
-                    de uma função.
+                    identificador[posicao];
+
+                Se uma quantidade de elementos num arranjo for diferente da que foi
+                definida, duas coisas podem acontecer:
+                    => Quantidade menor do que o declarado:
+                        => O restante do arranjo é preenchido com os valores padrões do tipo do arranjo.
+                    => Quantidade maior do que o declarado:
+                        => Da erro.
         
         => Cadeia de Caracteres
 
             ~>  Deve ser identificado pela palavra reservada "string"
                 e representa uma sequência de caracteres: 
 
-                    string string;
+                    string str;
 
         => Booleano
 
@@ -191,8 +206,8 @@ Conjunto de Operadores:
 
         Exemplo:
 
-        string string = string1 & string2;
-        string string = character & string;
+        string str = string1 & string2;
+        string str = character & str;
 
     Precedência e Associatividade:
 
@@ -202,12 +217,11 @@ Conjunto de Operadores:
         2           | à direita       | not
         3           | à esquerda      | *, /, %
         4           | à esquerda      | +, -
-        5           | à esquerda      | <, >, <=, >=
-        6           | à esquerda      | ==, !=
+        5           | nenhuma         | <, >, <=, >=
+        6           | nenhuma         | ==, !=
         7           | à esquerda      | and
         8           | à esquerda      | or
-        9           | à esquerda      | & 
-        10          | nenhuma         | ++, -- (sufixo unário)
+        9           | à esquerda      | &
 
 
     Instruções:
@@ -242,7 +256,7 @@ Conjunto de Operadores:
 
             Definida da seguinte forma:
 
-                from id = expressao_aritmetica during expressao_logica do expressao_aritmetica {
+                from id = expressao_aritmetica to expressao_aritimetica increment expressao_aritmetica {
                     ...
                 }
 
@@ -413,7 +427,7 @@ Especificação dos Tokens:
 
             Tunknown, Tmain, Tglobal, Tint, Tfloat, Tstring, Tbool, Tchar,
             Tvoid, TvecInt, TvecFloat, TvecStr, TvecBool, TvecChar,
-            Tcomma, Tif, Telse, Tduring, Tfrom, Tdo, TsemiCol,
+            Tcomma, Tif, Telse, Tduring, Tfrom, Tdo, TsemiCol, Tto,
             TbegBrac, TendBrac, TbegSqrBrac, TendSqrBrac,
             TbegCurBrac, TendCurBrac, Tprint, Tget, Treturn, TopConc,
             TopAnd, TopOr, TopNot, TopAtr, TopEq, TopDif,
@@ -473,8 +487,8 @@ Especificação dos Tokens:
 
         Definiçoes de tipos:
 
-            TcteInt      = '-?digit+'
-            TcteFloat    = '-?digit+(\.digit+)?'
+            TcteInt      = 'digit+'
+            TcteFloat    = 'digit+(\.digit+)?'
             TcteBool     = '(true|false)'
             TcteChar     = ''(letter|digit|symbol_\')''
             TcteString   = '"(letter|digit|symbol_\")*"'

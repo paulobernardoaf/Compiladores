@@ -48,6 +48,9 @@ public class Lexical {
             while(!separators.contains(line.charAt(this.charPosition))){
                 lexeme.append(nextChar(line));
             }
+
+
+
         }
 
 

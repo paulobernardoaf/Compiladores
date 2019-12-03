@@ -4,7 +4,7 @@ public enum CategoryList {
 
     Tunknown, Tmain, Tglobal, Tint, Tfloat, Tstring, Tbool, Tchar,
     Tvoid, TvecInt, TvecFloat, TvecStr, TvecBool, TvecChar,
-    Tcomma, Tif, Telse, Tduring, Tfrom, Tdo, TsemiCol,
+    Tcomma, Tif, Telse, Tduring, Tfrom, Tto, Tincrement, TsemiCol,
     TbegBrac, TendBrac, TbegSqrBrac, TendSqrBrac,
     TbegCurBrac, TendCurBrac, Tprint, Tget, Treturn, TopConc,
     TopAnd, TopOr, TopNot, TopAtr, TopEq, TopDif,

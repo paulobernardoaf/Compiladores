@@ -16,7 +16,7 @@ public class Token {
         CategoryList cat = LexemeCategoryMap.MapLexemeCategory.get(lexeme);
         if(cat == null) {
             tokenCategory = getCategoryFromRegex(lexeme);
-            if(tokenCategory == null) {
+            if(tokenCategory == CategoryList.Tunknown) {
                 System.out.println("categoria deu null para o lexema " + lexeme);
             }
         } else {
@@ -35,27 +35,55 @@ public class Token {
     public CategoryList getCategoryFromRegex(String lexeme) {
         CategoryList category = CategoryList.Tunknown;
 
-        if(lexeme.matches("([a-z])([a-zA-Z]|[0-9]|_)*")) {
+        String regexId = "([a-z])([a-zA-Z]|[0-9]|_)*";
+        String regexFuncId = "([A-Z])([a-zA-Z]|[0-9]|_)*";
+        String regexCteInt = "[0-9]+";
+        String regexCteFloat = "[0-9]+(\\.[0-9]+)?";
+        String regexCteBool = "(true|false)";
+        String regexCteChar = "'([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;,\"'])'";
+        String regexCteString = "\"([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;,\"'])*\"";
+//        String regexVecInt = "(int\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
+//        String regexVecFloat = "(float\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
+//        String regexVecBool = "(bool\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
+//        String regexVecChar = "(char\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
+//        String regexVecString = "(string\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
+
+        if(lexeme.matches(regexId)) {
             category = CategoryList.TnameId;
         }
-        else if(lexeme.matches("([A-Z])([a-zA-Z]|[0-9]|_)*")) {
+        else if(lexeme.matches(regexFuncId)) {
             category = CategoryList.TfuncId;
         }
-        else if(lexeme.matches("-?[0-9]+")) {
+        else if(lexeme.matches(regexCteInt)) {
             category = CategoryList.TcteInt;
         }
-        else if(lexeme.matches("-?[0-9]+(\\.[0-9]+)?")) {
+        else if(lexeme.matches(regexCteFloat)) {
             category = CategoryList.TcteFloat;
         }
-        else if(lexeme.matches("(true|false)")) {
+        else if(lexeme.matches(regexCteBool)) {
             category = CategoryList.TcteBool;
         }
-        else if(lexeme.matches("'([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;,\"'])'")) {
+        else if(lexeme.matches(regexCteChar)) {
             category = CategoryList.TcteChar;
         }
-        else if(lexeme.matches("\"([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;,\"'])*\"")) {
+        else if(lexeme.matches(regexCteString)) {
             category = CategoryList.TcteString;
         }
+//        else if(lexeme.matches(regexVecInt)) {
+//            category = CategoryList.TvecInt;
+//        }
+//        else if(lexeme.matches(regexVecFloat)) {
+//            category = CategoryList.TvecFloat;
+//        }
+//        else if(lexeme.matches(regexVecBool)) {
+//            category = CategoryList.TvecBool;
+//        }
+//        else if(lexeme.matches(regexVecChar)) {
+//            category = CategoryList.TvecChar;
+//        }
+//        else if(lexeme.matches(regexVecString)) {
+//            category = CategoryList.TvecStr;
+//        }
 
         return category;
     }
