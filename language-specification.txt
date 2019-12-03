@@ -338,7 +338,7 @@ Conjunto de Operadores:
 
                 during gap < size {
 
-                    gap = gap * 3 + 1
+                    gap = gap * 3 + 1;
                 
                 }
 
@@ -403,24 +403,24 @@ Especificação da Linguagem de Programação:
 
     Os analisadores léxico e sintático da linguagem serão 
     implementados em Java, utilizado o analisador preditivo
-    tabular.
+    recursivo.
 
 Especificação dos Tokens:
 
     Lista de Tokens:
 
-        public enum Category {
+        public enum CategoryList {
 
-            main, global,  int, float, string, bool, char, 
-            void, vecInt, vecFloat, vecStr, vecBool, vecChar, main,
-            comma, if, else, during, from, do, semiCol, 
-            begBrac, endBrac, begSqrBrac, endSqrBrac, 
-            begCurBrac, endCurBrac, print, get, return, opConc,
-            opAnd, opOr, opNot, opAtr, opEq, opDif, 
-            opAdd, opSub, opDiv, opMult, opMod, opLowThen, 
-            opHiThen, opLowThenE, opHiThenE, opGreThen, 
-            opGreThenE, funcId, nameId, cteInt, cteFloat, 
-            cteString, cteBool, cteChar, EOF.
+            Tunknown, Tmain, Tglobal, Tint, Tfloat, Tstring, Tbool, Tchar,
+            Tvoid, TvecInt, TvecFloat, TvecStr, TvecBool, TvecChar,
+            Tcomma, Tif, Telse, Tduring, Tfrom, Tdo, TsemiCol,
+            TbegBrac, TendBrac, TbegSqrBrac, TendSqrBrac,
+            TbegCurBrac, TendCurBrac, Tprint, Tget, Treturn, TopConc,
+            TopAnd, TopOr, TopNot, TopAtr, TopEq, TopDif,
+            TopAdd, TopSub, TopDiv, TopMult, TopMod, TopLowThen,
+            TopLowThenE, TopGreThen,
+            TopGreThenE, TfuncId, TnameId, TcteInt, TcteFloat,
+            TcteString, TcteBool, TcteChar, TEOF
 
         } 
 
@@ -430,92 +430,94 @@ Especificação dos Tokens:
         letterLow = '[a-z]'
         letterHig = '[A-Z]'
         digit = '[0-9]'
-        symbol = '[ ./:;?!+-*\/_%@&#$<>=()[]{}|"']'
+        symbol = '[ /\\!@#$%&*()_\-=+\[\]{}><?.;,"']'
 
-    
     Lexemas:
 
         Main:
-            main = 'Main'
+            Tmain = 'Main'
 
         Identificador:
-            nameId = '(letterLow)(letter|digit|_)*'
-            funcId = '(letterHig)(letter|digit|_)*'
+            TnameId = '(letterLow)(letter|digit|_)*'
+            TfuncId = '(letterHig)(letter|digit|_)*'
+            Tglobal = 'global'
 
         Tipos Primitivos:
-            int = 'int'
-            float = 'float'
-            char = 'char'
-            string = 'String'
-            bool = 'bool'
+            Tint = 'int'
+            Tfloat = 'float'
+            Tchar = 'char'
+            Tstring = 'string'
+            Tbool = 'bool'
+            Tvoid = 'void'
+            Tglobal = 'global'
 
         Delimitadores:
 
             Escopo:
-                begCurBrac = '\{'
-                endCurBrac = '\}'
+                TbegCurBrac = '\{'
+                TendCurBrac = '\}'
                 
             Parâmetros:
-                begBrac = '\('
-                endBrac = '\)'
+                TbegBrac = '\('
+                TendBrac = '\)'
 
             Array:
-                begSqrBrac = '\['
-                endSqrBrac = '\]'
+                TbegSqrBrac = '\['
+                TendSqrBrac = '\]'
 
             Finalizador:
-                semiCol = ';'
+                TsemiCol = ';'
 
             Separador:
-                comma = ','
+                Tcomma = ','
 
         Definiçoes de tipos:
 
-            cteInt      = '-?digit+'
-            cteFloat    = '-?digit+(\.digit+)?'
-            cteBool     = '(true|false)'
-            cteChar     = ''(letter|digit|symbol_\')''
-            cteString   = '"(letter|digit|symbol_\")"'
+            TcteInt      = '-?digit+'
+            TcteFloat    = '-?digit+(\.digit+)?'
+            TcteBool     = '(true|false)'
+            TcteChar     = ''(letter|digit|symbol_\')''
+            TcteString   = '"(letter|digit|symbol_\")*"'
         
         Palavras reservadas de fluxo:
 
-            if = 'if'
-            else = 'else'
-            from = 'from'
-            during = 'during'
-            do = 'do'
-            return = 'return'
+            Tif = 'if'
+            Telse = 'else'
+            Tfrom = 'from'
+            Tduring = 'during'
+            Tdo = 'do'
+            Treturn = 'return'
 
         Operadores lógicos:
 
-            opAnd = 'and'
-            opOr = 'or'
-            opNot = 'not'
+            TopAnd = 'and'
+            TopOr = 'or'
+            TopNot = 'not'
 
         Operadores Aritiméticos:
 
-            opAdd = '(+)'
-            opSub = '(-)'
-            opMult = '(*)'
-            opDiv = '(/)'
-            opMod = '(%)'
+            TopAdd = '(+)'
+            TopSub = '(-)'
+            TopMult = '(*)'
+            TopDiv = '(/)'
+            TopMod = '(%)'
 
         Operadores relacionais:
 
-            opEq = '(==)'
-            opDif = '(!=)'
-            opGreThen = '(>)'
-            opGreThenE = '(>=)'
-            opLowThen = '(<)'
-            opLowThenE = '(<=)'
+            TopEq = '(==)'
+            TopDif = '(!=)'
+            TopGreThen = '(>)'
+            TopGreThenE = '(>=)'
+            TopLowThen = '(<)'
+            TopLowThenE = '(<=)'
 
         Operador de Concatenação:
 
-            opConc = '&'
+            TopConc = '&'
 
         Fim de arquivo:
 
-            EOF = 'eof'
+            TEOF = EOF
 
 Gramática:
 
