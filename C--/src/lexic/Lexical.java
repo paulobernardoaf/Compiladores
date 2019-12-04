@@ -37,7 +37,7 @@ public class Lexical {
         if(separators.contains(line.charAt(this.charPosition))) {
             if(separatorsButToken.contains(line.charAt(this.charPosition))){
                 lexeme.append(nextChar(line));
-                if(this.charPosition < line.length() && separatorsButComparators.contains(lexeme.charAt(0)) && line.charAt(this.charPosition) == '='){ // to triste com essa linha
+                if(this.charPosition < line.length() && separatorsButComparators.contains(lexeme.charAt(0)) && line.charAt(this.charPosition) == '='){ 
                     lexeme.append(nextChar(line));
                 }
             } else {
@@ -46,7 +46,7 @@ public class Lexical {
             }
         } else {
 
-            // TODO: TENTAR MELHORAR O RECONHECIMENTO DE CONSTANTES STRING E CHAR
+            // TODO: TENTAR MELHORAR O RECONHECIMENTO DE CONSTANTES STRING
             if(line.charAt(this.charPosition) == '\"') {
                 lexeme.append(nextChar(line));
                 while(line.charAt(this.charPosition) != '\"') {
@@ -85,9 +85,5 @@ public class Lexical {
             System.out.println(format);
             getTokens(line);
         }
-
-
     }
-
-
 }
