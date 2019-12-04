@@ -43,7 +43,7 @@ identificador:
             minúscula e funções/procedimentos devem ser 
             iniciadas com letra maiúscula.
 
-        =>  Os caracteres, a partir do segundo, podem ser letras, números ou underline.
+        => Os caracteres, a partir do segundo, podem ser letras, números ou underline.
 
         => Não é permitido o uso de espaços.
 
@@ -157,8 +157,8 @@ Tipos e estruturas de dados:
         int     => Atribuição, Aritiméticos, Relacionais
         float   => Atribuição, Aritiméticos(*), Relacionais
         char    => Atribuição, Relacionais, Concatenação
-        string  => Atribuição, Relacionais(**), Concatenação
-        bool    => Atribuição, Lógicas 
+        string  => Atribuição, Relacionais, Concatenação
+        bool    => Atribuição, Relacionais(**), Lógicas 
 
         * operador de resto não incluso
         ** somente os operadores '==' e '!=' são aceitos.
