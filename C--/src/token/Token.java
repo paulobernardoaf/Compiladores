@@ -40,13 +40,8 @@ public class Token {
         String regexCteInt = "[0-9]+";
         String regexCteFloat = "[0-9]+(\\.[0-9]+)?";
         String regexCteBool = "(true|false)";
-        String regexCteChar = "'([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;,\"'])'";
-        String regexCteString = "\"([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;,\"'])*\"";
-//        String regexVecInt = "(int\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
-//        String regexVecFloat = "(float\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
-//        String regexVecBool = "(bool\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
-//        String regexVecChar = "(char\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
-//        String regexVecString = "(string\\[)((([a-z])([a-zA-Z]|[0-9]|_)*)|([0-9]+))]";
+        String regexCteChar = "'([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.:;,\"'])'";
+        String regexCteString = "\"([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;:,\"'])*\"";
 
         if(lexeme.matches(regexId)) {
             category = CategoryList.TnameId;
@@ -69,21 +64,7 @@ public class Token {
         else if(lexeme.matches(regexCteString)) {
             category = CategoryList.TcteString;
         }
-//        else if(lexeme.matches(regexVecInt)) {
-//            category = CategoryList.TvecInt;
-//        }
-//        else if(lexeme.matches(regexVecFloat)) {
-//            category = CategoryList.TvecFloat;
-//        }
-//        else if(lexeme.matches(regexVecBool)) {
-//            category = CategoryList.TvecBool;
-//        }
-//        else if(lexeme.matches(regexVecChar)) {
-//            category = CategoryList.TvecChar;
-//        }
-//        else if(lexeme.matches(regexVecString)) {
-//            category = CategoryList.TvecStr;
-//        }
+
 
         return category;
     }
