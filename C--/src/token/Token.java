@@ -38,7 +38,7 @@ public class Token {
         String regexCteInt = "[0-9]+";
         String regexCteFloat = "[0-9]+(\\.[0-9]+)?";
         String regexCteBool = "(true|false)";
-        String regexCteChar = "'([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.:;,\"'])'";
+        String regexCteChar = "'(([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.:;,\"])|(\\\\'))'";
         String regexCteString = "\"([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;:,\"'])*\"";
         String regexComment = "#.*";
 
@@ -62,7 +62,8 @@ public class Token {
         }
         else if(lexeme.matches(regexCteString)) {
             category = CategoryList.TcteString;
-        } else if(lexeme.matches(regexComment)) {
+        }
+        else if(lexeme.matches(regexComment)) {
             category = CategoryList.TComment;
         }
 

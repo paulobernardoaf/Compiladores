@@ -22,30 +22,8 @@ public class Syntactic {
         }
     }
 
-    // Function that returns all tokens inside one line
-    public void getTokens(String line) {
-        lexicalAnalyzer.setCharPosition(0);
-        while(lexicalAnalyzer.getCharPosition() < line.length()) {
-            Token token = lexicalAnalyzer.nextToken(line);
-            if (token != null) {
-                System.out.println(token.toString());
-            }
-        }
+    public void start() throws IOException {
+        lexicalAnalyzer.readFile(this.file);
     }
-
-    public void readFile() throws IOException {
-
-        String line;
-
-        while((line = this.file.readLine()) != null)
-        {
-            lexicalAnalyzer.addLinePosition();
-            String format = "%04d  " + line;
-            format = String.format(format, lexicalAnalyzer.getLinePosition());
-            System.out.println(format);
-            getTokens(line);
-        }
-    }
-
 
 }

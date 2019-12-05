@@ -11,5 +11,5 @@ public enum CategoryList {
     TopAdd, TopSub, TopDiv, TopMult, TopMod, TopLowThen,
     TopLowThnE, TopGreThen, TComment,
     TopGreThnE, TfuncId, TnameId, TcteInt, TcteFloat,
-    TcteString, TcteBool, TcteChar
+    TcteString, TcteBool, TcteChar, TEOF
 }

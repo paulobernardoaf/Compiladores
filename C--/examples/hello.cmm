@@ -1,6 +1,8 @@
 int Main() {
 
-    print("Hello World");
+    print("Hello \"World");
+
+    print('\'');
 
     return 0;
 }
