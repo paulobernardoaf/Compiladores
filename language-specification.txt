@@ -272,7 +272,7 @@ Conjunto de Operadores:
 
     Funções:
 
-        Todas as funcões devem ser declaradas ante sde poderem ser
+        Todas as funcões devem ser declaradas antes de poderem ser
         utilizadas. Todos os identificadores de funções devem ser 
         precedidos do seu tipo de retorno e começar com letra
         maiúscula. Seus parâmetros devem possuir os 
@@ -427,16 +427,16 @@ Especificação dos Tokens:
 
             Tunknown, Tmain, Tglobal, Tint, Tfloat, Tstring, Tbool, Tchar,
             Tvoid, TvecInt, TvecFloat, TvecStr, TvecBool, TvecChar,
-            Tcomma, Tif, Telse, Tduring, Tfrom, Tdo, TsemiCol, Tto,
-            TbegBrac, TendBrac, TbegSqrBrac, TendSqrBrac,
-            TbegCurBrac, TendCurBrac, Tprint, Tget, Treturn, TopConc,
+            Tcomma, Tif, Telse, Tduring, Tfrom, Tto, Tincrement, TsemiCol,
+            TbegBrac, TendBrac, TbegSqBrac, TendSqBrac,
+            TbegCrBrac, TendCrBrac, Tprint, Tget, Treturn, TopConc,
             TopAnd, TopOr, TopNot, TopAtr, TopEq, TopDif,
             TopAdd, TopSub, TopDiv, TopMult, TopMod, TopLowThen,
-            TopLowThenE, TopGreThen,
-            TopGreThenE, TfuncId, TnameId, TcteInt, TcteFloat,
-            TcteString, TcteBool, TcteChar, TEOF
+            TopLowThnE, TopGreThen, TComment,
+            TopGreThnE, TfuncId, TnameId, TcteInt, TcteFloat,
+            TcteString, TcteBool, TcteChar
 
-        } 
+        }
 
     Expressões Regulares Auxiliares:
 
@@ -463,7 +463,6 @@ Especificação dos Tokens:
             Tstring = 'string'
             Tbool = 'bool'
             Tvoid = 'void'
-            Tglobal = 'global'
 
         Delimitadores:
 

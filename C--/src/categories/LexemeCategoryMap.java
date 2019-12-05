@@ -31,10 +31,10 @@ public class LexemeCategoryMap {
         MapLexemeCategory.put(";", CategoryList.TsemiCol);
         MapLexemeCategory.put("(", CategoryList.TbegBrac);
         MapLexemeCategory.put(")", CategoryList.TendBrac);
-        MapLexemeCategory.put("[", CategoryList.TbegSqrBrac);
-        MapLexemeCategory.put("]", CategoryList.TendSqrBrac);
-        MapLexemeCategory.put("{", CategoryList.TbegCurBrac);
-        MapLexemeCategory.put("}", CategoryList.TendCurBrac);
+        MapLexemeCategory.put("[", CategoryList.TbegSqBrac);
+        MapLexemeCategory.put("]", CategoryList.TendSqBrac);
+        MapLexemeCategory.put("{", CategoryList.TbegCrBrac);
+        MapLexemeCategory.put("}", CategoryList.TendCrBrac);
         MapLexemeCategory.put("print", CategoryList.Tprint);
         MapLexemeCategory.put("get", CategoryList.Tget);
         MapLexemeCategory.put("return", CategoryList.Treturn);
@@ -52,8 +52,8 @@ public class LexemeCategoryMap {
         MapLexemeCategory.put("%", CategoryList.TopMod);
         MapLexemeCategory.put("<", CategoryList.TopLowThen);
         MapLexemeCategory.put(">", CategoryList.TopGreThen);
-        MapLexemeCategory.put("<=", CategoryList.TopLowThenE);
-        MapLexemeCategory.put(">=", CategoryList.TopGreThenE);
+        MapLexemeCategory.put("<=", CategoryList.TopLowThnE);
+        MapLexemeCategory.put(">=", CategoryList.TopGreThnE);
     }
 
 }

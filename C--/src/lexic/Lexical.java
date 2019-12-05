@@ -3,25 +3,16 @@ package lexic;
 import categories.SeparatorList;
 import token.Token;
 
-import java.io.*;
 import java.util.ArrayList;
 
 public class Lexical {
 
-    private BufferedReader file;
-    private int linePosition, charPosition;
+
+    private int linePosition = 0, charPosition = 0;
     private ArrayList<Character> separators = new SeparatorList().getSeparatorList();
     private ArrayList<Character> separatorsButToken = new SeparatorList().getSeparatorButTokenList();
     private ArrayList<Character> separatorsButComparators = new SeparatorList().getSeparatorButComparator();
 
-    public Lexical(String filePath) {
-        try {
-            this.file = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-        }
-    }
 
     public char nextChar(String line) {
         char c = line.charAt(this.charPosition);
@@ -37,7 +28,7 @@ public class Lexical {
         if(separators.contains(line.charAt(this.charPosition))) {
             if(separatorsButToken.contains(line.charAt(this.charPosition))){
                 lexeme.append(nextChar(line));
-                if(this.charPosition < line.length() && separatorsButComparators.contains(lexeme.charAt(0)) && line.charAt(this.charPosition) == '='){ 
+                if(this.charPosition < line.length() && separatorsButComparators.contains(lexeme.charAt(0)) && line.charAt(this.charPosition) == '='){
                     lexeme.append(nextChar(line));
                 }
             } else {
@@ -46,13 +37,17 @@ public class Lexical {
             }
         } else {
 
-            // TODO: TENTAR MELHORAR O RECONHECIMENTO DE CONSTANTES STRING
+            // TODO: TENTAR MELHORAR O RECONHECIMENTO DE CONSTANTES STRING E COMENTARIOS
             if(line.charAt(this.charPosition) == '\"') {
                 lexeme.append(nextChar(line));
                 while(line.charAt(this.charPosition) != '\"') {
                     lexeme.append(nextChar(line));
                 }
                 lexeme.append(nextChar(line));
+            } else if(line.charAt(this.charPosition) == '#') {
+                while(this.charPosition < line.length()) {
+                    lexeme.append(nextChar(line));
+                }
             } else {
                 while(this.charPosition < line.length() && !separators.contains(line.charAt(this.charPosition))){
                     lexeme.append(nextChar(line));
@@ -63,27 +58,19 @@ public class Lexical {
         return new Token(lexeme.toString(), this.linePosition, this.charPosition);
     }
 
-    // Function that returns all tokens inside one line
-    public void getTokens(String line) {
-        for (this.charPosition = 0; this.charPosition< line.length();) {
-            Token token = nextToken(line);
-            if (token != null) {
-                System.out.println(token.toString());
-            }
-        }
+    public void addLinePosition() {
+        this.linePosition += 1;
     }
 
-    public void readFile() throws IOException {
+    public int getLinePosition() {
+        return linePosition;
+    }
 
-        String line;
+    public int getCharPosition() {
+        return charPosition;
+    }
 
-        while((line = this.file.readLine()) != null)
-        {
-            this.linePosition += 1;
-            String format = "%04d  " + line;
-            format = String.format(format, this.linePosition);
-            System.out.println(format);
-            getTokens(line);
-        }
+    public void setCharPosition(int charPosition) {
+        this.charPosition = charPosition;
     }
 }

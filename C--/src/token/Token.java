@@ -3,8 +3,6 @@ package token;
 import categories.CategoryList;
 import categories.LexemeCategoryMap;
 
-import java.util.Objects;
-
 public class Token {
 
     private CategoryList tokenCategory;
@@ -42,6 +40,7 @@ public class Token {
         String regexCteBool = "(true|false)";
         String regexCteChar = "'([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.:;,\"'])'";
         String regexCteString = "\"([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;:,\"'])*\"";
+        String regexComment = "#.*";
 
         if(lexeme.matches(regexId)) {
             category = CategoryList.TnameId;
@@ -63,6 +62,8 @@ public class Token {
         }
         else if(lexeme.matches(regexCteString)) {
             category = CategoryList.TcteString;
+        } else if(lexeme.matches(regexComment)) {
+            category = CategoryList.TComment;
         }
 
 

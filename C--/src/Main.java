@@ -1,4 +1,4 @@
-import lexic.Lexical;
+import syntactic.Syntactic;
 
 import java.io.IOException;
 
@@ -6,11 +6,15 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println(args[0]);
-        Lexical lexicalAnalyzer = new Lexical(args[0]);
-        try {
-            lexicalAnalyzer.readFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+        for(String path : args) {
+            System.out.println(" ##### START ##### \n");
+            Syntactic syntacticAnalyzer = new Syntactic(path);
+            try {
+                syntacticAnalyzer.readFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("\n\n ##### END ##### \n");
         }
     }
 }

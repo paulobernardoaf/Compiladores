@@ -1,0 +1,47 @@
+int[] ShellSort(int values[], int size) {
+
+    int i;
+    int j;
+    int num;
+    int gap = 1;
+
+    during gap < size {
+        gap = gap * 3 + 1;
+    }
+
+    during gap > 0 {
+        from i = gap to size - 1 increment 1 {
+            num = values[i];
+            j = i;
+            during (j > gap - 1) and (num <= values[j - gap]) {
+                values[j] = values[j - gap];
+                j = j - gap;
+            }
+            values[j] = num;
+        }
+        gap = gap / 3;
+    }
+
+    return values;
+}
+
+int Main() {
+
+    int i;
+    print("Enter the length of array:");
+    int size = get();
+    int values[size];
+    print("Enter the array");
+
+    from i = 0 to size - 1 increment 1 {
+        values[i] = get();
+        print(values[i]);
+        print(" ");
+    }
+
+    values = ShellSort(values, size);
+    from i = 0 to size - 1 increment 1 {
+        print(values[i]);
+        print(" ");
+    }
+}

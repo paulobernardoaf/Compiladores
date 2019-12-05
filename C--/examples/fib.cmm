@@ -1,0 +1,34 @@
+void Fibonacci(int value) {
+
+    int a = 1;
+    int b = 1;
+    int next;
+
+    if value == 0 {
+        return;
+    }
+
+    during next <= value {
+
+        print(a);
+        print(", ");
+        next = a + b;
+        a = b;
+        b = next;
+
+    }
+
+    print(a);
+    print("\n");
+
+    return;
+}
+
+int Main() {
+
+    int value = get();
+
+    Fibonacci(value);
+
+    return 0;
+}
