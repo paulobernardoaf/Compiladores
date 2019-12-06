@@ -14,9 +14,6 @@ public class Token {
         CategoryList cat = LexemeCategoryMap.MapLexemeCategory.get(lexeme);
         if(cat == null) {
             tokenCategory = getCategoryFromRegex(lexeme);
-            if(tokenCategory == CategoryList.Tunknown) {
-                System.out.println("categoria deu null para o lexema " + lexeme);
-            }
         } else {
             tokenCategory = cat;
         }
@@ -40,7 +37,6 @@ public class Token {
         String regexCteBool = "(true|false)";
         String regexCteChar = "'(([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.:;,\"])|(\\\\'))'";
         String regexCteString = "\"([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;:,\"'])*\"";
-        String regexComment = "#.*";
 
         if(lexeme.matches(regexId)) {
             category = CategoryList.TnameId;
@@ -63,12 +59,12 @@ public class Token {
         else if(lexeme.matches(regexCteString)) {
             category = CategoryList.TcteString;
         }
-        else if(lexeme.matches(regexComment)) {
-            category = CategoryList.TComment;
-        }
 
 
         return category;
     }
 
+    public void setTokenCategory(CategoryList tokenCategory) {
+        this.tokenCategory = tokenCategory;
+    }
 }

@@ -10,12 +10,13 @@ import java.io.IOException;
 
 public class Syntactic {
 
-    Lexical lexicalAnalyzer = new Lexical();
-    private BufferedReader file;
+    Lexical lexicalAnalyzer;
+
 
     public Syntactic(String args) {
         try {
-            this.file = new BufferedReader(new FileReader(args));
+            BufferedReader file = new BufferedReader(new FileReader(args));
+            this.lexicalAnalyzer = new Lexical(file);
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             e.printStackTrace();
@@ -23,7 +24,17 @@ public class Syntactic {
     }
 
     public void start() throws IOException {
-        lexicalAnalyzer.readFile(this.file);
+
+        while(lexicalAnalyzer.nextLine() != null) {
+            lexicalAnalyzer.setCharPosition(0);
+            while(lexicalAnalyzer.getLine() != null && lexicalAnalyzer.getCharPosition() < lexicalAnalyzer.getLine().length()) {
+                Token token = lexicalAnalyzer.nextToken();
+                if (token != null) {
+                    System.out.println(token.toString());
+                }
+            }
+        }
+
     }
 
 }

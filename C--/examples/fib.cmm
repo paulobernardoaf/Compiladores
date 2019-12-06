@@ -10,23 +10,23 @@ void Fibonacci(int value) {
 
     during next <= value {
 
-        print(a);
-        print(", ");
+        print("$d, ", a);
         next = a + b;
         a = b;
         b = next;
 
     }
 
-    print(a);
-    print("\n");
+    print("$d\n", a);
 
     return;
 }
 
 int Main() {
 
-    int value = get();
+    int value;
+
+    get(value);
 
     Fibonacci(value);
 

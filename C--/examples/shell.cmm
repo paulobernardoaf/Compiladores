@@ -1,4 +1,4 @@
-int[] ShellSort(int values[], int size) {
+int[] ShellSort(int[] values, int size) {
 
     int i;
     int j;
@@ -29,19 +29,18 @@ int Main() {
 
     int i;
     print("Enter the length of array:");
-    int size = get();
+    int size;
+    get(size);
     int values[size];
     print("Enter the array");
 
     from i = 0 to size - 1 increment 1 {
         values[i] = get();
-        print(values[i]);
-        print(" ");
+        print("$d ", values[i]);
     }
 
     values = ShellSort(values, size);
     from i = 0 to size - 1 increment 1 {
-        print(values[i]);
-        print(" ");
+        print("$d ", values[i]);
     }
 }

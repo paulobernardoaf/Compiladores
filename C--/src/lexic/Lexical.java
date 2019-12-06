@@ -1,8 +1,10 @@
 package lexic;
 
+import categories.CategoryList;
 import categories.SeparatorList;
 import token.Token;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,8 +16,13 @@ public class Lexical {
     private ArrayList<Character> separators = new SeparatorList().getSeparatorList();
     private ArrayList<Character> separatorsButToken = new SeparatorList().getSeparatorButTokenList();
     private ArrayList<Character> separatorsButComparators = new SeparatorList().getSeparatorButComparator();
+    private BufferedReader file;
+    private String line = "";
+    private boolean fileEOF = false;
 
-
+    public Lexical(BufferedReader file) {
+        this.file = file;
+    }
 
     public char nextChar(String line) {
         char c = line.charAt(this.charPosition);
@@ -24,9 +31,17 @@ public class Lexical {
     }
 
     // Function that return one token ( will be used inside getTokens() )
-    public Token nextToken(String line) {
+    public Token nextToken() {
 
         StringBuilder lexeme = new StringBuilder();
+
+        if(fileEOF) {
+            this.line = null;
+            System.out.println("EOF");
+            Token tk = new Token("", this.linePosition, this.charPosition );
+            tk.setTokenCategory(CategoryList.TEOF);
+            return tk;
+        }
 
         if(separators.contains(line.charAt(this.charPosition))) {
             if(separatorsButToken.contains(line.charAt(this.charPosition))){
@@ -47,9 +62,10 @@ public class Lexical {
                 }
                 lexeme.append(nextChar(line));
             } else if(line.charAt(this.charPosition) == '#') {
-                while(this.charPosition < line.length()) {
-                    lexeme.append(nextChar(line));
-                }
+               while(this.charPosition < line.length()) {
+                   nextChar(line);
+               }
+               return null;
             } else {
                 while(this.charPosition < line.length() && !separators.contains(line.charAt(this.charPosition))){
                     lexeme.append(nextChar(line));
@@ -60,28 +76,32 @@ public class Lexical {
         return new Token(lexeme.toString(), this.linePosition, this.charPosition);
     }
 
-    // Function that returns all tokens inside one line
-    public void getTokens(String line) {
-        for(this.charPosition = 0; this.charPosition < line.length();) {
-            Token token = nextToken(line);
-            if (token != null) {
-                System.out.println(token.toString());
-            }
-        }
-    }
+    public String nextLine() throws IOException {
 
-    public void readFile(BufferedReader file) throws IOException {
+        this.line = file.readLine();
 
-        String line;
-
-        while((line = file.readLine()) != null)
-        {
+        if(line != null) {
             this.linePosition += 1;
             String format = "%04d  " + line;
             format = String.format(format, this.linePosition);
             System.out.println(format);
-            getTokens(line);
+        } else if(!fileEOF){
+            fileEOF = true;
+            line =  " ";
         }
+
+        return line;
     }
 
+    public int getCharPosition() {
+        return charPosition;
+    }
+
+    public void setCharPosition(int charPosition) {
+        this.charPosition = charPosition;
+    }
+
+    public String getLine() {
+        return line;
+    }
 }
