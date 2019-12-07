@@ -1,0 +1,22 @@
+    1  int Main() {
+          [0001, 0000] (0003,                 Tint) {int}
+          [0001, 0004] (0001,                Tmain) {Main}
+          [0001, 0008] (0022,             TbegBrac) {(}
+          [0001, 0009] (0023,             TendBrac) {)}
+          [0001, 0011] (0026,           TbegCrBrac) {{}
+    2  
+    3      print("Hello World");
+          [0003, 0004] (0028,               Tprint) {print}
+          [0003, 0009] (0022,             TbegBrac) {(}
+          [0003, 0010] (0051,           TcteString) {"Hello World"}
+          [0003, 0023] (0023,             TendBrac) {)}
+          [0003, 0024] (0021,             TsemiCol) {;}
+    4  
+    5      return 0;
+          [0005, 0004] (0030,              Treturn) {return}
+          [0005, 0011] (0049,              TcteInt) {0}
+          [0005, 0012] (0021,             TsemiCol) {;}
+    6  }
+          [0006, 0000] (0027,           TendCrBrac) {}}
+    7  EOF
+          [0007, 0000] (0054,                 TEOF) {}
