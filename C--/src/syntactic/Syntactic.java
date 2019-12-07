@@ -8,8 +8,7 @@ import java.io.IOException;
 
 public class Syntactic {
 
-    Lexical lexicalAnalyzer;
-
+    private Lexical lexicalAnalyzer;
 
     public Syntactic(String args) {
         this.lexicalAnalyzer = new Lexical(args);
@@ -28,16 +27,6 @@ public class Syntactic {
                 }
             }
         }
-
-//        while(lexicalAnalyzer.nextLine() != null) {
-//            lexicalAnalyzer.setCharPosition(0);
-//            while(lexicalAnalyzer.getLine() != null && lexicalAnalyzer.getCharPosition() < lexicalAnalyzer.getLine().length()) {
-//                token = lexicalAnalyzer.nextToken();
-//                if (token != null) {
-//                    System.out.println(token.toString());
-//                }
-//            }
-//        }
 
     }
 
