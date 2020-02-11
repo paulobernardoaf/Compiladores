@@ -1,0 +1,164 @@
+@Ok
+S           = DeclFun S
+            | DeclVar S
+            | EPSILON
+
+@Ok
+DeclFun     = FuncType DeclArrOpc IdFun OpParCl OpSentCl
+
+@Doubts:Ec 
+DeclVar     = VarType DeclArrObg 'idVar' ';'
+            | VarType DeclArrObg 'idVar' '=' Ec ';'
+
+@Ok
+Var         = 'idVar' DeclArrObg
+
+/
+    Como as funções sempre começam com letra maíuscula devemos colocar
+    'Main' ou 'main' ?
+/
+@Doubts:Comment
+IdFun       = 'funId'
+            | 'Main'
+
+@Ok
+DeclArrOpc  = '[' ArrSizeOpc ']'
+            | EPSILON
+
+@Ok
+DeclArrObg  = '[' Ea ']'
+            | EPSILON
+
+@Ok
+ArrSizeOpc  = 'idVar'
+            | 'ConstInt'
+            | EPSILON
+
+@Ok
+VarType     = 'int'
+            | 'float'
+            | 'string'
+            | 'bool'
+            | 'char'
+@Ok
+FuncType    = VarType
+            | 'void'
+
+@Ok
+OpParCl     = '(' Param ')'
+
+@Ok
+OpSentCl    = '{' Sent '}'
+
+@Ok
+ParVar      = VarType DeclArrOpc 'idVar'
+
+@Ok
+Param       = ParamList
+            | EPSILON
+
+@Ok
+ParamList   = ParVar ',' ParamList
+            | ParVar
+
+@Ok
+Sent        = DeclVar Sent
+            | FunCall Sent
+            | Commands Sent
+            | Return ';'
+            | EPSILON
+
+@Ok
+FunCall     = 'idFunc' OpParCallCl ';'
+
+@Ok
+OpParCallCl = '(' ParCall ')'
+
+@Ok
+ParCall     = ParCallList
+            | EPSILON
+
+@Ok
+ParCallList = Ea ',' ParCallList
+            | Ea
+
+@Ok
+Commands    = PrintComm
+            | GetComm
+            | IfComm
+            | FromComm
+            | DuringComm
+
+@Ok
+PrintComm   = 'printComm' '(' 'ConstStr' PrintOpt ')' ';'
+
+@Ok
+PrintOpt    = ',' ParCallList
+            | EPSILON
+
+@Ok
+GetComm     = 'get' '(' GetVarList ')' ';'
+
+@Ok
+GetVarList  = Var ',' GetVarList
+            | Var
+
+@Ok
+IfComm      = 'if' Eb OpSentCl ElseComm
+
+@Ok
+ElseComm    = 'else' OpSentCl
+            | EPSILON
+
+@Ok
+FromComm    = 'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl
+
+@Ok
+DuringComm  = 'during' Eb OpSentCl
+
+@Ok
+Return      = 'return' Ec 
+            | 'return'
+
+@Ok
+Ec  = Ec '&' Eb         
+    | Eb
+
+@Ok
+Eb  = Eb 'LogicOr' Tb   
+    | Tb
+
+@Ok
+Tb  = Tb 'LogicAnd' Fb  
+    | Fb
+
+@Ok
+Fb  = Fb 'RelLtGt' Fc   
+    | 'LogicNot' Fb    
+    | 'ConstBool'
+    | Fc
+
+@Ok
+Fc  = 'stringCons'
+    | 'charCons'
+    | Ra
+
+@Ok
+Ra  = Ra 'RelEq' Ea    
+    | Ea
+
+@Ok
+Ea  = Ea 'AddSub' Ta    
+    | Ta
+
+@Ok
+Ta  = Ta 'Mult' Fa      
+    | Fa
+
+@Ok
+Fa  = '(' Eb ')'
+    | 'UnNeg' Fa        
+    | Var
+    | FunCall
+    | 'ConstInt'
+    | 'ConstFloat'
