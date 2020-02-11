@@ -67,4 +67,8 @@ public class Token {
     public void setTokenCategory(CategoryList tokenCategory) {
         this.tokenCategory = tokenCategory;
     }
+
+    public CategoryList getTokenCategory() {
+        return tokenCategory;
+    }
 }

@@ -1,0 +1,123 @@
+    1  void Fibonacci(int value) {
+          [0001, 0000] (0008,                Tvoid) {void}
+          [0001, 0005] (0047,              TfuncId) {Fibonacci}
+          [0001, 0014] (0022,             TbegBrac) {(}
+          [0001, 0015] (0003,                 Tint) {int}
+          [0001, 0019] (0048,              TnameId) {value}
+          [0001, 0024] (0023,             TendBrac) {)}
+          [0001, 0026] (0026,           TbegCrBrac) {{}
+    2  
+    3      int a = 1;
+          [0003, 0004] (0003,                 Tint) {int}
+          [0003, 0008] (0048,              TnameId) {a}
+          [0003, 0010] (0035,               TopAtr) {=}
+          [0003, 0012] (0049,              TcteInt) {1}
+          [0003, 0013] (0021,             TsemiCol) {;}
+    4      int b = 1;
+          [0004, 0004] (0003,                 Tint) {int}
+          [0004, 0008] (0048,              TnameId) {b}
+          [0004, 0010] (0035,               TopAtr) {=}
+          [0004, 0012] (0049,              TcteInt) {1}
+          [0004, 0013] (0021,             TsemiCol) {;}
+    5      int next;
+          [0005, 0004] (0003,                 Tint) {int}
+          [0005, 0008] (0048,              TnameId) {next}
+          [0005, 0012] (0021,             TsemiCol) {;}
+    6  
+    7      if value == 0 {
+          [0007, 0004] (0015,                  Tif) {if}
+          [0007, 0007] (0048,              TnameId) {value}
+          [0007, 0013] (0036,                TopEq) {==}
+          [0007, 0016] (0049,              TcteInt) {0}
+          [0007, 0018] (0026,           TbegCrBrac) {{}
+    8          return;
+          [0008, 0008] (0030,              Treturn) {return}
+          [0008, 0014] (0021,             TsemiCol) {;}
+    9      }
+          [0009, 0004] (0027,           TendCrBrac) {}}
+    10  
+    11      during next <= value {
+          [0011, 0004] (0017,              Tduring) {during}
+          [0011, 0011] (0048,              TnameId) {next}
+          [0011, 0016] (0044,           TopLowThnE) {<=}
+          [0011, 0019] (0048,              TnameId) {value}
+          [0011, 0025] (0026,           TbegCrBrac) {{}
+    12  
+    13          print("$d, ", a);
+          [0013, 0008] (0028,               Tprint) {print}
+          [0013, 0013] (0022,             TbegBrac) {(}
+          [0013, 0014] (0051,           TcteString) {"$d, "}
+          [0013, 0020] (0014,               Tcomma) {,}
+          [0013, 0022] (0048,              TnameId) {a}
+          [0013, 0023] (0023,             TendBrac) {)}
+          [0013, 0024] (0021,             TsemiCol) {;}
+    14          next = a + b;
+          [0014, 0008] (0048,              TnameId) {next}
+          [0014, 0013] (0035,               TopAtr) {=}
+          [0014, 0015] (0048,              TnameId) {a}
+          [0014, 0017] (0038,               TopAdd) {+}
+          [0014, 0019] (0048,              TnameId) {b}
+          [0014, 0020] (0021,             TsemiCol) {;}
+    15          a = b;
+          [0015, 0008] (0048,              TnameId) {a}
+          [0015, 0010] (0035,               TopAtr) {=}
+          [0015, 0012] (0048,              TnameId) {b}
+          [0015, 0013] (0021,             TsemiCol) {;}
+    16          b = next;
+          [0016, 0008] (0048,              TnameId) {b}
+          [0016, 0010] (0035,               TopAtr) {=}
+          [0016, 0012] (0048,              TnameId) {next}
+          [0016, 0016] (0021,             TsemiCol) {;}
+    17  
+    18      }
+          [0018, 0004] (0027,           TendCrBrac) {}}
+    19  
+    20      print("$d\n", a);
+          [0020, 0004] (0028,               Tprint) {print}
+          [0020, 0009] (0022,             TbegBrac) {(}
+          [0020, 0010] (0051,           TcteString) {"$d\n"}
+          [0020, 0016] (0014,               Tcomma) {,}
+          [0020, 0018] (0048,              TnameId) {a}
+          [0020, 0019] (0023,             TendBrac) {)}
+          [0020, 0020] (0021,             TsemiCol) {;}
+    21  
+    22      return;
+          [0022, 0004] (0030,              Treturn) {return}
+          [0022, 0010] (0021,             TsemiCol) {;}
+    23  }
+          [0023, 0000] (0027,           TendCrBrac) {}}
+    24  
+    25  int Main() {
+          [0025, 0000] (0003,                 Tint) {int}
+          [0025, 0004] (0001,                Tmain) {Main}
+          [0025, 0008] (0022,             TbegBrac) {(}
+          [0025, 0009] (0023,             TendBrac) {)}
+          [0025, 0011] (0026,           TbegCrBrac) {{}
+    26  
+    27      int value;
+          [0027, 0004] (0003,                 Tint) {int}
+          [0027, 0008] (0048,              TnameId) {value}
+          [0027, 0013] (0021,             TsemiCol) {;}
+    28  
+    29      get(value);
+          [0029, 0004] (0029,                 Tget) {get}
+          [0029, 0007] (0022,             TbegBrac) {(}
+          [0029, 0008] (0048,              TnameId) {value}
+          [0029, 0013] (0023,             TendBrac) {)}
+          [0029, 0014] (0021,             TsemiCol) {;}
+    30  
+    31      Fibonacci(value);
+          [0031, 0004] (0047,              TfuncId) {Fibonacci}
+          [0031, 0013] (0022,             TbegBrac) {(}
+          [0031, 0014] (0048,              TnameId) {value}
+          [0031, 0019] (0023,             TendBrac) {)}
+          [0031, 0020] (0021,             TsemiCol) {;}
+    32  
+    33      return 0;
+          [0033, 0004] (0030,              Treturn) {return}
+          [0033, 0011] (0049,              TcteInt) {0}
+          [0033, 0012] (0021,             TsemiCol) {;}
+    34  }
+          [0034, 0000] (0027,           TendCrBrac) {}}
+    35  EOF
+          [0035, 0000] (0054,                 TEOF) {}

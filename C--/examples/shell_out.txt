@@ -1,0 +1,270 @@
+    1  int[] ShellSort(int[] values, int size) {
+          [0001, 0000] (0003,                 Tint) {int}
+          [0001, 0003] (0019,           TbegSqBrac) {[}
+          [0001, 0004] (0020,           TendSqBrac) {]}
+          [0001, 0006] (0042,              TfuncId) {ShellSort}
+          [0001, 0015] (0017,             TbegBrac) {(}
+          [0001, 0016] (0003,                 Tint) {int}
+          [0001, 0019] (0019,           TbegSqBrac) {[}
+          [0001, 0020] (0020,           TendSqBrac) {]}
+          [0001, 0022] (0043,              TnameId) {values}
+          [0001, 0028] (0009,               Tcomma) {,}
+          [0001, 0030] (0003,                 Tint) {int}
+          [0001, 0034] (0043,              TnameId) {size}
+          [0001, 0038] (0018,             TendBrac) {)}
+          [0001, 0040] (0021,           TbegCrBrac) {{}
+    2  
+    3      int i;
+          [0003, 0004] (0003,                 Tint) {int}
+          [0003, 0008] (0043,              TnameId) {i}
+          [0003, 0009] (0016,             TsemiCol) {;}
+    4      int j;
+          [0004, 0004] (0003,                 Tint) {int}
+          [0004, 0008] (0043,              TnameId) {j}
+          [0004, 0009] (0016,             TsemiCol) {;}
+    5      int num;
+          [0005, 0004] (0003,                 Tint) {int}
+          [0005, 0008] (0043,              TnameId) {num}
+          [0005, 0011] (0016,             TsemiCol) {;}
+    6      int gap = 1;
+          [0006, 0004] (0003,                 Tint) {int}
+          [0006, 0008] (0043,              TnameId) {gap}
+          [0006, 0012] (0030,               TopAtr) {=}
+          [0006, 0014] (0044,              TcteInt) {1}
+          [0006, 0015] (0016,             TsemiCol) {;}
+    7  
+    8      during gap < size {
+          [0008, 0004] (0012,              Tduring) {during}
+          [0008, 0011] (0043,              TnameId) {gap}
+          [0008, 0015] (0038,           TopLowThen) {<}
+          [0008, 0017] (0043,              TnameId) {size}
+          [0008, 0022] (0021,           TbegCrBrac) {{}
+    9          gap = gap * 3 + 1;
+          [0009, 0008] (0043,              TnameId) {gap}
+          [0009, 0012] (0030,               TopAtr) {=}
+          [0009, 0014] (0043,              TnameId) {gap}
+          [0009, 0018] (0036,              TopMult) {*}
+          [0009, 0020] (0044,              TcteInt) {3}
+          [0009, 0022] (0033,               TopAdd) {+}
+          [0009, 0024] (0044,              TcteInt) {1}
+          [0009, 0025] (0016,             TsemiCol) {;}
+    10      }
+          [0010, 0004] (0022,           TendCrBrac) {}}
+    11  
+    12      during gap > 0 {
+          [0012, 0004] (0012,              Tduring) {during}
+          [0012, 0011] (0043,              TnameId) {gap}
+          [0012, 0015] (0040,           TopGreThen) {>}
+          [0012, 0017] (0044,              TcteInt) {0}
+          [0012, 0019] (0021,           TbegCrBrac) {{}
+    13          from i = gap to size - 1 increment 1 {
+          [0013, 0008] (0013,                Tfrom) {from}
+          [0013, 0013] (0043,              TnameId) {i}
+          [0013, 0015] (0030,               TopAtr) {=}
+          [0013, 0017] (0043,              TnameId) {gap}
+          [0013, 0021] (0014,                  Tto) {to}
+          [0013, 0024] (0043,              TnameId) {size}
+          [0013, 0029] (0034,               TopSub) {-}
+          [0013, 0031] (0044,              TcteInt) {1}
+          [0013, 0033] (0015,           Tincrement) {increment}
+          [0013, 0043] (0044,              TcteInt) {1}
+          [0013, 0045] (0021,           TbegCrBrac) {{}
+    14              num = values[i];
+          [0014, 0012] (0043,              TnameId) {num}
+          [0014, 0016] (0030,               TopAtr) {=}
+          [0014, 0018] (0043,              TnameId) {values}
+          [0014, 0024] (0019,           TbegSqBrac) {[}
+          [0014, 0025] (0043,              TnameId) {i}
+          [0014, 0026] (0020,           TendSqBrac) {]}
+          [0014, 0027] (0016,             TsemiCol) {;}
+    15              j = i;
+          [0015, 0012] (0043,              TnameId) {j}
+          [0015, 0014] (0030,               TopAtr) {=}
+          [0015, 0016] (0043,              TnameId) {i}
+          [0015, 0017] (0016,             TsemiCol) {;}
+    16              during (j > gap - 1) and (num <= values[j - gap]) {
+          [0016, 0012] (0012,              Tduring) {during}
+          [0016, 0019] (0017,             TbegBrac) {(}
+          [0016, 0020] (0043,              TnameId) {j}
+          [0016, 0022] (0040,           TopGreThen) {>}
+          [0016, 0024] (0043,              TnameId) {gap}
+          [0016, 0028] (0034,               TopSub) {-}
+          [0016, 0030] (0044,              TcteInt) {1}
+          [0016, 0031] (0018,             TendBrac) {)}
+          [0016, 0033] (0027,               TopAnd) {and}
+          [0016, 0037] (0017,             TbegBrac) {(}
+          [0016, 0038] (0043,              TnameId) {num}
+          [0016, 0042] (0039,           TopLowThnE) {<=}
+          [0016, 0045] (0043,              TnameId) {values}
+          [0016, 0051] (0019,           TbegSqBrac) {[}
+          [0016, 0052] (0043,              TnameId) {j}
+          [0016, 0054] (0034,               TopSub) {-}
+          [0016, 0056] (0043,              TnameId) {gap}
+          [0016, 0059] (0020,           TendSqBrac) {]}
+          [0016, 0060] (0018,             TendBrac) {)}
+          [0016, 0062] (0021,           TbegCrBrac) {{}
+    17                  values[j] = values[j - gap];
+          [0017, 0016] (0043,              TnameId) {values}
+          [0017, 0022] (0019,           TbegSqBrac) {[}
+          [0017, 0023] (0043,              TnameId) {j}
+          [0017, 0024] (0020,           TendSqBrac) {]}
+          [0017, 0026] (0030,               TopAtr) {=}
+          [0017, 0028] (0043,              TnameId) {values}
+          [0017, 0034] (0019,           TbegSqBrac) {[}
+          [0017, 0035] (0043,              TnameId) {j}
+          [0017, 0037] (0034,               TopSub) {-}
+          [0017, 0039] (0043,              TnameId) {gap}
+          [0017, 0042] (0020,           TendSqBrac) {]}
+          [0017, 0043] (0016,             TsemiCol) {;}
+    18                  j = j - gap;
+          [0018, 0016] (0043,              TnameId) {j}
+          [0018, 0018] (0030,               TopAtr) {=}
+          [0018, 0020] (0043,              TnameId) {j}
+          [0018, 0022] (0034,               TopSub) {-}
+          [0018, 0024] (0043,              TnameId) {gap}
+          [0018, 0027] (0016,             TsemiCol) {;}
+    19              }
+          [0019, 0012] (0022,           TendCrBrac) {}}
+    20              values[j] = num;
+          [0020, 0012] (0043,              TnameId) {values}
+          [0020, 0018] (0019,           TbegSqBrac) {[}
+          [0020, 0019] (0043,              TnameId) {j}
+          [0020, 0020] (0020,           TendSqBrac) {]}
+          [0020, 0022] (0030,               TopAtr) {=}
+          [0020, 0024] (0043,              TnameId) {num}
+          [0020, 0027] (0016,             TsemiCol) {;}
+    21          }
+          [0021, 0008] (0022,           TendCrBrac) {}}
+    22          gap = gap / 3;
+          [0022, 0008] (0043,              TnameId) {gap}
+          [0022, 0012] (0030,               TopAtr) {=}
+          [0022, 0014] (0043,              TnameId) {gap}
+          [0022, 0018] (0035,               TopDiv) {/}
+          [0022, 0020] (0044,              TcteInt) {3}
+          [0022, 0021] (0016,             TsemiCol) {;}
+    23      }
+          [0023, 0004] (0022,           TendCrBrac) {}}
+    24  
+    25      return values;
+          [0025, 0004] (0025,              Treturn) {return}
+          [0025, 0011] (0043,              TnameId) {values}
+          [0025, 0017] (0016,             TsemiCol) {;}
+    26  }
+          [0026, 0000] (0022,           TendCrBrac) {}}
+    27  
+    28  int Main() {
+          [0028, 0000] (0003,                 Tint) {int}
+          [0028, 0004] (0001,                Tmain) {Main}
+          [0028, 0008] (0017,             TbegBrac) {(}
+          [0028, 0009] (0018,             TendBrac) {)}
+          [0028, 0011] (0021,           TbegCrBrac) {{}
+    29  
+    30      int i;
+          [0030, 0004] (0003,                 Tint) {int}
+          [0030, 0008] (0043,              TnameId) {i}
+          [0030, 0009] (0016,             TsemiCol) {;}
+    31      print("Enter the length of array:");
+          [0031, 0004] (0023,               Tprint) {print}
+          [0031, 0009] (0017,             TbegBrac) {(}
+          [0031, 0010] (0046,           TcteString) {"Enter the length of array:"}
+          [0031, 0038] (0018,             TendBrac) {)}
+          [0031, 0039] (0016,             TsemiCol) {;}
+    32      int size;
+          [0032, 0004] (0003,                 Tint) {int}
+          [0032, 0008] (0043,              TnameId) {size}
+          [0032, 0012] (0016,             TsemiCol) {;}
+    33      get(size);
+          [0033, 0004] (0024,                 Tget) {get}
+          [0033, 0007] (0017,             TbegBrac) {(}
+          [0033, 0008] (0043,              TnameId) {size}
+          [0033, 0012] (0018,             TendBrac) {)}
+          [0033, 0013] (0016,             TsemiCol) {;}
+    34      int values[size];
+          [0034, 0004] (0003,                 Tint) {int}
+          [0034, 0008] (0043,              TnameId) {values}
+          [0034, 0014] (0019,           TbegSqBrac) {[}
+          [0034, 0015] (0043,              TnameId) {size}
+          [0034, 0019] (0020,           TendSqBrac) {]}
+          [0034, 0020] (0016,             TsemiCol) {;}
+    35      print("Enter the array");
+          [0035, 0004] (0023,               Tprint) {print}
+          [0035, 0009] (0017,             TbegBrac) {(}
+          [0035, 0010] (0046,           TcteString) {"Enter the array"}
+          [0035, 0027] (0018,             TendBrac) {)}
+          [0035, 0028] (0016,             TsemiCol) {;}
+    36  
+    37      from i = 0 to size - 1 increment 1 {
+          [0037, 0004] (0013,                Tfrom) {from}
+          [0037, 0009] (0043,              TnameId) {i}
+          [0037, 0011] (0030,               TopAtr) {=}
+          [0037, 0013] (0044,              TcteInt) {0}
+          [0037, 0015] (0014,                  Tto) {to}
+          [0037, 0018] (0043,              TnameId) {size}
+          [0037, 0023] (0034,               TopSub) {-}
+          [0037, 0025] (0044,              TcteInt) {1}
+          [0037, 0027] (0015,           Tincrement) {increment}
+          [0037, 0037] (0044,              TcteInt) {1}
+          [0037, 0039] (0021,           TbegCrBrac) {{}
+    38          values[i] = get();
+          [0038, 0008] (0043,              TnameId) {values}
+          [0038, 0014] (0019,           TbegSqBrac) {[}
+          [0038, 0015] (0043,              TnameId) {i}
+          [0038, 0016] (0020,           TendSqBrac) {]}
+          [0038, 0018] (0030,               TopAtr) {=}
+          [0038, 0020] (0024,                 Tget) {get}
+          [0038, 0023] (0017,             TbegBrac) {(}
+          [0038, 0024] (0018,             TendBrac) {)}
+          [0038, 0025] (0016,             TsemiCol) {;}
+    39          print("$d ", values[i]);
+          [0039, 0008] (0023,               Tprint) {print}
+          [0039, 0013] (0017,             TbegBrac) {(}
+          [0039, 0014] (0046,           TcteString) {"$d "}
+          [0039, 0019] (0009,               Tcomma) {,}
+          [0039, 0021] (0043,              TnameId) {values}
+          [0039, 0027] (0019,           TbegSqBrac) {[}
+          [0039, 0028] (0043,              TnameId) {i}
+          [0039, 0029] (0020,           TendSqBrac) {]}
+          [0039, 0030] (0018,             TendBrac) {)}
+          [0039, 0031] (0016,             TsemiCol) {;}
+    40      }
+          [0040, 0004] (0022,           TendCrBrac) {}}
+    41  
+    42      values = ShellSort(values, size);
+          [0042, 0004] (0043,              TnameId) {values}
+          [0042, 0011] (0030,               TopAtr) {=}
+          [0042, 0013] (0042,              TfuncId) {ShellSort}
+          [0042, 0022] (0017,             TbegBrac) {(}
+          [0042, 0023] (0043,              TnameId) {values}
+          [0042, 0029] (0009,               Tcomma) {,}
+          [0042, 0031] (0043,              TnameId) {size}
+          [0042, 0035] (0018,             TendBrac) {)}
+          [0042, 0036] (0016,             TsemiCol) {;}
+    43      from i = 0 to size - 1 increment 1 {
+          [0043, 0004] (0013,                Tfrom) {from}
+          [0043, 0009] (0043,              TnameId) {i}
+          [0043, 0011] (0030,               TopAtr) {=}
+          [0043, 0013] (0044,              TcteInt) {0}
+          [0043, 0015] (0014,                  Tto) {to}
+          [0043, 0018] (0043,              TnameId) {size}
+          [0043, 0023] (0034,               TopSub) {-}
+          [0043, 0025] (0044,              TcteInt) {1}
+          [0043, 0027] (0015,           Tincrement) {increment}
+          [0043, 0037] (0044,              TcteInt) {1}
+          [0043, 0039] (0021,           TbegCrBrac) {{}
+    44          print("$d ", values[i]);
+          [0044, 0008] (0023,               Tprint) {print}
+          [0044, 0013] (0017,             TbegBrac) {(}
+          [0044, 0014] (0046,           TcteString) {"$d "}
+          [0044, 0019] (0009,               Tcomma) {,}
+          [0044, 0021] (0043,              TnameId) {values}
+          [0044, 0027] (0019,           TbegSqBrac) {[}
+          [0044, 0028] (0043,              TnameId) {i}
+          [0044, 0029] (0020,           TendSqBrac) {]}
+          [0044, 0030] (0018,             TendBrac) {)}
+          [0044, 0031] (0016,             TsemiCol) {;}
+    45      }
+          [0045, 0004] (0022,           TendCrBrac) {}}
+    46  }
+          [0046, 0000] (0022,           TendCrBrac) {}}
+    47  EOF
+          [0047, 0000] (0049,                 TEOF) {}

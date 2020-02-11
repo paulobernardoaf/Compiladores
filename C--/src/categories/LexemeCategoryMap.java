@@ -16,11 +16,6 @@ public class LexemeCategoryMap {
         MapLexemeCategory.put("char", CategoryList.Tchar);
         MapLexemeCategory.put("bool", CategoryList.Tbool);
         MapLexemeCategory.put("void", CategoryList.Tvoid);
-        MapLexemeCategory.put("int[]", CategoryList.TvecInt);
-        MapLexemeCategory.put("float[]", CategoryList.TvecFloat);
-        MapLexemeCategory.put("string[]", CategoryList.TvecStr);
-        MapLexemeCategory.put("bool[]", CategoryList.TvecBool);
-        MapLexemeCategory.put("char[]", CategoryList.TvecChar);
         MapLexemeCategory.put("if", CategoryList.Tif);
         MapLexemeCategory.put("else", CategoryList.Telse);
         MapLexemeCategory.put("during", CategoryList.Tduring);

@@ -1,36 +1,29 @@
 package syntactic;
 
+import categories.CategoryList;
 import lexic.Lexical;
 import token.Token;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class Syntactic {
 
-    Lexical lexicalAnalyzer;
-
+    private Lexical lexicalAnalyzer;
 
     public Syntactic(String args) {
-        try {
-            BufferedReader file = new BufferedReader(new FileReader(args));
-            this.lexicalAnalyzer = new Lexical(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-        }
+        this.lexicalAnalyzer = new Lexical(args);
     }
 
     public void start() throws IOException {
 
-        while(lexicalAnalyzer.nextLine() != null) {
-            lexicalAnalyzer.setCharPosition(0);
-            while(lexicalAnalyzer.getLine() != null && lexicalAnalyzer.getCharPosition() < lexicalAnalyzer.getLine().length()) {
-                Token token = lexicalAnalyzer.nextToken();
-                if (token != null) {
-                    System.out.println(token.toString());
+        Token token;
+
+        while(true) {
+            token = lexicalAnalyzer.nextToken();
+            if (token != null) {
+                System.out.println(token.toString());
+                if (token.getTokenCategory() == CategoryList.TEOF) {
+                    return;
                 }
             }
         }
