@@ -17,7 +17,7 @@ public class Syntactic {
     }
 
     private void Error(String message) {
-        System.err.println("Error: "+ message + " In line " + (token.getLineNumber() - 1) + " and column " + token.getColumnNumber());
+        System.err.println("Error: "+ message + " In line " + token.getLineNumber() + " and column " + token.getColumnNumber());
         System.exit(0);
     }
 
@@ -44,13 +44,18 @@ public class Syntactic {
             VarType();
             Decl();
             S();
-        }
-
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tvoid)))) {
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tvoid)))) {
             token = lexicalAnalyzer.nextToken();
             DeclFun();
             S();
         }
+//        else if(checkToken(new ArrayList<>(List.of(CategoryList.TEOF)))) {
+//            System.out.println("Cabou");
+//            System.exit(0);
+//        } else {
+//            System.out.println("A Cabou");
+//            System.exit(0);
+//        }
 
 //        while(true) {
 //            token = lexicalAnalyzer.nextToken();
@@ -59,6 +64,8 @@ public class Syntactic {
 //                if (token.getTokenCategory() == CategoryList.TEOF) {
 //                    return;
 //                }
+//            } else {
+//                Error("TA NULO");
 //            }
 //        }
 
@@ -167,6 +174,15 @@ public class Syntactic {
         if(checkToken(new ArrayList<>(List.of(CategoryList.TopEq)))) {
             token = lexicalAnalyzer.nextToken();
             Ec();
+        }
+    }
+
+    private void Var() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+            token = lexicalAnalyzer.nextToken();
+            OptArray();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TnameId'.");
         }
     }
 
@@ -352,7 +368,7 @@ public class Syntactic {
     }
 
     private void ReturnParam() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
             Ec();
         }
     }
@@ -376,18 +392,214 @@ public class Syntactic {
     }
 
     private void ParCall() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
             ParCallList();
         }
     }
 
     private void ParCallList() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
             Ec();
             ParCallListR();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TopNot', 'TcteBool', 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void ParCallListR() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.Tcomma)))) {
+            token = lexicalAnalyzer.nextToken();
+            ParCallList();
+        }
+    }
+
+    private void PrintOpt() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.Tcomma)))) {
+            token = lexicalAnalyzer.nextToken();
+            ParCallList();
+        }
+    }
+
+    private void GetVarList() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+            Var();
+            GetVarListR();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TnameId'.");
+        }
+    }
+
+    private void GetVarListR() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.Tcomma)))) {
+            token = lexicalAnalyzer.nextToken();
+            GetVarList();
+        }
+    }
+
+    private void ElseComm() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.Telse)))) {
+            token = lexicalAnalyzer.nextToken();
+            OpSentCl();
+        }
+    }
+
+    private void Ec() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            Eb();
+            Ecr();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TopNot', 'TcteBool', 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void Ecr() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopConc)))) {
+            token = lexicalAnalyzer.nextToken();
+            Eb();
+            Ecr();
+        }
+    }
+
+    private void Eb() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            Tb();
+            Ebr();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TopNot', 'TcteBool', 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void Ebr() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopOr)))) {
+            token = lexicalAnalyzer.nextToken();
+            Tb();
+            Ebr();
+        }
+    }
+
+    private void Tb() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            Fb();
+            Tbr();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TopNot', 'TcteBool', 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void Tbr() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopAnd)))) {
+            token = lexicalAnalyzer.nextToken();
+            Fb();
+            Tbr();
+        }
+    }
+
+    private void Fb() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            Fc();
+            Fbr();
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot)))) {
+            token = lexicalAnalyzer.nextToken();
+            Fb();
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TcteBool)))) {
+            token = lexicalAnalyzer.nextToken();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TopNot', 'TcteBool', 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void Fbr() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopLowThen, CategoryList.TopLowThnE, CategoryList.TopGreThen, CategoryList.TopGreThnE)))) {
+            token = lexicalAnalyzer.nextToken();
+            Fc();
+            Fbr();
+        }
+    }
+
+    private void Fc() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TcteString)))) {
+            token = lexicalAnalyzer.nextToken();
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TcteChar)))) {
+            token = lexicalAnalyzer.nextToken();
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            Ra();
         } else {
             Error("Unexpected token " + token.getId() + ". Expected 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
         }
     }
-    
+
+    private void Ra() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            Ea();
+            Rar();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void Rar() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopEq, CategoryList.TopDif)))) {
+            token = lexicalAnalyzer.nextToken();
+            Ea();
+            Rar();
+        }
+    }
+
+    private void Ea() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            Ta();
+            Ear();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void Ear() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopAdd, CategoryList.TopSub)))) {
+            token = lexicalAnalyzer.nextToken();
+            Ta();
+            Ear();
+        }
+    }
+
+    private void Ta() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            Fa();
+            Tar();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void Tar() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TopMult, CategoryList.TopDiv)))) {
+            token = lexicalAnalyzer.nextToken();
+            Fa();
+            Tar();
+        }
+    }
+
+    private void Fa() {
+        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac)))) {
+            token = lexicalAnalyzer.nextToken();
+            Eb();
+            if(checkToken(new ArrayList<>(List.of(CategoryList.TendBrac)))) {
+                token = lexicalAnalyzer.nextToken();
+            } else {
+                Error("Unexpected token " + token.getId() + ". Expected 'TendBrac'.");
+            }
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TopSub)))) {
+            token = lexicalAnalyzer.nextToken();
+            Fa();
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+            Var();
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TfuncId)))) {
+            FunCall();
+        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+            token = lexicalAnalyzer.nextToken();
+        } else {
+            Error("Unexpected token " + token.getId() + ". Expected 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
 }

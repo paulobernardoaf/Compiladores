@@ -9,7 +9,6 @@ public class LexemeCategoryMap {
 
     static  {
         MapLexemeCategory.put("Main", CategoryList.Tmain);
-        MapLexemeCategory.put("global", CategoryList.Tglobal);
         MapLexemeCategory.put("int", CategoryList.Tint);
         MapLexemeCategory.put("float", CategoryList.Tfloat);
         MapLexemeCategory.put("string", CategoryList.Tstring);

@@ -31,7 +31,7 @@ int Main() {
     print("Enter the length of array:");
     int size;
     get(size);
-    int values[size];
+    int[size] values;
     print("Enter the array");
 
     from i = 0 to size - 1 increment 1 {
