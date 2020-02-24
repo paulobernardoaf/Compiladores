@@ -25,8 +25,8 @@ DeclVar    = 'idVar' Atr ';'
 Atr         = '=' Ec
             | EPSILON
 
-@OK
-Var         = 'idVar' DeclArrObg
+:@OK
+Var         = 'idVar' OptArray
 
 :@OK
 IdFun       = 'funId'
@@ -86,13 +86,14 @@ ReturnParam = Ec
 :@OK
 FunCall     = 'idFunc' '(' ParCall ')' ';'
 
-@OK
+:@OK
 ParCall     = ParCallList
             | EPSILON
 
-@OK
+:@OK
 ParCallList = Ec ParCalListR
 
+:@OK
 ParCalListR = ',' ParCallList
             | EPSILON
 
@@ -103,63 +104,75 @@ Commands    = 'printComm' '(' 'ConstStr' PrintOpt ')' ';'
             | 'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl
             | 'during' Eb OpSentCl
 
-@OK
+:@OK
 PrintOpt    = ',' ParCallList
             | EPSILON
 
-@OKLL1
+:@OKLL1
 GetVarList  = Var GetVarListR
 
-@LL1
+:@LL1
 GetVarListR = ',' GetVarList
             | EPSILON
-@OK
+:@OK
 ElseComm    = 'else' OpSentCl
             | EPSILON
 
-@OK
+:@OK
 Ec  = Eb Ecr
 Ecr = '&' Eb Ecr
     | EPSILON
 
-@OK
+:@OK
 Eb  = Tb Ebr
+
+:@OK
 Ebr = 'LogicOr' Tb Ebr
     | EPSILON
 
-@OK
+:@OK
 Tb  = Fb Tbr 
+
+:@OK
 Tbr = 'LogicAnd' Fb Tbr
     | EPSILON
 
-@OK
+:@OK
 Fb  = Fc Fbr            
     | 'LogicNot' Fb    
     | 'ConstBool'
+
+:@OK
 Fbr = 'RelLtGt' Fc Fbr
     | EPSILON
 
-@OK
+:@OK
 Fc  = 'stringCons'
     | 'charCons'
     | Ra
 
-@OK
-Ra  = Ea Rar             
+:@OK
+Ra  = Ea Rar
+
+:@OK
 Rar = 'RelEq' Ea Rar
     | EPSILON
 
-@OK
-Ea  = Ta Ear 
+:@OK
+Ea  = Ta Ear
+
+:@OK
 Ear = 'AddSub' Ta Ear
     | EPSILON
 
-@OK    
+:@OK
 Ta  = Fa Tar
+
+:@OK
 Tar = 'Mult' Fa Tar
     | EPSILON
 
-@OK
+:@OK
 Fa  = '(' Eb ')'
     | 'UnNeg' Fa        
     | Var
