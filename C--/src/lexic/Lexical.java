@@ -27,21 +27,24 @@ public class Lexical {
         }
     }
 
-    public char nextChar(String line) {
+    private char nextChar(String line) {
         char c = line.charAt(this.charPosition);
         this.charPosition += 1;
         return c;
     }
 
     // Function that return one token
-    public Token nextToken() throws IOException {
+    public Token nextToken() {
 
         StringBuilder lexeme = new StringBuilder();
 
-
         if (this.line == null || this.charPosition >= this.line.length()) {
             this.charPosition = 0;
-            this.line = file.readLine();
+            try {
+                this.line = file.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             if(line != null) {
                 this.linePosition += 1;
@@ -53,7 +56,7 @@ public class Lexical {
                 this.linePosition += 1;
                 line =  " ";
             }
-            return null;
+            return nextToken();
         }
         else {
 
@@ -75,7 +78,7 @@ public class Lexical {
                     }
                 } else {
                     nextChar(line);
-                    return null;
+                    return nextToken();
                 }
             } else {
 
@@ -87,7 +90,7 @@ public class Lexical {
                     lexeme.append(nextChar(line));
                 } else if(line.charAt(this.charPosition) == '#') {
                     this.charPosition = line.length();
-                    return null;
+                    return nextToken();
                 } else {
                     while(this.charPosition < line.length() && !separators.contains(line.charAt(this.charPosition))){
                         lexeme.append(nextChar(line));

@@ -121,22 +121,26 @@ Return      = 'return' Ec
             | 'return'
 
 @Ok
-Ec  = Ec '&' Eb         
-    | Eb
+Ec  = Eb Ecr
+Ecr = '&' Eb Ecr
+    | EPSILON
 
 @Ok
-Eb  = Eb 'LogicOr' Tb   
-    | Tb
+Eb  = Tb Ebr
+Ebr = 'LogicOr' Tb Ebr
+    | EPSILON
 
 @Ok
-Tb  = Tb 'LogicAnd' Fb  
-    | Fb
+Tb  = Fb Tbr 
+Tbr = 'LogicAnd' Fb Tbr
+    | EPSILON
 
 @Ok
-Fb  = Fb 'RelLtGt' Fc   
+Fb  = Fc Fbr            
     | 'LogicNot' Fb    
     | 'ConstBool'
-    | Fc
+Fbr = 'RelLtGt' Fc Fbr
+    | EPSILON
 
 @Ok
 Fc  = 'stringCons'
@@ -144,16 +148,19 @@ Fc  = 'stringCons'
     | Ra
 
 @Ok
-Ra  = Ra 'RelEq' Ea    
-    | Ea
+Ra  = Ea Rar             
+Rar = 'RelEq' Ea Rar
+    | EPSILON
 
 @Ok
-Ea  = Ea 'AddSub' Ta    
-    | Ta
+Ea  = Ta Ear 
+Ear = 'AddSub' Ta Ear
+    | EPS1ILON
 
-@Ok
-Ta  = Ta 'Mult' Fa      
-    | Fa
+@Ok    
+Ta  = Fa Tar
+Tar = 'Mult' Fa Tar
+    | EPSILON
 
 @Ok
 Fa  = '(' Eb ')'

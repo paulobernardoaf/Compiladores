@@ -5,7 +5,7 @@ import categories.LexemeCategoryMap;
 
 public class Token {
 
-    private CategoryList tokenCategory;
+    private CategoryList category;
     private int lineNumber, columnNumber;
     private String id;
 
@@ -13,9 +13,9 @@ public class Token {
         this.id = lexeme;
         CategoryList cat = LexemeCategoryMap.MapLexemeCategory.get(lexeme);
         if(cat == null) {
-            tokenCategory = getCategoryFromRegex(lexeme);
+            category = getCategoryFromRegex(lexeme);
         } else {
-            tokenCategory = cat;
+            category = cat;
         }
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber - lexeme.length();
@@ -24,11 +24,11 @@ public class Token {
     @Override
     public String toString() {
         String format = "          [%04d, %04d] (%04d, %20s) {%s}";
-        return String.format(format, lineNumber, columnNumber, tokenCategory.ordinal(), tokenCategory.toString(), id);
+        return String.format(format, lineNumber, columnNumber, category.ordinal(), category.toString(), id);
     }
 
     public CategoryList getCategoryFromRegex(String lexeme) {
-        CategoryList category = CategoryList.Tunknown;
+        this.category = CategoryList.Tunknown;
 
         String regexId = "([a-z])([a-zA-Z]|[0-9]|_)*";
         String regexFuncId = "([A-Z])([a-zA-Z]|[0-9]|_)*";
@@ -39,36 +39,48 @@ public class Token {
         String regexCteString = "\"([a-z]|[A-Z]|[0-9]|[ /\\\\!@#$%&*()_\\-=+\\[\\]{}><?.;:,\"'])*\"";
 
         if(lexeme.matches(regexId)) {
-            category = CategoryList.TnameId;
+            this.category = CategoryList.TnameId;
         }
         else if(lexeme.matches(regexFuncId)) {
-            category = CategoryList.TfuncId;
+            this.category = CategoryList.TfuncId;
         }
         else if(lexeme.matches(regexCteInt)) {
-            category = CategoryList.TcteInt;
+            this.category = CategoryList.TcteInt;
         }
         else if(lexeme.matches(regexCteFloat)) {
-            category = CategoryList.TcteFloat;
+            this.category = CategoryList.TcteFloat;
         }
         else if(lexeme.matches(regexCteBool)) {
-            category = CategoryList.TcteBool;
+            this.category = CategoryList.TcteBool;
         }
         else if(lexeme.matches(regexCteChar)) {
-            category = CategoryList.TcteChar;
+            this.category = CategoryList.TcteChar;
         }
         else if(lexeme.matches(regexCteString)) {
-            category = CategoryList.TcteString;
+            this.category = CategoryList.TcteString;
         }
 
 
-        return category;
+        return this.category;
     }
 
     public void setTokenCategory(CategoryList tokenCategory) {
-        this.tokenCategory = tokenCategory;
+        this.category = tokenCategory;
     }
 
     public CategoryList getTokenCategory() {
-        return tokenCategory;
+        return category;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    public int getColumnNumber() {
+        return columnNumber;
     }
 }

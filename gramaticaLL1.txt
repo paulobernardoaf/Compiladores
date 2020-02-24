@@ -1,0 +1,168 @@
+:@OKLL1
+S           = VarType Decl S
+            | 'void' DeclFun S
+            | EPSILON
+
+:@OKLL1
+Decl        = '[' DeclR
+            | DeclAux
+
+:@OKLL1
+DeclR       = ']' DeclFun
+            | ArrSize ']' DeclAux
+
+:@OKLL1
+DeclAux     = DeclFun
+            | DeclVar
+
+:@OKLL1
+DeclFun     = IdFun '(' Param ')' OpSentCl
+
+:@OKLL1 
+DeclVar    = 'idVar' Atr ';'
+
+:@OKLL1
+Atr         = '=' Ec
+            | EPSILON
+
+@OK
+Var         = 'idVar' DeclArrObg
+
+:@OK
+IdFun       = 'funId'
+            | 'Main'
+
+:@OK
+ArrSize     = 'idVar'
+            | 'ConstInt'
+
+:@OK
+VarType     = 'int'
+            | 'float'
+            | 'string'
+            | 'bool'
+            | 'char'
+
+:@OK
+OpSentCl    = '{' Sent '}'
+
+:@OK
+Param       = ParamList
+            | EPSILON
+
+:@OKLL1
+ParamList   = ParVar ParamListR
+
+:@OKLL1
+ParamListR  = ',' ParamList
+            | EPSILON
+
+:@OKLL1
+ParVar      = VarType OptFnArray 'idVar'
+
+:@OKLL1
+OptFnArray  = '[' OptFnArrayR
+            | EPSILON
+
+:@OKLL1
+OptFnArrayR = ArrSize ']'
+            | ']'
+
+:@OK
+Sent        = VarType OptArray DeclVar Sent
+            | FunCall Sent
+            | Commands Sent
+            | 'return' ReturnParam ';'
+            | EPSILON
+
+:@OKLL1
+OptArray    = '[' ArrSize ']'
+            | EPSILON
+
+:@LL1
+ReturnParam = Ec
+            | EPSILON
+
+:@OK
+FunCall     = 'idFunc' '(' ParCall ')' ';'
+
+@OK
+ParCall     = ParCallList
+            | EPSILON
+
+@OK
+ParCallList = Ec ParCalListR
+
+ParCalListR = ',' ParCallList
+            | EPSILON
+
+:@OK
+Commands    = 'printComm' '(' 'ConstStr' PrintOpt ')' ';'
+            | 'get' '(' GetVarList ')' ';'
+            | 'if' Eb OpSentCl ElseComm
+            | 'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl
+            | 'during' Eb OpSentCl
+
+@OK
+PrintOpt    = ',' ParCallList
+            | EPSILON
+
+@OKLL1
+GetVarList  = Var GetVarListR
+
+@LL1
+GetVarListR = ',' GetVarList
+            | EPSILON
+@OK
+ElseComm    = 'else' OpSentCl
+            | EPSILON
+
+@OK
+Ec  = Eb Ecr
+Ecr = '&' Eb Ecr
+    | EPSILON
+
+@OK
+Eb  = Tb Ebr
+Ebr = 'LogicOr' Tb Ebr
+    | EPSILON
+
+@OK
+Tb  = Fb Tbr 
+Tbr = 'LogicAnd' Fb Tbr
+    | EPSILON
+
+@OK
+Fb  = Fc Fbr            
+    | 'LogicNot' Fb    
+    | 'ConstBool'
+Fbr = 'RelLtGt' Fc Fbr
+    | EPSILON
+
+@OK
+Fc  = 'stringCons'
+    | 'charCons'
+    | Ra
+
+@OK
+Ra  = Ea Rar             
+Rar = 'RelEq' Ea Rar
+    | EPSILON
+
+@OK
+Ea  = Ta Ear 
+Ear = 'AddSub' Ta Ear
+    | EPSILON
+
+@OK    
+Ta  = Fa Tar
+Tar = 'Mult' Fa Tar
+    | EPSILON
+
+@OK
+Fa  = '(' Eb ')'
+    | 'UnNeg' Fa        
+    | Var
+    | FunCall
+    | 'ConstInt'
+    | 'ConstFloat'
