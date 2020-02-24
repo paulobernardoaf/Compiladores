@@ -19,7 +19,7 @@ DeclAux     = DeclFun
 DeclFun     = IdFun '(' Param ')' OpSentCl
 
 :@OKLL1 
-DeclVar    = 'idVar' Atr ';'
+DeclVar     = 'idVar' Atr ';'
 
 :@OKLL1
 Atr         = '=' Ec
@@ -70,9 +70,10 @@ OptFnArrayR = ArrSize ']'
 
 :@OK
 Sent        = VarType OptArray DeclVar Sent
-            | FunCall Sent
+            | FunCall ';' Sent
             | Commands Sent
-            | 'return' ReturnParam ';'
+            | Var Atr ';' Sent
+            | 'return' ReturnParam ';' Sent
             | EPSILON
 
 :@OKLL1
@@ -84,7 +85,7 @@ ReturnParam = Ec
             | EPSILON
 
 :@OK
-FunCall     = 'idFunc' '(' ParCall ')' ';'
+FunCall     = 'idFunc' '(' ParCall ')'
 
 :@OK
 ParCall     = ParCallList

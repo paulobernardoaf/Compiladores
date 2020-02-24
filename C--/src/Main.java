@@ -11,7 +11,7 @@ public class Main {
         for(String path : args) {
             System.out.println(" ##### START ##### \n");
             Syntactic syntacticAnalyzer = new Syntactic(path);
-            syntacticAnalyzer.S();
+            syntacticAnalyzer.start();
             System.out.println("\n\n ##### END ##### \n");
         }
     }

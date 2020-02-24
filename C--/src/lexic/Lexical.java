@@ -98,8 +98,9 @@ public class Lexical {
                 }
 
             }
-
-            return new Token(lexeme.toString(), this.linePosition, this.charPosition);
+            Token newToken = new Token(lexeme.toString(), this.linePosition, this.charPosition + 1);
+            System.out.println(newToken);
+            return newToken;
 
         }
 

@@ -13,9 +13,11 @@ int[] ShellSort(int[] values, int size) {
         from i = gap to size - 1 increment 1 {
             num = values[i];
             j = i;
-            during (j > gap - 1) and (num <= values[j - gap]) {
-                values[j] = values[j - gap];
+            int k = j - gap;
+            during (j > gap - 1) and (num <= values[k]) {
+                values[j] = values[k];
                 j = j - gap;
+                k = j;
             }
             values[j] = num;
         }
@@ -35,7 +37,7 @@ int Main() {
     print("Enter the array");
 
     from i = 0 to size - 1 increment 1 {
-        values[i] = get();
+        get(values[i]);
         print("$d ", values[i]);
     }
 
