@@ -22,7 +22,20 @@ DeclFun     = IdFun '(' Param ')' OpSentCl
 DeclVar     = 'idVar' Atr ';'
 
 :@OKLL1
-Atr         = '=' Ec
+Atr         = '=' AtrR
+            | EPSILON
+
+:@OKLL1
+AtrR        = Ec
+            | '[' EcList ']'
+
+:@OKLL1
+EcList      = EcListValues
+            | EPSILON
+
+EcListValues= Ec EcListR
+
+EcListR     = ',' EcListValues
             | EPSILON
 
 :@OK
@@ -82,6 +95,7 @@ OptArray    = '[' ArrSize ']'
 
 :@LL1
 ReturnParam = Ec
+            | '[' EcList ']'
             | EPSILON
 
 :@OK

@@ -26,7 +26,7 @@ public class Syntactic {
         System.out.println(String.format(format, "", left, right));
     }
 
-    private boolean checkToken(ArrayList<CategoryList> categories) {
+    private boolean checkToken(CategoryList... categories) {
 
         for(CategoryList cat : categories) {
             if(token.getTokenCategory() == cat) {
@@ -43,51 +43,31 @@ public class Syntactic {
 
     }
 
-//TODO: SABER COMO LIDAR COM O EPSILON E O EOF
     public void S() {
-//        S = VarType Decl S
-//          | 'void' DeclFun S
-//          | EPSILON
-
-        // int 2;
-        if (checkToken(new ArrayList<>(List.of(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)))) {
+        if (checkToken(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)) {
             production("S", "VarType Decl S");
             VarType();
             Decl();
             S();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tvoid)))) {
+        } else if(checkToken(CategoryList.Tvoid)) {
             production("S", "'void' DeclFun S");
             token = lexicalAnalyzer.nextToken();
             DeclFun();
             S();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TEOF)))) {
+        } else if(checkToken(CategoryList.TEOF)) {
             production("S", "EOF");
         } else {
             production("S", "EPSILON");
         }
 
-//        while(true) {
-//            token = lexicalAnalyzer.nextToken();
-//            if (token != null) {
-//                System.out.println(token.toString());
-//                if (token.getTokenCategory() == CategoryList.TEOF) {
-//                    return;
-//                }
-//            } else {
-//                Error("TA NULO");
-//            }
-//        }
-
     }
 
     private void Decl() {
-        //Decl        = '[' DeclR
-        //            | DeclAux
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegSqBrac)))) {
+        if(checkToken(CategoryList.TbegSqBrac)) {
             production("Decl", "'[' DeclR");
             token = lexicalAnalyzer.nextToken();
             DeclR();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TfuncId, CategoryList.Tmain, CategoryList.TnameId)))) {
+        } else if(checkToken(CategoryList.TfuncId, CategoryList.Tmain, CategoryList.TnameId)) {
             production("Decl", "DeclAux");
             DeclAux();
         } else {
@@ -97,16 +77,14 @@ public class Syntactic {
     }
 
     private void DeclR() {
-        //DeclR       = ']' DeclFun
-        //            | ArrSize ']' DeclAux
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TendSqBrac)))) {
+        if(checkToken(CategoryList.TendSqBrac)) {
             production("DeclR", "']' DeclFun");
             token = lexicalAnalyzer.nextToken();
             DeclFun();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId, CategoryList.TcteInt)))){
+        } else if(checkToken(CategoryList.TnameId, CategoryList.TcteInt)){
             production("DeclR", "ArrSize ']' DeclAux");
             ArrSize();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TendSqBrac)))) {
+            if(checkToken(CategoryList.TendSqBrac)) {
                 token = lexicalAnalyzer.nextToken();
                 DeclAux();
             }  else {
@@ -118,12 +96,10 @@ public class Syntactic {
     }
 
     private void DeclAux() {
-        //DeclAux     = DeclFun
-        //            | DeclVar
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TfuncId, CategoryList.Tmain)))) {
+        if(checkToken(CategoryList.TfuncId, CategoryList.Tmain)) {
             production("DeclAux", "DeclFun");
             DeclFun();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+        } else if(checkToken(CategoryList.TnameId)) {
             production("DeclAux", "DeclVar");
             DeclVar();
         } else {
@@ -133,14 +109,13 @@ public class Syntactic {
     }
 
     private void DeclFun() {
-        //DeclFun     = IdFun '(' Param ')' OpSentCl
-        if (checkToken(new ArrayList<>(List.of(CategoryList.TfuncId, CategoryList.Tmain)))) {
+        if (checkToken(CategoryList.TfuncId, CategoryList.Tmain)) {
             production("DeclFun", "IdFun '(' Param ')' OpSentCl");
             IdFun();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac)))) {
+            if(checkToken(CategoryList.TbegBrac)) {
                 token = lexicalAnalyzer.nextToken();
                 Param();
-                if(checkToken(new ArrayList<>(List.of(CategoryList.TendBrac)))) {
+                if(checkToken(CategoryList.TendBrac)) {
                     token = lexicalAnalyzer.nextToken();
                     OpSentCl();
                 } else {
@@ -155,11 +130,11 @@ public class Syntactic {
     }
 
     private void DeclVar() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+        if(checkToken(CategoryList.TnameId)) {
             production("DeclVar", "'idVar' Atr ';'");
             token = lexicalAnalyzer.nextToken();
             Atr();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TsemiCol)))) {
+            if(checkToken(CategoryList.TsemiCol)) {
                 token = lexicalAnalyzer.nextToken();
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TsemiCol'.");
@@ -170,17 +145,64 @@ public class Syntactic {
     }
 
     private void Atr() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopAtr)))) {
-            production("Atr", "'=' Ec");
+        if(checkToken(CategoryList.TopAtr)) {
+            production("Atr", "'=' AtrR");
             token = lexicalAnalyzer.nextToken();
-            Ec();
+            AtrR();
         } else {
             production("Atr", "EPSILON");
         }
     }
 
+    private void AtrR() {
+        if(checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
+            production("AtrR", "Ec");
+            Ec();
+        } else if(checkToken(CategoryList.TbegSqBrac)) {
+            production("AtrR", "'[' EcList ']'");
+            token = lexicalAnalyzer.nextToken();
+            EcList();
+            if(checkToken(CategoryList.TendSqBrac)) {
+                token = lexicalAnalyzer.nextToken();
+            } else {
+                Error("Unexpected token '" + token.getId() + "'. Expected 'TendSqBrac'.");
+            }
+        } else {
+            Error("Unexpected token '" + token.getId() + "'. Expected 'TbegSqBrac', 'TopNot', 'TcteBool', 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void EcList() {
+        if (checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
+            production("EcList", "EcListValues");
+            EcListValues();
+        } else {
+            production("EcList", "EPSILON");
+        }
+    }
+
+    private void EcListValues() {
+        if (checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
+            production("EcLisValues", "EcListValues");
+            Ec();
+            EcListR();
+        } else {
+            Error("Unexpected token '" + token.getId() + "'. Expected 'TopNot', 'TcteBool', 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
+        }
+    }
+
+    private void EcListR() {
+        if(checkToken(CategoryList.Tcomma)) {
+            production("EcListR", "',' EcListValues");
+            token = lexicalAnalyzer.nextToken();
+            EcListValues();
+        } else {
+            production("EcListR", "EPSILON");
+        }
+    }
+
     private void Var() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+        if(checkToken(CategoryList.TnameId)) {
             production("Var", "'idVar' OptArray");
             token = lexicalAnalyzer.nextToken();
             OptArray();
@@ -190,44 +212,44 @@ public class Syntactic {
     }
 
     private void IdFun() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TfuncId)))) {
+        if(checkToken(CategoryList.TfuncId)) {
             production("IdFun", "'funId'");
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tmain)))) {
+        } else if(checkToken(CategoryList.Tmain)) {
             production("IdFun", "'Main'");
         }
         token = lexicalAnalyzer.nextToken();
     }
 
     private void ArrSize() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+        if(checkToken(CategoryList.TnameId)) {
             production("ArrSize", "'idVar'");
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TcteInt)))) {
+        } else if(checkToken(CategoryList.TcteInt)) {
             production("ArrSize", "'ConstInt'");
         }
         token = lexicalAnalyzer.nextToken();
     }
 
     private void VarType() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tint)))) {
+        if(checkToken(CategoryList.Tint)) {
             production("VarType", "'int'");
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tfloat)))) {
+        } else if(checkToken(CategoryList.Tfloat)) {
             production("VarType", "'float'");
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tstring)))) {
+        } else if(checkToken(CategoryList.Tstring)) {
             production("VarType", "'string'");
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tbool)))) {
+        } else if(checkToken(CategoryList.Tbool)) {
             production("VarType", "'bool'");
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tchar)))) {
+        } else if(checkToken(CategoryList.Tchar)) {
             production("VarType", "'char'");
         }
         token = lexicalAnalyzer.nextToken();
     }
 
     private void OpSentCl() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegCrBrac)))) {
+        if(checkToken(CategoryList.TbegCrBrac)) {
             production("OpSentCl", "'{' Sent '}'");
             token = lexicalAnalyzer.nextToken();
             Sent();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TendCrBrac)))) {
+            if(checkToken(CategoryList.TendCrBrac)) {
                 token = lexicalAnalyzer.nextToken();
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TendCrBrac'.");
@@ -238,7 +260,7 @@ public class Syntactic {
     }
 
     private void Param() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)))) {
+        if(checkToken(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)) {
             production("Param", "ParamList");
             ParamList();
         } else {
@@ -247,7 +269,7 @@ public class Syntactic {
     }
 
     private void ParamList() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)))) {
+        if(checkToken(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)) {
             production("ParamList", "ParVar ParamListR");
             ParVar();
             ParamListR();
@@ -257,7 +279,7 @@ public class Syntactic {
     }
 
     private void ParamListR() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tcomma)))) {
+        if(checkToken(CategoryList.Tcomma)) {
             production("ParamListR", "',' ParamList");
             token = lexicalAnalyzer.nextToken();
             ParamList();
@@ -267,11 +289,11 @@ public class Syntactic {
     }
 
     private void ParVar() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)))) {
+        if(checkToken(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)) {
             production("ParVar", "VarType OptFnArray 'idVar'");
             VarType();
             OptFnArray();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+            if(checkToken(CategoryList.TnameId)) {
                 token = lexicalAnalyzer.nextToken();
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TnameId'.");
@@ -282,7 +304,7 @@ public class Syntactic {
     }
 
     private void OptFnArray() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegSqBrac)))) {
+        if(checkToken(CategoryList.TbegSqBrac)) {
             production("OptFnArray", "'[' OptFnArrayR");
             token = lexicalAnalyzer.nextToken();
             OptFnArrayR();
@@ -292,15 +314,15 @@ public class Syntactic {
     }
 
     private void OptFnArrayR() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId, CategoryList.TcteInt)))) {
+        if(checkToken(CategoryList.TnameId, CategoryList.TcteInt)) {
             production("OptFnArrayR", "ArrSize ']'");
             ArrSize();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TendSqBrac)))) {
+            if(checkToken(CategoryList.TendSqBrac)) {
                 token = lexicalAnalyzer.nextToken();
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TendSqBrac'.");
             }
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TendSqBrac)))) {
+        } else if(checkToken(CategoryList.TendSqBrac)) {
             production("OptFnArrayR", "']'");
             token = lexicalAnalyzer.nextToken();
         } else {
@@ -309,40 +331,40 @@ public class Syntactic {
     }
 
     private void Sent() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)))) {
+        if(checkToken(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)) {
             production("Sent", "VarType OptArray DeclVar Sent");
             VarType();
             OptArray();
             DeclVar();
             Sent();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TfuncId)))) {
+        } else if(checkToken(CategoryList.TfuncId)) {
             production("Sent", "FunCall ';' Sent");
             FunCall();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TsemiCol)))) {
+            if(checkToken(CategoryList.TsemiCol)) {
                 token = lexicalAnalyzer.nextToken();
                 Sent();
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TsemiCol'.");
             }
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tprint, CategoryList.Tget, CategoryList.Tif, CategoryList.Tfrom, CategoryList.Tduring)))) {
+        } else if(checkToken(CategoryList.Tprint, CategoryList.Tget, CategoryList.Tif, CategoryList.Tfrom, CategoryList.Tduring)) {
             production("Sent", "Commands Sent");
             Commands();
             Sent();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+        } else if(checkToken(CategoryList.TnameId)) {
             production("Sent", "Var Atr ';' Sent");
             Var();
             Atr();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TsemiCol)))) {
+            if(checkToken(CategoryList.TsemiCol)) {
                 token = lexicalAnalyzer.nextToken();
                 Sent();
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TsemiCol'.");
             }
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Treturn)))) {
+        } else if(checkToken(CategoryList.Treturn)) {
             production("Sent", "'return' ReturnParam ';' Sent");
             token = lexicalAnalyzer.nextToken();
             ReturnParam();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TsemiCol)))) {
+            if(checkToken(CategoryList.TsemiCol)) {
                 token = lexicalAnalyzer.nextToken();
                 Sent();
             } else {
@@ -354,11 +376,11 @@ public class Syntactic {
     }
 
     private void OptArray() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegSqBrac)))) {
+        if(checkToken(CategoryList.TbegSqBrac)) {
             production("OptArray", "'[' ArrSize ']'");
             token = lexicalAnalyzer.nextToken();
             ArrSize();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TendSqBrac)))) {
+            if(checkToken(CategoryList.TendSqBrac)) {
                 token = lexicalAnalyzer.nextToken();
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TendSqBrac'.");
@@ -369,22 +391,30 @@ public class Syntactic {
     }
 
     private void ReturnParam() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("ReturnParam", "Ec");
             Ec();
+        } else if(checkToken(CategoryList.TbegSqBrac)) {
+            token = lexicalAnalyzer.nextToken();
+            EcList();
+            if(checkToken(CategoryList.TendSqBrac)) {
+                token = lexicalAnalyzer.nextToken();
+            } else {
+                Error("Unexpected token '" + token.getId() + "'. Expected 'TendSqBrac'.");
+            }
         } else {
             production("ReturnParam", "EPSILON");
         }
     }
 
     private void FunCall() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TfuncId)))) {
+        if(checkToken(CategoryList.TfuncId)) {
             production("FunCall", "'idFunc' '(' ParCall ')'");
             token = lexicalAnalyzer.nextToken();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac)))) {
+            if(checkToken(CategoryList.TbegBrac)) {
                 token = lexicalAnalyzer.nextToken();
                 ParCall();
-                if(checkToken(new ArrayList<>(List.of(CategoryList.TendBrac)))) {
+                if(checkToken(CategoryList.TendBrac)) {
                     token = lexicalAnalyzer.nextToken();
                 } else {
                     Error("Unexpected token '" + token.getId() + "'. Expected 'TendBrac'.");
@@ -398,7 +428,7 @@ public class Syntactic {
     }
 
     private void ParCall() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("ParCall", "ParCallList");
             ParCallList();
         } else {
@@ -407,7 +437,7 @@ public class Syntactic {
     }
 
     private void ParCallList() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("ParCallList", "Ec ParCalListR");
             Ec();
             ParCallListR();
@@ -417,7 +447,7 @@ public class Syntactic {
     }
 
     private void ParCallListR() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tcomma)))) {
+        if(checkToken(CategoryList.Tcomma)) {
             production("ParCallListR", "',' ParCallList");
             token = lexicalAnalyzer.nextToken();
             ParCallList();
@@ -427,17 +457,17 @@ public class Syntactic {
     }
 
     private void Commands() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tprint)))) {
+        if(checkToken(CategoryList.Tprint)) {
             production("Commands", "'printComm' '(' 'ConstStr' PrintOpt ')' ';'");
             token = lexicalAnalyzer.nextToken();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac)))) {
+            if(checkToken(CategoryList.TbegBrac)) {
                 token = lexicalAnalyzer.nextToken();
-                if(checkToken(new ArrayList<>(List.of(CategoryList.TcteString)))) {
+                if(checkToken(CategoryList.TcteString)) {
                     token = lexicalAnalyzer.nextToken();
                     PrintOpt();
-                    if(checkToken(new ArrayList<>(List.of(CategoryList.TendBrac)))) {
+                    if(checkToken(CategoryList.TendBrac)) {
                         token = lexicalAnalyzer.nextToken();
-                        if(checkToken(new ArrayList<>(List.of(CategoryList.TsemiCol)))) {
+                        if(checkToken(CategoryList.TsemiCol)) {
                             token = lexicalAnalyzer.nextToken();
                         } else {
                             Error("Unexpected token '" + token.getId() + "'. Expected 'TsemiCol'.");
@@ -451,15 +481,15 @@ public class Syntactic {
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TbegBrac'.");
             }
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tget)))) {
+        } else if(checkToken(CategoryList.Tget)) {
             production("Commands", "'get' '(' GetVarList ')' ';'");
             token = lexicalAnalyzer.nextToken();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac)))) {
+            if(checkToken(CategoryList.TbegBrac)) {
                 token = lexicalAnalyzer.nextToken();
                 GetVarList();
-                if(checkToken(new ArrayList<>(List.of(CategoryList.TendBrac)))) {
+                if(checkToken(CategoryList.TendBrac)) {
                     token = lexicalAnalyzer.nextToken();
-                    if(checkToken(new ArrayList<>(List.of(CategoryList.TsemiCol)))) {
+                    if(checkToken(CategoryList.TsemiCol)) {
                         token = lexicalAnalyzer.nextToken();
                     } else {
                         Error("Unexpected token '" + token.getId() + "'. Expected 'TsemiCol'.");
@@ -470,23 +500,23 @@ public class Syntactic {
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TbegBrac'.");
             }
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tif)))) {
+        } else if(checkToken(CategoryList.Tif)) {
             production("Commands", "'if' Eb OpSentCl ElseComm");
             token = lexicalAnalyzer.nextToken();
             Eb();
             OpSentCl();
             ElseComm();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tfrom)))) {
+        } else if(checkToken(CategoryList.Tfrom)) {
             production("Commands", "'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl");
             token = lexicalAnalyzer.nextToken();
             Var();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TopAtr)))) {
+            if(checkToken(CategoryList.TopAtr)) {
                 token = lexicalAnalyzer.nextToken();
                 Ea();
-                if(checkToken(new ArrayList<>(List.of(CategoryList.Tto)))) {
+                if(checkToken(CategoryList.Tto)) {
                     token = lexicalAnalyzer.nextToken();
                     Ea();
-                    if(checkToken(new ArrayList<>(List.of(CategoryList.Tincrement)))) {
+                    if(checkToken(CategoryList.Tincrement)) {
                         token = lexicalAnalyzer.nextToken();
                         Ea();
                         OpSentCl();
@@ -499,7 +529,7 @@ public class Syntactic {
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TopAtr'.");
             }
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.Tduring)))) {
+        } else if(checkToken(CategoryList.Tduring)) {
             production("Commands", "'during' Eb OpSentCl");
             token = lexicalAnalyzer.nextToken();
             Eb();
@@ -510,7 +540,7 @@ public class Syntactic {
     }
 
     private void PrintOpt() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tcomma)))) {
+        if(checkToken(CategoryList.Tcomma)) {
             production("PrintOpt", "',' ParCallList");
             token = lexicalAnalyzer.nextToken();
             ParCallList();
@@ -520,7 +550,7 @@ public class Syntactic {
     }
 
     private void GetVarList() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+        if(checkToken(CategoryList.TnameId)) {
             production("GetVarList", "Var GetVarListR");
             Var();
             GetVarListR();
@@ -530,7 +560,7 @@ public class Syntactic {
     }
 
     private void GetVarListR() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Tcomma)))) {
+        if(checkToken(CategoryList.Tcomma)) {
             production("GetVarListR", "',' GetVarList");
             token = lexicalAnalyzer.nextToken();
             GetVarList();
@@ -540,7 +570,7 @@ public class Syntactic {
     }
 
     private void ElseComm() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.Telse)))) {
+        if(checkToken(CategoryList.Telse)) {
             production("ElseComm", "'else' OpSentCl");
             token = lexicalAnalyzer.nextToken();
             OpSentCl();
@@ -550,7 +580,7 @@ public class Syntactic {
     }
 
     private void Ec() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Ec", "Eb Ecr");
             Eb();
             Ecr();
@@ -560,7 +590,7 @@ public class Syntactic {
     }
 
     private void Ecr() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopConc)))) {
+        if(checkToken(CategoryList.TopConc)) {
             production("Ec", "'&' Eb Ecr");
             token = lexicalAnalyzer.nextToken();
             Eb();
@@ -571,7 +601,7 @@ public class Syntactic {
     }
 
     private void Eb() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Eb", "Tb Ebr");
             Tb();
             Ebr();
@@ -581,7 +611,7 @@ public class Syntactic {
     }
 
     private void Ebr() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopOr)))) {
+        if(checkToken(CategoryList.TopOr)) {
             production("Ebr", "'LogicOr' Tb Ebr");
             token = lexicalAnalyzer.nextToken();
             Tb();
@@ -592,7 +622,7 @@ public class Syntactic {
     }
 
     private void Tb() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TopNot, CategoryList.TcteBool, CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Tb", "Fb Tbr");
             Fb();
             Tbr();
@@ -602,7 +632,7 @@ public class Syntactic {
     }
 
     private void Tbr() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopAnd)))) {
+        if(checkToken(CategoryList.TopAnd)) {
             production("Tbr", "'LogicAnd' Fb Tbr");
             token = lexicalAnalyzer.nextToken();
             Fb();
@@ -613,15 +643,15 @@ public class Syntactic {
     }
 
     private void Fb() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TcteString, CategoryList.TcteChar, CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Fb", "Fc Fbr");
             Fc();
             Fbr();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TopNot)))) {
+        } else if(checkToken(CategoryList.TopNot)) {
             production("Fb", "'LogicNot' Fb");
             token = lexicalAnalyzer.nextToken();
             Fb();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TcteBool)))) {
+        } else if(checkToken(CategoryList.TcteBool)) {
             production("Fb", "'ConstBool'");
             token = lexicalAnalyzer.nextToken();
         } else {
@@ -630,7 +660,7 @@ public class Syntactic {
     }
 
     private void Fbr() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopLowThen, CategoryList.TopLowThnE, CategoryList.TopGreThen, CategoryList.TopGreThnE)))) {
+        if(checkToken(CategoryList.TopLowThen, CategoryList.TopLowThnE, CategoryList.TopGreThen, CategoryList.TopGreThnE)) {
             production("Fbr", "'RelLtGt' Fc Fbr");
             token = lexicalAnalyzer.nextToken();
             Fc();
@@ -641,13 +671,13 @@ public class Syntactic {
     }
 
     private void Fc() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TcteString)))) {
+        if(checkToken(CategoryList.TcteString)) {
             production("Fc", "'stringCons'");
             token = lexicalAnalyzer.nextToken();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TcteChar)))) {
+        } else if(checkToken(CategoryList.TcteChar)) {
             production("Fc", "'charCons'");
             token = lexicalAnalyzer.nextToken();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        } else if(checkToken(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Fc", "Ra");
             Ra();
         } else {
@@ -656,7 +686,7 @@ public class Syntactic {
     }
 
     private void Ra() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Ra", "Ea Rar");
             Ea();
             Rar();
@@ -666,7 +696,7 @@ public class Syntactic {
     }
 
     private void Rar() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopEq, CategoryList.TopDif)))) {
+        if(checkToken(CategoryList.TopEq, CategoryList.TopDif)) {
             production("Rar", "'RelEq' Ea Rar");
             token = lexicalAnalyzer.nextToken();
             Ea();
@@ -677,7 +707,7 @@ public class Syntactic {
     }
 
     private void Ea() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Ea", "Ta Ear");
             Ta();
             Ear();
@@ -687,7 +717,7 @@ public class Syntactic {
     }
 
     private void Ear() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopAdd, CategoryList.TopSub)))) {
+        if(checkToken(CategoryList.TopAdd, CategoryList.TopSub)) {
             production("Ear", "'AddSub' Ta Ear");
             token = lexicalAnalyzer.nextToken();
             Ta();
@@ -698,7 +728,7 @@ public class Syntactic {
     }
 
     private void Ta() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)))) {
+        if(checkToken(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Ta", "Fa Tar");
             Fa();
             Tar();
@@ -708,7 +738,7 @@ public class Syntactic {
     }
 
     private void Tar() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TopMult, CategoryList.TopDiv)))) {
+        if(checkToken(CategoryList.TopMult, CategoryList.TopDiv)) {
             production("Tar", "'Mult' Fa Tarr");
             token = lexicalAnalyzer.nextToken();
             Fa();
@@ -719,29 +749,29 @@ public class Syntactic {
     }
 
     private void Fa() {
-        if(checkToken(new ArrayList<>(List.of(CategoryList.TbegBrac)))) {
+        if(checkToken(CategoryList.TbegBrac)) {
             production("Fa", "'(' Eb ')'");
             token = lexicalAnalyzer.nextToken();
             Eb();
-            if(checkToken(new ArrayList<>(List.of(CategoryList.TendBrac)))) {
+            if(checkToken(CategoryList.TendBrac)) {
                 token = lexicalAnalyzer.nextToken();
             } else {
                 Error("Unexpected token '" + token.getId() + "'. Expected 'TendBrac'.");
             }
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TopSub)))) {
+        } else if(checkToken(CategoryList.TopSub)) {
             production("Fa", "'UnNeg' Fa");
             token = lexicalAnalyzer.nextToken();
             Fa();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TnameId)))) {
+        } else if(checkToken(CategoryList.TnameId)) {
             production("Fa", "Var");
             Var();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TfuncId)))) {
+        } else if(checkToken(CategoryList.TfuncId)) {
             production("Fa", "FunCall");
             FunCall();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TcteInt)))) {
+        } else if(checkToken(CategoryList.TcteInt)) {
             production("Fa", "'ConstInt'");
             token = lexicalAnalyzer.nextToken();
-        } else if(checkToken(new ArrayList<>(List.of(CategoryList.TcteFloat)))) {
+        } else if(checkToken(CategoryList.TcteFloat)) {
             production("Fa", "'ConstFloat'");
             token = lexicalAnalyzer.nextToken();
         } else {

@@ -65,7 +65,7 @@ public class Lexical {
                 String format = "    %d  EOF";
                 format = String.format(format, this.linePosition);
                 System.out.println(format);
-                Token tk = new Token("", this.linePosition, this.charPosition );
+                Token tk = new Token("EOF", this.linePosition, this.charPosition );
                 tk.setTokenCategory(CategoryList.TEOF);
                 return tk;
             }
