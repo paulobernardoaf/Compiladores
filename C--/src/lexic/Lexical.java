@@ -65,7 +65,7 @@ public class Lexical {
                 String format = "    %d  EOF";
                 format = String.format(format, this.linePosition);
                 System.out.println(format);
-                Token tk = new Token("EOF", this.linePosition, this.charPosition );
+                Token tk = new Token("EOF", this.linePosition, this.charPosition);
                 tk.setTokenCategory(CategoryList.TEOF);
                 return tk;
             }
@@ -84,10 +84,15 @@ public class Lexical {
 
                 if(line.charAt(this.charPosition) == '\"') {
                     lexeme.append(nextChar(line));
-                    while(!(line.charAt(this.charPosition) == '\"' && line.charAt(this.charPosition-1) != '\\')) {
+                    while (this.charPosition < this.line.length()) {
+                        if((line.charAt(this.charPosition) == '\\')){
+                            lexeme.append(nextChar(line));
+                        } else if((line.charAt(this.charPosition) == '\"')){
+                            lexeme.append(nextChar(line));
+                            break;
+                        }
                         lexeme.append(nextChar(line));
                     }
-                    lexeme.append(nextChar(line));
                 } else if(line.charAt(this.charPosition) == '#') {
                     this.charPosition = line.length();
                     return nextToken();
