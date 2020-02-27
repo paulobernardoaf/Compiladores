@@ -43,7 +43,6 @@ public class LexemeCategoryMap {
         MapLexemeCategory.put("-", CategoryList.TopSub);
         MapLexemeCategory.put("/", CategoryList.TopDiv);
         MapLexemeCategory.put("*", CategoryList.TopMult);
-        MapLexemeCategory.put("%", CategoryList.TopMod);
         MapLexemeCategory.put("<", CategoryList.TopLowThen);
         MapLexemeCategory.put(">", CategoryList.TopGreThen);
         MapLexemeCategory.put("<=", CategoryList.TopLowThnE);

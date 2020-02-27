@@ -4,9 +4,6 @@ import categories.CategoryList;
 import lexic.Lexical;
 import token.Token;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Syntactic {
 
     private Lexical lexicalAnalyzer;
@@ -131,7 +128,7 @@ public class Syntactic {
 
     private void DeclVar() {
         if(checkToken(CategoryList.TnameId)) {
-            production("DeclVar", "'idVar' Atr ';'");
+            production("DeclVar", "'nameId' Atr ';'");
             token = lexicalAnalyzer.nextToken();
             Atr();
             if(checkToken(CategoryList.TsemiCol)) {
@@ -203,7 +200,7 @@ public class Syntactic {
 
     private void Var() {
         if(checkToken(CategoryList.TnameId)) {
-            production("Var", "'idVar' OptArray");
+            production("Var", "'nameId' OptArray");
             token = lexicalAnalyzer.nextToken();
             OptArray();
         } else {
@@ -213,7 +210,7 @@ public class Syntactic {
 
     private void IdFun() {
         if(checkToken(CategoryList.TfuncId)) {
-            production("IdFun", "'funId'");
+            production("IdFun", "'funcId'");
         } else if(checkToken(CategoryList.Tmain)) {
             production("IdFun", "'Main'");
         }
@@ -222,9 +219,9 @@ public class Syntactic {
 
     private void ArrSize() {
         if(checkToken(CategoryList.TnameId)) {
-            production("ArrSize", "'idVar'");
+            production("ArrSize", "'nameId'");
         } else if(checkToken(CategoryList.TcteInt)) {
-            production("ArrSize", "'ConstInt'");
+            production("ArrSize", "'cteInt'");
         }
         token = lexicalAnalyzer.nextToken();
     }
@@ -290,7 +287,7 @@ public class Syntactic {
 
     private void ParVar() {
         if(checkToken(CategoryList.Tint, CategoryList.Tfloat, CategoryList.Tstring, CategoryList.Tbool, CategoryList.Tchar)) {
-            production("ParVar", "VarType OptFnArray 'idVar'");
+            production("ParVar", "VarType OptFnArray 'nameId'");
             VarType();
             OptFnArray();
             if(checkToken(CategoryList.TnameId)) {
@@ -409,7 +406,7 @@ public class Syntactic {
 
     private void FunCall() {
         if(checkToken(CategoryList.TfuncId)) {
-            production("FunCall", "'idFunc' '(' ParCall ')'");
+            production("FunCall", "'funcId' '(' ParCall ')'");
             token = lexicalAnalyzer.nextToken();
             if(checkToken(CategoryList.TbegBrac)) {
                 token = lexicalAnalyzer.nextToken();
@@ -458,7 +455,7 @@ public class Syntactic {
 
     private void Commands() {
         if(checkToken(CategoryList.Tprint)) {
-            production("Commands", "'printComm' '(' 'ConstStr' PrintOpt ')' ';'");
+            production("Commands", "'printComm' '(' 'cteString' PrintOpt ')' ';'");
             token = lexicalAnalyzer.nextToken();
             if(checkToken(CategoryList.TbegBrac)) {
                 token = lexicalAnalyzer.nextToken();
@@ -612,7 +609,7 @@ public class Syntactic {
 
     private void Ebr() {
         if(checkToken(CategoryList.TopOr)) {
-            production("Ebr", "'LogicOr' Tb Ebr");
+            production("Ebr", "'opOr' Tb Ebr");
             token = lexicalAnalyzer.nextToken();
             Tb();
             Ebr();
@@ -633,7 +630,7 @@ public class Syntactic {
 
     private void Tbr() {
         if(checkToken(CategoryList.TopAnd)) {
-            production("Tbr", "'LogicAnd' Fb Tbr");
+            production("Tbr", "'opAnd' Fb Tbr");
             token = lexicalAnalyzer.nextToken();
             Fb();
             Tbr();
@@ -648,11 +645,11 @@ public class Syntactic {
             Fc();
             Fbr();
         } else if(checkToken(CategoryList.TopNot)) {
-            production("Fb", "'LogicNot' Fb");
+            production("Fb", "'opNot' Fb");
             token = lexicalAnalyzer.nextToken();
             Fb();
         } else if(checkToken(CategoryList.TcteBool)) {
-            production("Fb", "'ConstBool'");
+            production("Fb", "'cteBool'");
             token = lexicalAnalyzer.nextToken();
         } else {
             Error("Unexpected token '" + token.getId() + "'. Expected 'TopNot', 'TcteBool', 'TcteString', 'TcteChar', 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");
@@ -672,10 +669,10 @@ public class Syntactic {
 
     private void Fc() {
         if(checkToken(CategoryList.TcteString)) {
-            production("Fc", "'stringCons'");
+            production("Fc", "'cteString'");
             token = lexicalAnalyzer.nextToken();
         } else if(checkToken(CategoryList.TcteChar)) {
-            production("Fc", "'charCons'");
+            production("Fc", "'cteChar'");
             token = lexicalAnalyzer.nextToken();
         } else if(checkToken(CategoryList.TbegBrac, CategoryList.TopSub, CategoryList.TnameId, CategoryList.TfuncId, CategoryList.TcteInt, CategoryList.TcteFloat)) {
             production("Fc", "Ra");
@@ -697,7 +694,7 @@ public class Syntactic {
 
     private void Rar() {
         if(checkToken(CategoryList.TopEq, CategoryList.TopDif)) {
-            production("Rar", "'RelEq' Ea Rar");
+            production("Rar", "'opEq' Ea Rar");
             token = lexicalAnalyzer.nextToken();
             Ea();
             Rar();
@@ -750,9 +747,9 @@ public class Syntactic {
 
     private void Fa() {
         if(checkToken(CategoryList.TbegBrac)) {
-            production("Fa", "'(' Eb ')'");
+            production("Fa", "'(' Ec ')'");
             token = lexicalAnalyzer.nextToken();
-            Eb();
+            Ec();
             if(checkToken(CategoryList.TendBrac)) {
                 token = lexicalAnalyzer.nextToken();
             } else {
@@ -769,10 +766,10 @@ public class Syntactic {
             production("Fa", "FunCall");
             FunCall();
         } else if(checkToken(CategoryList.TcteInt)) {
-            production("Fa", "'ConstInt'");
+            production("Fa", "'cteInt'");
             token = lexicalAnalyzer.nextToken();
         } else if(checkToken(CategoryList.TcteFloat)) {
-            production("Fa", "'ConstFloat'");
+            production("Fa", "'cteFloat'");
             token = lexicalAnalyzer.nextToken();
         } else {
             Error("Unexpected token '" + token.getId() + "'. Expected 'TbegBrac', 'TopSub', 'TnameId', 'TfuncId', 'TcteInt', 'TcteFloat'.");

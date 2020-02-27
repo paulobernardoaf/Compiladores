@@ -7,7 +7,7 @@ public enum CategoryList {
     Tincrement, TsemiCol, TbegBrac, TendBrac, TbegSqBrac,
     TendSqBrac, TbegCrBrac, TendCrBrac, Tprint, Tget, Treturn,
     TopConc, TopAnd, TopOr, TopNot, TopAtr, TopEq, TopDif,
-    TopAdd, TopSub, TopDiv, TopMult, TopMod, TopLowThen,
+    TopAdd, TopSub, TopDiv, TopMult, TopLowThen,
     TopLowThnE, TopGreThen, TopGreThnE, TfuncId, TnameId,
     TcteInt, TcteFloat, TcteString, TcteBool, TcteChar, TEOF
 

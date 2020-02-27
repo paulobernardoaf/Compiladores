@@ -1,35 +1,26 @@
-:@OKLL1
 S           = VarType Decl S
             | 'void' DeclFun S
             | EPSILON
 
-:@OKLL1
 Decl        = '[' DeclR
             | DeclAux
 
-:@OKLL1
 DeclR       = ']' DeclFun
             | ArrSize ']' DeclAux
 
-:@OKLL1
 DeclAux     = DeclFun
             | DeclVar
 
-:@OKLL1
 DeclFun     = IdFun '(' Param ')' OpSentCl
+ 
+DeclVar     = 'nameId' Atr ';'
 
-:@OKLL1 
-DeclVar     = 'idVar' Atr ';'
-
-:@OKLL1
 Atr         = '=' AtrR
             | EPSILON
 
-:@OKLL1
 AtrR        = Ec
             | '[' EcList ']'
 
-:@OKLL1
 EcList      = EcListValues
             | EPSILON
 
@@ -38,50 +29,38 @@ EcListValues= Ec EcListR
 EcListR     = ',' EcListValues
             | EPSILON
 
-:@OK
-Var         = 'idVar' OptArray
+Var         = 'nameId' OptArray
 
-:@OK
-IdFun       = 'funId'
+IdFun       = 'funcId'
             | 'Main'
 
-:@OK
-ArrSize     = 'idVar'
-            | 'ConstInt'
+ArrSize     = 'nameId'
+            | 'cteInt'
 
-:@OK
 VarType     = 'int'
             | 'float'
             | 'string'
             | 'bool'
             | 'char'
 
-:@OK
 OpSentCl    = '{' Sent '}'
 
-:@OK
 Param       = ParamList
             | EPSILON
 
-:@OKLL1
 ParamList   = ParVar ParamListR
 
-:@OKLL1
 ParamListR  = ',' ParamList
             | EPSILON
 
-:@OKLL1
-ParVar      = VarType OptFnArray 'idVar'
+ParVar      = VarType OptFnArray 'nameId'
 
-:@OKLL1
 OptFnArray  = '[' OptFnArrayR
             | EPSILON
 
-:@OKLL1
 OptFnArrayR = ArrSize ']'
             | ']'
 
-:@OK
 Sent        = VarType OptArray DeclVar Sent
             | FunCall ';' Sent
             | Commands Sent
@@ -89,108 +68,82 @@ Sent        = VarType OptArray DeclVar Sent
             | 'return' ReturnParam ';' Sent
             | EPSILON
 
-:@OKLL1
 OptArray    = '[' ArrSize ']'
             | EPSILON
 
-:@LL1
 ReturnParam = Ec
             | '[' EcList ']'
             | EPSILON
 
-:@OK
-FunCall     = 'idFunc' '(' ParCall ')'
+FunCall     = 'funcId' '(' ParCall ')'
 
-:@OK
 ParCall     = ParCallList
             | EPSILON
 
-:@OK
 ParCallList = Ec ParCalListR
 
-:@OK
 ParCalListR = ',' ParCallList
             | EPSILON
 
-:@OK
-Commands    = 'printComm' '(' 'ConstStr' PrintOpt ')' ';'
+Commands    = 'printComm' '(' 'cteString' PrintOpt ')' ';'
             | 'get' '(' GetVarList ')' ';'
             | 'if' Eb OpSentCl ElseComm
             | 'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl
             | 'during' Eb OpSentCl
 
-:@OK
 PrintOpt    = ',' ParCallList
             | EPSILON
 
-:@OKLL1
 GetVarList  = Var GetVarListR
 
-:@LL1
 GetVarListR = ',' GetVarList
             | EPSILON
-:@OK
 ElseComm    = 'else' OpSentCl
             | EPSILON
 
-:@OK
-Ec  = Eb Ecr
-Ecr = '&' Eb Ecr
-    | EPSILON
-
-:@OK
-Eb  = Tb Ebr
-
-:@OK
-Ebr = 'LogicOr' Tb Ebr
-    | EPSILON
-
-:@OK
-Tb  = Fb Tbr 
-
-:@OK
-Tbr = 'LogicAnd' Fb Tbr
-    | EPSILON
-
-:@OK
-Fb  = Fc Fbr            
-    | 'LogicNot' Fb    
-    | 'ConstBool'
-
-:@OK
-Fbr = 'RelLtGt' Fc Fbr
-    | EPSILON
-
-:@OK
-Fc  = 'stringCons'
-    | 'charCons'
-    | Ra
-
-:@OK
-Ra  = Ea Rar
-
-:@OK
-Rar = 'RelEq' Ea Rar
-    | EPSILON
-
-:@OK
-Ea  = Ta Ear
-
-:@OK
-Ear = 'AddSub' Ta Ear
-    | EPSILON
-
-:@OK
-Ta  = Fa Tar
-
-:@OK
-Tar = 'Mult' Fa Tar
-    | EPSILON
-
-:@OK
-Fa  = '(' Eb ')'
-    | 'UnNeg' Fa        
-    | Var
-    | FunCall
-    | 'ConstInt'
-    | 'ConstFloat'
+Ec          = Eb Ecr
+Ecr         = '&' Eb Ecr
+            | EPSILON
+        
+Eb          = Tb Ebr
+        
+Ebr         = 'opOr' Tb Ebr
+            | EPSILON
+        
+Tb          = Fb Tbr 
+        
+Tbr         = 'opAnd' Fb Tbr
+            | EPSILON
+        
+Fb          = Fc Fbr            
+            | 'opNot' Fb    
+            | 'cteBool'
+        
+Fbr         = 'RelLtGt' Fc Fbr
+            | EPSILON
+        
+Fc          = 'cteString'
+            | 'cteChar'
+            | Ra
+        
+Ra          = Ea Rar
+        
+Rar         = 'opEq' Ea Rar
+            | EPSILON
+        
+Ea          = Ta Ear
+        
+Ear         = 'AddSub' Ta Ear
+            | EPSILON
+        
+Ta          = Fa Tar
+        
+Tar         = 'Mult' Fa Tar
+            | EPSILON
+        
+Fa          = '(' Ec ')'
+            | 'UnNeg' Fa
+            | Var
+            | FunCall
+            | 'cteInt'
+            | 'CteFloat'
