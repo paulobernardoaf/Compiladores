@@ -1,0 +1,52 @@
+1  int Main() {
+          [0001, 0001] (0002,                 Tint) {int}
+      S = VarType Decl S
+      VarType = 'int'
+          [0001, 0005] (0001,                Tmain) {Main}
+      Decl = DeclAux
+      DeclAux = DeclFun
+      DeclFun = IdFun '(' Param ')' OpSentCl
+      IdFun = 'Main'
+          [0001, 0009] (0016,             TbegBrac) {(}
+          [0001, 0010] (0017,             TendBrac) {)}
+      Param = EPSILON
+          [0001, 0012] (0020,           TbegCrBrac) {{}
+      OpSentCl = '{' Sent '}'
+2  # Comentario
+3      print("Hello World");
+          [0003, 0005] (0022,               Tprint) {print}
+      Sent = Commands Sent
+      Commands = 'printComm' '(' 'cteString' PrintOpt ')' ';'
+          [0003, 0010] (0016,             TbegBrac) {(}
+          [0003, 0011] (0044,           TcteString) {"Hello World"}
+          [0003, 0024] (0017,             TendBrac) {)}
+      PrintOpt = EPSILON
+          [0003, 0025] (0015,             TsemiCol) {;}
+4
+5      return 0;
+          [0005, 0005] (0024,              Treturn) {return}
+      Sent = 'return' ReturnParam ';' Sent
+          [0005, 0012] (0042,              TcteInt) {0}
+      ReturnParam = Ec
+      Ec = Eb Ecr
+      Eb = Tb Ebr
+      Tb = Fb Tbr
+      Fb = Fc Fbr
+      Fc = Ra
+      Ra = Ea Rar
+      Ea = Ta Ear
+      Ta = Fa Tar
+      Fa = 'cteInt'
+          [0005, 0013] (0015,             TsemiCol) {;}
+      Tar = EPSILON
+      Ear = EPSILON
+      Rar = EPSILON
+      Fbr = EPSILON
+      Tbr = EPSILON
+      Ebr = EPSILON
+      Ecr = EPSILON
+6  }
+          [0006, 0001] (0021,           TendCrBrac) {}}
+      Sent = EPSILON
+7  EOF
+      S = EOF
