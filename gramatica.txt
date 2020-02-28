@@ -1,16 +1,15 @@
 S           = DeclFun S
             | DeclVar S
-            | EPSILON
+            | 'int' Main
 
-DeclFun     = FuncType DeclArrOpc IdFun OpParCl OpSentCl
+Main        = 'Main' OpParCl OpSentCl
+
+DeclFun     = FuncType DeclArrOpc 'funcId' OpParCl OpSentCl
 
 DeclVar     = VarType DeclArrObg 'nameId' ';'
             | VarType DeclArrObg 'nameId' '=' Ec ';'
 
 Var         = 'nameId' DeclArrObg
-
-IdFun       = 'funcId'
-            | 'Main'
 
 DeclArrOpc  = '[' ArrSizeOpc ']'
             | EPSILON
@@ -30,6 +29,7 @@ VarType     = 'int'
             | 'string'
             | 'bool'
             | 'char'
+            
 FuncType    = VarType
             | 'void'
 

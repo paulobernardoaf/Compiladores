@@ -2,6 +2,7 @@ package lexic;
 
 import categories.CategoryList;
 import categories.SeparatorList;
+import syntactic.Syntactic;
 import token.Token;
 
 import java.io.*;
@@ -35,6 +36,8 @@ public class Lexical {
 
     // Function that return one token
     public Token nextToken() {
+
+
 
         StringBuilder lexeme = new StringBuilder();
 
@@ -103,8 +106,8 @@ public class Lexical {
                 }
 
             }
+
             Token newToken = new Token(lexeme.toString(), this.linePosition, this.charPosition + 1);
-            System.out.println(newToken);
             return newToken;
 
         }

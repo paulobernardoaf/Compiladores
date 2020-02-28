@@ -1,6 +1,9 @@
-S           = VarType Decl S
+S           = 'int' SR
+            | NotIntType Decl S
             | 'void' DeclFun S
-            | EPSILON
+
+SR          = 'Main' '(' Param ')' OpSentCl
+            | Decl S
 
 Decl        = '[' DeclR
             | DeclAux
@@ -11,7 +14,7 @@ DeclR       = ']' DeclFun
 DeclAux     = DeclFun
             | DeclVar
 
-DeclFun     = IdFun '(' Param ')' OpSentCl
+DeclFun     = 'funcId' '(' Param ')' OpSentCl
  
 DeclVar     = 'nameId' Atr ';'
 
@@ -31,11 +34,13 @@ EcListR     = ',' EcListValues
 
 Var         = 'nameId' OptArray
 
-IdFun       = 'funcId'
-            | 'Main'
-
 ArrSize     = 'nameId'
             | 'cteInt'
+
+NotIntType  =  'float'
+            | 'string'
+            | 'bool'
+            | 'char'           
 
 VarType     = 'int'
             | 'float'

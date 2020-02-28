@@ -1,76 +1,73 @@
 
     1  int[] ShellSort(int[] values, int size) {
+          S = 'int' SR
               [0001, 0001] (0002,                 Tint) {int}
-          S = VarType Decl S
-          VarType = 'int'
-              [0001, 0004] (0018,           TbegSqBrac) {[}
           Decl = '[' DeclR
-              [0001, 0005] (0019,           TendSqBrac) {]}
+              [0001, 0004] (0018,           TbegSqBrac) {[}
           DeclR = ']' DeclFun
+              [0001, 0005] (0019,           TendSqBrac) {]}
+          DeclFun = 'funcId' '(' Param ')' OpSentCl
               [0001, 0007] (0040,              TfuncId) {ShellSort}
-          DeclFun = IdFun '(' Param ')' OpSentCl
-          IdFun = 'funcId'
               [0001, 0016] (0016,             TbegBrac) {(}
-              [0001, 0017] (0002,                 Tint) {int}
           Param = ParamList
           ParamList = ParVar ParamListR
           ParVar = VarType OptFnArray 'nameId'
           VarType = 'int'
-              [0001, 0020] (0018,           TbegSqBrac) {[}
+              [0001, 0017] (0002,                 Tint) {int}
           OptFnArray = '[' OptFnArrayR
-              [0001, 0021] (0019,           TendSqBrac) {]}
+              [0001, 0020] (0018,           TbegSqBrac) {[}
           OptFnArrayR = ']'
+              [0001, 0021] (0019,           TendSqBrac) {]}
               [0001, 0023] (0041,              TnameId) {values}
-              [0001, 0029] (0008,               Tcomma) {,}
           ParamListR = ',' ParamList
-              [0001, 0031] (0002,                 Tint) {int}
+              [0001, 0029] (0008,               Tcomma) {,}
           ParamList = ParVar ParamListR
           ParVar = VarType OptFnArray 'nameId'
           VarType = 'int'
-              [0001, 0035] (0041,              TnameId) {size}
+              [0001, 0031] (0002,                 Tint) {int}
           OptFnArray = EPSILON
-              [0001, 0039] (0017,             TendBrac) {)}
+              [0001, 0035] (0041,              TnameId) {size}
           ParamListR = EPSILON
-              [0001, 0041] (0020,           TbegCrBrac) {{}
+              [0001, 0039] (0017,             TendBrac) {)}
           OpSentCl = '{' Sent '}'
-    2  
+              [0001, 0041] (0020,           TbegCrBrac) {{}
+    2
     3      int i;
+          Sent = VarType OptArray DeclVar Sent
+          VarType = 'int'
               [0003, 0005] (0002,                 Tint) {int}
-          Sent = VarType OptArray DeclVar Sent
-          VarType = 'int'
+          OptArray = EPSILON
+          DeclVar = 'nameId' Atr ';'
               [0003, 0009] (0041,              TnameId) {i}
-          OptArray = EPSILON
-          DeclVar = 'nameId' Atr ';'
+          Atr = EPSILON
               [0003, 0010] (0015,             TsemiCol) {;}
-          Atr = EPSILON
     4      int j;
+          Sent = VarType OptArray DeclVar Sent
+          VarType = 'int'
               [0004, 0005] (0002,                 Tint) {int}
-          Sent = VarType OptArray DeclVar Sent
-          VarType = 'int'
+          OptArray = EPSILON
+          DeclVar = 'nameId' Atr ';'
               [0004, 0009] (0041,              TnameId) {j}
-          OptArray = EPSILON
-          DeclVar = 'nameId' Atr ';'
+          Atr = EPSILON
               [0004, 0010] (0015,             TsemiCol) {;}
-          Atr = EPSILON
     5      int num;
+          Sent = VarType OptArray DeclVar Sent
+          VarType = 'int'
               [0005, 0005] (0002,                 Tint) {int}
-          Sent = VarType OptArray DeclVar Sent
-          VarType = 'int'
+          OptArray = EPSILON
+          DeclVar = 'nameId' Atr ';'
               [0005, 0009] (0041,              TnameId) {num}
-          OptArray = EPSILON
-          DeclVar = 'nameId' Atr ';'
-              [0005, 0012] (0015,             TsemiCol) {;}
           Atr = EPSILON
+              [0005, 0012] (0015,             TsemiCol) {;}
     6      int gap = 1;
-              [0006, 0005] (0002,                 Tint) {int}
           Sent = VarType OptArray DeclVar Sent
           VarType = 'int'
-              [0006, 0009] (0041,              TnameId) {gap}
+              [0006, 0005] (0002,                 Tint) {int}
           OptArray = EPSILON
           DeclVar = 'nameId' Atr ';'
-              [0006, 0013] (0029,               TopAtr) {=}
+              [0006, 0009] (0041,              TnameId) {gap}
           Atr = '=' AtrR
-              [0006, 0015] (0042,              TcteInt) {1}
+              [0006, 0013] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -81,7 +78,7 @@
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0006, 0016] (0015,             TsemiCol) {;}
+              [0006, 0015] (0042,              TcteInt) {1}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -89,12 +86,12 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
-    7  
+              [0006, 0016] (0015,             TsemiCol) {;}
+    7
     8      during gap < size {
-              [0008, 0005] (0011,              Tduring) {during}
           Sent = Commands Sent
           Commands = 'during' Eb OpSentCl
-              [0008, 0012] (0041,              TnameId) {gap}
+              [0008, 0005] (0011,              Tduring) {during}
           Eb = Tb Ebr
           Tb = Fb Tbr
           Fb = Fc Fbr
@@ -104,20 +101,20 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0008, 0016] (0036,           TopLowThen) {<}
+              [0008, 0012] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
           Fbr = 'RelLtGt' Fc Fbr
-              [0008, 0018] (0041,              TnameId) {size}
+              [0008, 0016] (0036,           TopLowThen) {<}
           Fc = Ra
           Ra = Ea Rar
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0008, 0023] (0020,           TbegCrBrac) {{}
+              [0008, 0018] (0041,              TnameId) {size}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
@@ -126,14 +123,14 @@
           Tbr = EPSILON
           Ebr = EPSILON
           OpSentCl = '{' Sent '}'
+              [0008, 0023] (0020,           TbegCrBrac) {{}
     9          gap = gap * 3 + 1;
-              [0009, 0009] (0041,              TnameId) {gap}
           Sent = Var Atr ';' Sent
           Var = 'nameId' OptArray
-              [0009, 0013] (0029,               TopAtr) {=}
+              [0009, 0009] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Atr = '=' AtrR
-              [0009, 0015] (0041,              TnameId) {gap}
+              [0009, 0013] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -145,18 +142,18 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0009, 0019] (0035,              TopMult) {*}
+              [0009, 0015] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Tar = 'Mult' Fa Tarr
-              [0009, 0021] (0042,              TcteInt) {3}
+              [0009, 0019] (0035,              TopMult) {*}
           Fa = 'cteInt'
-              [0009, 0023] (0032,               TopAdd) {+}
+              [0009, 0021] (0042,              TcteInt) {3}
           Tar = EPSILON
           Ear = 'AddSub' Ta Ear
-              [0009, 0025] (0042,              TcteInt) {1}
+              [0009, 0023] (0032,               TopAdd) {+}
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0009, 0026] (0015,             TsemiCol) {;}
+              [0009, 0025] (0042,              TcteInt) {1}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -164,15 +161,15 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0009, 0026] (0015,             TsemiCol) {;}
     10      }
-              [0010, 0005] (0021,           TendCrBrac) {}}
           Sent = EPSILON
-    11  
+              [0010, 0005] (0021,           TendCrBrac) {}}
+    11
     12      during gap > 0 {
-              [0012, 0005] (0011,              Tduring) {during}
           Sent = Commands Sent
           Commands = 'during' Eb OpSentCl
-              [0012, 0012] (0041,              TnameId) {gap}
+              [0012, 0005] (0011,              Tduring) {during}
           Eb = Tb Ebr
           Tb = Fb Tbr
           Fb = Fc Fbr
@@ -182,19 +179,19 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0012, 0016] (0038,           TopGreThen) {>}
+              [0012, 0012] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
           Fbr = 'RelLtGt' Fc Fbr
-              [0012, 0018] (0042,              TcteInt) {0}
+              [0012, 0016] (0038,           TopGreThen) {>}
           Fc = Ra
           Ra = Ea Rar
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0012, 0020] (0020,           TbegCrBrac) {{}
+              [0012, 0018] (0042,              TcteInt) {0}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -202,54 +199,54 @@
           Tbr = EPSILON
           Ebr = EPSILON
           OpSentCl = '{' Sent '}'
+              [0012, 0020] (0020,           TbegCrBrac) {{}
     13          from i = gap to size - 1 increment 1 {
-              [0013, 0009] (0012,                Tfrom) {from}
           Sent = Commands Sent
           Commands = 'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl
-              [0013, 0014] (0041,              TnameId) {i}
+              [0013, 0009] (0012,                Tfrom) {from}
           Var = 'nameId' OptArray
-              [0013, 0016] (0029,               TopAtr) {=}
+              [0013, 0014] (0041,              TnameId) {i}
           OptArray = EPSILON
-              [0013, 0018] (0041,              TnameId) {gap}
+              [0013, 0016] (0029,               TopAtr) {=}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0013, 0022] (0013,                  Tto) {to}
+              [0013, 0018] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
-              [0013, 0025] (0041,              TnameId) {size}
+              [0013, 0022] (0013,                  Tto) {to}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0013, 0030] (0033,               TopSub) {-}
+              [0013, 0025] (0041,              TnameId) {size}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = 'AddSub' Ta Ear
-              [0013, 0032] (0042,              TcteInt) {1}
+              [0013, 0030] (0033,               TopSub) {-}
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0013, 0034] (0014,           Tincrement) {increment}
+              [0013, 0032] (0042,              TcteInt) {1}
           Tar = EPSILON
           Ear = EPSILON
-              [0013, 0044] (0042,              TcteInt) {1}
+              [0013, 0034] (0014,           Tincrement) {increment}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0013, 0046] (0020,           TbegCrBrac) {{}
+              [0013, 0044] (0042,              TcteInt) {1}
           Tar = EPSILON
           Ear = EPSILON
           OpSentCl = '{' Sent '}'
+              [0013, 0046] (0020,           TbegCrBrac) {{}
     14              num = values[i];
+          Sent = Var Atr ';' Sent
+          Var = 'nameId' OptArray
               [0014, 0013] (0041,              TnameId) {num}
-          Sent = Var Atr ';' Sent
-          Var = 'nameId' OptArray
+          OptArray = EPSILON
+          Atr = '=' AtrR
               [0014, 0017] (0029,               TopAtr) {=}
-          OptArray = EPSILON
-          Atr = '=' AtrR
-              [0014, 0019] (0041,              TnameId) {values}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -261,12 +258,12 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0014, 0025] (0018,           TbegSqBrac) {[}
+              [0014, 0019] (0041,              TnameId) {values}
           OptArray = '[' ArrSize ']'
-              [0014, 0026] (0041,              TnameId) {i}
+              [0014, 0025] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0014, 0026] (0041,              TnameId) {i}
               [0014, 0027] (0019,           TendSqBrac) {]}
-              [0014, 0028] (0015,             TsemiCol) {;}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -274,14 +271,14 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0014, 0028] (0015,             TsemiCol) {;}
     15              j = i;
-              [0015, 0013] (0041,              TnameId) {j}
           Sent = Var Atr ';' Sent
           Var = 'nameId' OptArray
-              [0015, 0015] (0029,               TopAtr) {=}
+              [0015, 0013] (0041,              TnameId) {j}
           OptArray = EPSILON
           Atr = '=' AtrR
-              [0015, 0017] (0041,              TnameId) {i}
+              [0015, 0015] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -293,7 +290,7 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0015, 0018] (0015,             TsemiCol) {;}
+              [0015, 0017] (0041,              TnameId) {i}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
@@ -302,16 +299,16 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0015, 0018] (0015,             TsemiCol) {;}
     16              int k = j - gap;
-              [0016, 0013] (0002,                 Tint) {int}
           Sent = VarType OptArray DeclVar Sent
           VarType = 'int'
-              [0016, 0017] (0041,              TnameId) {k}
+              [0016, 0013] (0002,                 Tint) {int}
           OptArray = EPSILON
           DeclVar = 'nameId' Atr ';'
-              [0016, 0019] (0029,               TopAtr) {=}
+              [0016, 0017] (0041,              TnameId) {k}
           Atr = '=' AtrR
-              [0016, 0021] (0041,              TnameId) {j}
+              [0016, 0019] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -323,15 +320,15 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0016, 0023] (0033,               TopSub) {-}
+              [0016, 0021] (0041,              TnameId) {j}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = 'AddSub' Ta Ear
-              [0016, 0025] (0041,              TnameId) {gap}
+              [0016, 0023] (0033,               TopSub) {-}
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0016, 0028] (0015,             TsemiCol) {;}
+              [0016, 0025] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
@@ -340,11 +337,11 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0016, 0028] (0015,             TsemiCol) {;}
     17              during (j > gap - 1) and (num <= values[k]) {
-              [0017, 0013] (0011,              Tduring) {during}
           Sent = Commands Sent
           Commands = 'during' Eb OpSentCl
-              [0017, 0020] (0016,             TbegBrac) {(}
+              [0017, 0013] (0011,              Tduring) {during}
           Eb = Tb Ebr
           Tb = Fb Tbr
           Fb = Fc Fbr
@@ -353,7 +350,7 @@
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = '(' Ec ')'
-              [0017, 0021] (0041,              TnameId) {j}
+              [0017, 0020] (0016,             TbegBrac) {(}
           Ec = Eb Ecr
           Eb = Tb Ebr
           Tb = Fb Tbr
@@ -364,48 +361,48 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0017, 0023] (0038,           TopGreThen) {>}
+              [0017, 0021] (0041,              TnameId) {j}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
           Fbr = 'RelLtGt' Fc Fbr
-              [0017, 0025] (0041,              TnameId) {gap}
+              [0017, 0023] (0038,           TopGreThen) {>}
           Fc = Ra
           Ra = Ea Rar
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0017, 0029] (0033,               TopSub) {-}
+              [0017, 0025] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = 'AddSub' Ta Ear
-              [0017, 0031] (0042,              TcteInt) {1}
+              [0017, 0029] (0033,               TopSub) {-}
           Ta = Fa Tar
           Fa = 'cteInt'
+              [0017, 0031] (0042,              TcteInt) {1}
+          Tar = EPSILON
+          Ear = EPSILON
+          Rar = EPSILON
+          Fbr = EPSILON
+          Tbr = EPSILON
+          Ebr = EPSILON
+          Ecr = EPSILON
               [0017, 0032] (0017,             TendBrac) {)}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
           Fbr = EPSILON
-          Tbr = EPSILON
-          Ebr = EPSILON
-          Ecr = EPSILON
-              [0017, 0034] (0026,               TopAnd) {and}
-          Tar = EPSILON
-          Ear = EPSILON
-          Rar = EPSILON
-          Fbr = EPSILON
           Tbr = 'opAnd' Fb Tbr
-              [0017, 0038] (0016,             TbegBrac) {(}
+              [0017, 0034] (0026,               TopAnd) {and}
           Fb = Fc Fbr
           Fc = Ra
           Ra = Ea Rar
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = '(' Ec ')'
-              [0017, 0039] (0041,              TnameId) {num}
+              [0017, 0038] (0016,             TbegBrac) {(}
           Ec = Eb Ecr
           Eb = Tb Ebr
           Tb = Fb Tbr
@@ -416,24 +413,32 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0017, 0043] (0037,           TopLowThnE) {<=}
+              [0017, 0039] (0041,              TnameId) {num}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
           Fbr = 'RelLtGt' Fc Fbr
-              [0017, 0046] (0041,              TnameId) {values}
+              [0017, 0043] (0037,           TopLowThnE) {<=}
           Fc = Ra
           Ra = Ea Rar
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0017, 0052] (0018,           TbegSqBrac) {[}
+              [0017, 0046] (0041,              TnameId) {values}
           OptArray = '[' ArrSize ']'
-              [0017, 0053] (0041,              TnameId) {k}
+              [0017, 0052] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0017, 0053] (0041,              TnameId) {k}
               [0017, 0054] (0019,           TendSqBrac) {]}
+          Tar = EPSILON
+          Ear = EPSILON
+          Rar = EPSILON
+          Fbr = EPSILON
+          Tbr = EPSILON
+          Ebr = EPSILON
+          Ecr = EPSILON
               [0017, 0055] (0017,             TendBrac) {)}
           Tar = EPSILON
           Ear = EPSILON
@@ -441,27 +446,19 @@
           Fbr = EPSILON
           Tbr = EPSILON
           Ebr = EPSILON
-          Ecr = EPSILON
-              [0017, 0057] (0020,           TbegCrBrac) {{}
-          Tar = EPSILON
-          Ear = EPSILON
-          Rar = EPSILON
-          Fbr = EPSILON
-          Tbr = EPSILON
-          Ebr = EPSILON
           OpSentCl = '{' Sent '}'
+              [0017, 0057] (0020,           TbegCrBrac) {{}
     18                  values[j] = values[k];
-              [0018, 0017] (0041,              TnameId) {values}
           Sent = Var Atr ';' Sent
           Var = 'nameId' OptArray
-              [0018, 0023] (0018,           TbegSqBrac) {[}
+              [0018, 0017] (0041,              TnameId) {values}
           OptArray = '[' ArrSize ']'
-              [0018, 0024] (0041,              TnameId) {j}
+              [0018, 0023] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0018, 0024] (0041,              TnameId) {j}
               [0018, 0025] (0019,           TendSqBrac) {]}
-              [0018, 0027] (0029,               TopAtr) {=}
           Atr = '=' AtrR
-              [0018, 0029] (0041,              TnameId) {values}
+              [0018, 0027] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -473,12 +470,12 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0018, 0035] (0018,           TbegSqBrac) {[}
+              [0018, 0029] (0041,              TnameId) {values}
           OptArray = '[' ArrSize ']'
-              [0018, 0036] (0041,              TnameId) {k}
+              [0018, 0035] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0018, 0036] (0041,              TnameId) {k}
               [0018, 0037] (0019,           TendSqBrac) {]}
-              [0018, 0038] (0015,             TsemiCol) {;}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -486,14 +483,14 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0018, 0038] (0015,             TsemiCol) {;}
     19                  j = j - gap;
-              [0019, 0017] (0041,              TnameId) {j}
           Sent = Var Atr ';' Sent
           Var = 'nameId' OptArray
-              [0019, 0019] (0029,               TopAtr) {=}
+              [0019, 0017] (0041,              TnameId) {j}
           OptArray = EPSILON
           Atr = '=' AtrR
-              [0019, 0021] (0041,              TnameId) {j}
+              [0019, 0019] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -505,66 +502,66 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0019, 0023] (0033,               TopSub) {-}
+              [0019, 0021] (0041,              TnameId) {j}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = 'AddSub' Ta Ear
+              [0019, 0023] (0033,               TopSub) {-}
+          Ta = Fa Tar
+          Fa = Var
+          Var = 'nameId' OptArray
               [0019, 0025] (0041,              TnameId) {gap}
-          Ta = Fa Tar
-          Fa = Var
-          Var = 'nameId' OptArray
+          OptArray = EPSILON
+          Tar = EPSILON
+          Ear = EPSILON
+          Rar = EPSILON
+          Fbr = EPSILON
+          Tbr = EPSILON
+          Ebr = EPSILON
+          Ecr = EPSILON
               [0019, 0028] (0015,             TsemiCol) {;}
-          OptArray = EPSILON
-          Tar = EPSILON
-          Ear = EPSILON
-          Rar = EPSILON
-          Fbr = EPSILON
-          Tbr = EPSILON
-          Ebr = EPSILON
-          Ecr = EPSILON
     20                  k = j;
+          Sent = Var Atr ';' Sent
+          Var = 'nameId' OptArray
               [0020, 0017] (0041,              TnameId) {k}
-          Sent = Var Atr ';' Sent
-          Var = 'nameId' OptArray
+          OptArray = EPSILON
+          Atr = '=' AtrR
               [0020, 0019] (0029,               TopAtr) {=}
-          OptArray = EPSILON
-          Atr = '=' AtrR
+          AtrR = Ec
+          Ec = Eb Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Fc Fbr
+          Fc = Ra
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Fa Tar
+          Fa = Var
+          Var = 'nameId' OptArray
               [0020, 0021] (0041,              TnameId) {j}
-          AtrR = Ec
-          Ec = Eb Ecr
-          Eb = Tb Ebr
-          Tb = Fb Tbr
-          Fb = Fc Fbr
-          Fc = Ra
-          Ra = Ea Rar
-          Ea = Ta Ear
-          Ta = Fa Tar
-          Fa = Var
-          Var = 'nameId' OptArray
+          OptArray = EPSILON
+          Tar = EPSILON
+          Ear = EPSILON
+          Rar = EPSILON
+          Fbr = EPSILON
+          Tbr = EPSILON
+          Ebr = EPSILON
+          Ecr = EPSILON
               [0020, 0022] (0015,             TsemiCol) {;}
-          OptArray = EPSILON
-          Tar = EPSILON
-          Ear = EPSILON
-          Rar = EPSILON
-          Fbr = EPSILON
-          Tbr = EPSILON
-          Ebr = EPSILON
-          Ecr = EPSILON
     21              }
-              [0021, 0013] (0021,           TendCrBrac) {}}
           Sent = EPSILON
+              [0021, 0013] (0021,           TendCrBrac) {}}
     22              values[j] = num;
-              [0022, 0013] (0041,              TnameId) {values}
           Sent = Var Atr ';' Sent
           Var = 'nameId' OptArray
-              [0022, 0019] (0018,           TbegSqBrac) {[}
+              [0022, 0013] (0041,              TnameId) {values}
           OptArray = '[' ArrSize ']'
-              [0022, 0020] (0041,              TnameId) {j}
+              [0022, 0019] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0022, 0020] (0041,              TnameId) {j}
               [0022, 0021] (0019,           TendSqBrac) {]}
-              [0022, 0023] (0029,               TopAtr) {=}
           Atr = '=' AtrR
-              [0022, 0025] (0041,              TnameId) {num}
+              [0022, 0023] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -576,7 +573,7 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0022, 0028] (0015,             TsemiCol) {;}
+              [0022, 0025] (0041,              TnameId) {num}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
@@ -585,17 +582,17 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0022, 0028] (0015,             TsemiCol) {;}
     23          }
-              [0023, 0009] (0021,           TendCrBrac) {}}
           Sent = EPSILON
+              [0023, 0009] (0021,           TendCrBrac) {}}
     24          gap = gap / 3;
-              [0024, 0009] (0041,              TnameId) {gap}
           Sent = Var Atr ';' Sent
           Var = 'nameId' OptArray
-              [0024, 0013] (0029,               TopAtr) {=}
+              [0024, 0009] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Atr = '=' AtrR
-              [0024, 0015] (0041,              TnameId) {gap}
+              [0024, 0013] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -607,12 +604,12 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0024, 0019] (0034,               TopDiv) {/}
+              [0024, 0015] (0041,              TnameId) {gap}
           OptArray = EPSILON
           Tar = 'Mult' Fa Tarr
-              [0024, 0021] (0042,              TcteInt) {3}
+              [0024, 0019] (0034,               TopDiv) {/}
           Fa = 'cteInt'
-              [0024, 0022] (0015,             TsemiCol) {;}
+              [0024, 0021] (0042,              TcteInt) {3}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -620,14 +617,14 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0024, 0022] (0015,             TsemiCol) {;}
     25      }
-              [0025, 0005] (0021,           TendCrBrac) {}}
           Sent = EPSILON
-    26  
+              [0025, 0005] (0021,           TendCrBrac) {}}
+    26
     27      return values;
-              [0027, 0005] (0024,              Treturn) {return}
           Sent = 'return' ReturnParam ';' Sent
-              [0027, 0012] (0041,              TnameId) {values}
+              [0027, 0005] (0024,              Treturn) {return}
           ReturnParam = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -639,7 +636,7 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0027, 0018] (0015,             TsemiCol) {;}
+              [0027, 0012] (0041,              TnameId) {values}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
@@ -648,150 +645,146 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0027, 0018] (0015,             TsemiCol) {;}
     28  }
-              [0028, 0001] (0021,           TendCrBrac) {}}
           Sent = EPSILON
-    29  
+              [0028, 0001] (0021,           TendCrBrac) {}}
+    29
     30  int Main() {
+          S = 'int' SR
               [0030, 0001] (0002,                 Tint) {int}
-          S = VarType Decl S
-          VarType = 'int'
+          SR = 'Main' '(' Param ')' OpSentCl
               [0030, 0005] (0001,                Tmain) {Main}
-          Decl = DeclAux
-          DeclAux = DeclFun
-          DeclFun = IdFun '(' Param ')' OpSentCl
-          IdFun = 'Main'
               [0030, 0009] (0016,             TbegBrac) {(}
-              [0030, 0010] (0017,             TendBrac) {)}
           Param = EPSILON
-              [0030, 0012] (0020,           TbegCrBrac) {{}
+              [0030, 0010] (0017,             TendBrac) {)}
           OpSentCl = '{' Sent '}'
-    31  
+              [0030, 0012] (0020,           TbegCrBrac) {{}
+    31
     32      int i;
-              [0032, 0005] (0002,                 Tint) {int}
           Sent = VarType OptArray DeclVar Sent
           VarType = 'int'
-              [0032, 0009] (0041,              TnameId) {i}
+              [0032, 0005] (0002,                 Tint) {int}
           OptArray = EPSILON
           DeclVar = 'nameId' Atr ';'
-              [0032, 0010] (0015,             TsemiCol) {;}
+              [0032, 0009] (0041,              TnameId) {i}
           Atr = EPSILON
+              [0032, 0010] (0015,             TsemiCol) {;}
     33      print("Enter the length of array:");
-              [0033, 0005] (0022,               Tprint) {print}
           Sent = Commands Sent
           Commands = 'printComm' '(' 'cteString' PrintOpt ')' ';'
+              [0033, 0005] (0022,               Tprint) {print}
               [0033, 0010] (0016,             TbegBrac) {(}
               [0033, 0011] (0044,           TcteString) {"Enter the length of array:"}
-              [0033, 0039] (0017,             TendBrac) {)}
           PrintOpt = EPSILON
+              [0033, 0039] (0017,             TendBrac) {)}
               [0033, 0040] (0015,             TsemiCol) {;}
     34      int size;
-              [0034, 0005] (0002,                 Tint) {int}
           Sent = VarType OptArray DeclVar Sent
           VarType = 'int'
-              [0034, 0009] (0041,              TnameId) {size}
+              [0034, 0005] (0002,                 Tint) {int}
           OptArray = EPSILON
           DeclVar = 'nameId' Atr ';'
-              [0034, 0013] (0015,             TsemiCol) {;}
+              [0034, 0009] (0041,              TnameId) {size}
           Atr = EPSILON
+              [0034, 0013] (0015,             TsemiCol) {;}
     35      get(size);
-              [0035, 0005] (0023,                 Tget) {get}
           Sent = Commands Sent
           Commands = 'get' '(' GetVarList ')' ';'
+              [0035, 0005] (0023,                 Tget) {get}
               [0035, 0008] (0016,             TbegBrac) {(}
-              [0035, 0009] (0041,              TnameId) {size}
           GetVarList = Var GetVarListR
           Var = 'nameId' OptArray
-              [0035, 0013] (0017,             TendBrac) {)}
+              [0035, 0009] (0041,              TnameId) {size}
           OptArray = EPSILON
           GetVarListR = EPSILON
+              [0035, 0013] (0017,             TendBrac) {)}
               [0035, 0014] (0015,             TsemiCol) {;}
     36      int[size] values;
-              [0036, 0005] (0002,                 Tint) {int}
           Sent = VarType OptArray DeclVar Sent
           VarType = 'int'
-              [0036, 0008] (0018,           TbegSqBrac) {[}
+              [0036, 0005] (0002,                 Tint) {int}
           OptArray = '[' ArrSize ']'
-              [0036, 0009] (0041,              TnameId) {size}
+              [0036, 0008] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0036, 0009] (0041,              TnameId) {size}
               [0036, 0013] (0019,           TendSqBrac) {]}
-              [0036, 0015] (0041,              TnameId) {values}
           DeclVar = 'nameId' Atr ';'
-              [0036, 0021] (0015,             TsemiCol) {;}
+              [0036, 0015] (0041,              TnameId) {values}
           Atr = EPSILON
+              [0036, 0021] (0015,             TsemiCol) {;}
     37      print("Enter the array");
-              [0037, 0005] (0022,               Tprint) {print}
           Sent = Commands Sent
           Commands = 'printComm' '(' 'cteString' PrintOpt ')' ';'
+              [0037, 0005] (0022,               Tprint) {print}
               [0037, 0010] (0016,             TbegBrac) {(}
               [0037, 0011] (0044,           TcteString) {"Enter the array"}
-              [0037, 0028] (0017,             TendBrac) {)}
           PrintOpt = EPSILON
+              [0037, 0028] (0017,             TendBrac) {)}
               [0037, 0029] (0015,             TsemiCol) {;}
-    38  
+    38
     39      from i = 0 to size - 1 increment 1 {
-              [0039, 0005] (0012,                Tfrom) {from}
           Sent = Commands Sent
           Commands = 'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl
-              [0039, 0010] (0041,              TnameId) {i}
+              [0039, 0005] (0012,                Tfrom) {from}
           Var = 'nameId' OptArray
-              [0039, 0012] (0029,               TopAtr) {=}
+              [0039, 0010] (0041,              TnameId) {i}
           OptArray = EPSILON
-              [0039, 0014] (0042,              TcteInt) {0}
+              [0039, 0012] (0029,               TopAtr) {=}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0039, 0016] (0013,                  Tto) {to}
+              [0039, 0014] (0042,              TcteInt) {0}
           Tar = EPSILON
           Ear = EPSILON
-              [0039, 0019] (0041,              TnameId) {size}
+              [0039, 0016] (0013,                  Tto) {to}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0039, 0024] (0033,               TopSub) {-}
+              [0039, 0019] (0041,              TnameId) {size}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = 'AddSub' Ta Ear
-              [0039, 0026] (0042,              TcteInt) {1}
+              [0039, 0024] (0033,               TopSub) {-}
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0039, 0028] (0014,           Tincrement) {increment}
+              [0039, 0026] (0042,              TcteInt) {1}
           Tar = EPSILON
           Ear = EPSILON
-              [0039, 0038] (0042,              TcteInt) {1}
+              [0039, 0028] (0014,           Tincrement) {increment}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0039, 0040] (0020,           TbegCrBrac) {{}
+              [0039, 0038] (0042,              TcteInt) {1}
           Tar = EPSILON
           Ear = EPSILON
           OpSentCl = '{' Sent '}'
+              [0039, 0040] (0020,           TbegCrBrac) {{}
     40          get(values[i]);
-              [0040, 0009] (0023,                 Tget) {get}
           Sent = Commands Sent
           Commands = 'get' '(' GetVarList ')' ';'
+              [0040, 0009] (0023,                 Tget) {get}
               [0040, 0012] (0016,             TbegBrac) {(}
-              [0040, 0013] (0041,              TnameId) {values}
           GetVarList = Var GetVarListR
           Var = 'nameId' OptArray
-              [0040, 0019] (0018,           TbegSqBrac) {[}
+              [0040, 0013] (0041,              TnameId) {values}
           OptArray = '[' ArrSize ']'
-              [0040, 0020] (0041,              TnameId) {i}
+              [0040, 0019] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0040, 0020] (0041,              TnameId) {i}
               [0040, 0021] (0019,           TendSqBrac) {]}
-              [0040, 0022] (0017,             TendBrac) {)}
           GetVarListR = EPSILON
+              [0040, 0022] (0017,             TendBrac) {)}
               [0040, 0023] (0015,             TsemiCol) {;}
     41          print("$d ", values[i]);
-              [0041, 0009] (0022,               Tprint) {print}
           Sent = Commands Sent
           Commands = 'printComm' '(' 'cteString' PrintOpt ')' ';'
+              [0041, 0009] (0022,               Tprint) {print}
               [0041, 0014] (0016,             TbegBrac) {(}
               [0041, 0015] (0044,           TcteString) {"$d "}
-              [0041, 0020] (0008,               Tcomma) {,}
           PrintOpt = ',' ParCallList
-              [0041, 0022] (0041,              TnameId) {values}
+              [0041, 0020] (0008,               Tcomma) {,}
           ParCallList = Ec ParCalListR
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -803,12 +796,12 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0041, 0028] (0018,           TbegSqBrac) {[}
+              [0041, 0022] (0041,              TnameId) {values}
           OptArray = '[' ArrSize ']'
-              [0041, 0029] (0041,              TnameId) {i}
+              [0041, 0028] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0041, 0029] (0041,              TnameId) {i}
               [0041, 0030] (0019,           TendSqBrac) {]}
-              [0041, 0031] (0017,             TendBrac) {)}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -817,19 +810,19 @@
           Ebr = EPSILON
           Ecr = EPSILON
           ParCallListR = EPSILON
+              [0041, 0031] (0017,             TendBrac) {)}
               [0041, 0032] (0015,             TsemiCol) {;}
     42      }
-              [0042, 0005] (0021,           TendCrBrac) {}}
           Sent = EPSILON
-    43  
+              [0042, 0005] (0021,           TendCrBrac) {}}
+    43
     44      values = ShellSort(values, size);
-              [0044, 0005] (0041,              TnameId) {values}
           Sent = Var Atr ';' Sent
           Var = 'nameId' OptArray
-              [0044, 0012] (0029,               TopAtr) {=}
+              [0044, 0005] (0041,              TnameId) {values}
           OptArray = EPSILON
           Atr = '=' AtrR
-              [0044, 0014] (0040,              TfuncId) {ShellSort}
+              [0044, 0012] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -841,8 +834,8 @@
           Ta = Fa Tar
           Fa = FunCall
           FunCall = 'funcId' '(' ParCall ')'
+              [0044, 0014] (0040,              TfuncId) {ShellSort}
               [0044, 0023] (0016,             TbegBrac) {(}
-              [0044, 0024] (0041,              TnameId) {values}
           ParCall = ParCallList
           ParCallList = Ec ParCalListR
           Ec = Eb Ecr
@@ -855,7 +848,7 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0044, 0030] (0008,               Tcomma) {,}
+              [0044, 0024] (0041,              TnameId) {values}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
@@ -865,7 +858,7 @@
           Ebr = EPSILON
           Ecr = EPSILON
           ParCallListR = ',' ParCallList
-              [0044, 0032] (0041,              TnameId) {size}
+              [0044, 0030] (0008,               Tcomma) {,}
           ParCallList = Ec ParCalListR
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -877,7 +870,7 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0044, 0036] (0017,             TendBrac) {)}
+              [0044, 0032] (0041,              TnameId) {size}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = EPSILON
@@ -887,7 +880,7 @@
           Ebr = EPSILON
           Ecr = EPSILON
           ParCallListR = EPSILON
-              [0044, 0037] (0015,             TsemiCol) {;}
+              [0044, 0036] (0017,             TendBrac) {)}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -895,53 +888,53 @@
           Tbr = EPSILON
           Ebr = EPSILON
           Ecr = EPSILON
+              [0044, 0037] (0015,             TsemiCol) {;}
     45      from i = 0 to size - 1 increment 1 {
-              [0045, 0005] (0012,                Tfrom) {from}
           Sent = Commands Sent
           Commands = 'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl
-              [0045, 0010] (0041,              TnameId) {i}
+              [0045, 0005] (0012,                Tfrom) {from}
           Var = 'nameId' OptArray
-              [0045, 0012] (0029,               TopAtr) {=}
+              [0045, 0010] (0041,              TnameId) {i}
           OptArray = EPSILON
-              [0045, 0014] (0042,              TcteInt) {0}
+              [0045, 0012] (0029,               TopAtr) {=}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0045, 0016] (0013,                  Tto) {to}
+              [0045, 0014] (0042,              TcteInt) {0}
           Tar = EPSILON
           Ear = EPSILON
-              [0045, 0019] (0041,              TnameId) {size}
+              [0045, 0016] (0013,                  Tto) {to}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0045, 0024] (0033,               TopSub) {-}
+              [0045, 0019] (0041,              TnameId) {size}
           OptArray = EPSILON
           Tar = EPSILON
           Ear = 'AddSub' Ta Ear
-              [0045, 0026] (0042,              TcteInt) {1}
+              [0045, 0024] (0033,               TopSub) {-}
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0045, 0028] (0014,           Tincrement) {increment}
+              [0045, 0026] (0042,              TcteInt) {1}
           Tar = EPSILON
           Ear = EPSILON
-              [0045, 0038] (0042,              TcteInt) {1}
+              [0045, 0028] (0014,           Tincrement) {increment}
           Ea = Ta Ear
           Ta = Fa Tar
           Fa = 'cteInt'
-              [0045, 0040] (0020,           TbegCrBrac) {{}
+              [0045, 0038] (0042,              TcteInt) {1}
           Tar = EPSILON
           Ear = EPSILON
           OpSentCl = '{' Sent '}'
+              [0045, 0040] (0020,           TbegCrBrac) {{}
     46          print("$d ", values[i]);
-              [0046, 0009] (0022,               Tprint) {print}
           Sent = Commands Sent
           Commands = 'printComm' '(' 'cteString' PrintOpt ')' ';'
+              [0046, 0009] (0022,               Tprint) {print}
               [0046, 0014] (0016,             TbegBrac) {(}
               [0046, 0015] (0044,           TcteString) {"$d "}
-              [0046, 0020] (0008,               Tcomma) {,}
           PrintOpt = ',' ParCallList
-              [0046, 0022] (0041,              TnameId) {values}
+              [0046, 0020] (0008,               Tcomma) {,}
           ParCallList = Ec ParCalListR
           Ec = Eb Ecr
           Eb = Tb Ebr
@@ -953,12 +946,12 @@
           Ta = Fa Tar
           Fa = Var
           Var = 'nameId' OptArray
-              [0046, 0028] (0018,           TbegSqBrac) {[}
+              [0046, 0022] (0041,              TnameId) {values}
           OptArray = '[' ArrSize ']'
-              [0046, 0029] (0041,              TnameId) {i}
+              [0046, 0028] (0018,           TbegSqBrac) {[}
           ArrSize = 'nameId'
+              [0046, 0029] (0041,              TnameId) {i}
               [0046, 0030] (0019,           TendSqBrac) {]}
-              [0046, 0031] (0017,             TendBrac) {)}
           Tar = EPSILON
           Ear = EPSILON
           Rar = EPSILON
@@ -967,13 +960,14 @@
           Ebr = EPSILON
           Ecr = EPSILON
           ParCallListR = EPSILON
+              [0046, 0031] (0017,             TendBrac) {)}
               [0046, 0032] (0015,             TsemiCol) {;}
     47      }
+          Sent = EPSILON
               [0047, 0005] (0021,           TendCrBrac) {}}
-          Sent = EPSILON
     48  }
-              [0048, 0001] (0021,           TendCrBrac) {}}
           Sent = EPSILON
+              [0048, 0001] (0021,           TendCrBrac) {}}
     49  EOF
           S = EOF
 
