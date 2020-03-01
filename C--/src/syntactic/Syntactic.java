@@ -14,11 +14,11 @@ public class Syntactic {
     }
 
     private void Error(String message) {
-        System.err.println("Error: "+ message + " In line " + token.getLineNumber() + " and column " + token.getColumnNumber());
-        System.exit(0);
+        System.err.println("Error: " + message + " In line " + token.getLineNumber() + " and column " + token.getColumnNumber());
+        System.exit(-1);
     }
 
-    public void production(String left, String right) {
+    private void production(String left, String right) {
         String format = "%10s%s = %s";
         System.out.println(String.format(format, "", left, right));
     }

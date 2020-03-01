@@ -2,48 +2,37 @@ S           = DeclFun S
             | DeclVar S
             | 'int' Main
 
-Main        = 'Main' OpParCl OpSentCl
-
 DeclFun     = FuncType DeclArrOpc 'funcId' OpParCl OpSentCl
 
-DeclVar     = VarType DeclArrObg 'nameId' ';'
-            | VarType DeclArrObg 'nameId' '=' Ec ';'
-
-Var         = 'nameId' DeclArrObg
-
-DeclArrOpc  = '[' ArrSizeOpc ']'
-            | EPSILON
-
-DeclArrObg  = '[' ArrSizeObg ']'
-            | EPSILON
-
-ArrSizeOpc  = 'nameId'
-            | 'cteInt'
-            | EPSILON
-
-ArrSizeObg  = 'nameId'
-            | 'cteInt'           
+FuncType    = VarType
+            | 'void'
 
 VarType     = 'int'
             | 'float'
             | 'string'
             | 'bool'
             | 'char'
-            
-FuncType    = VarType
-            | 'void'
+
+DeclArrOpc  = '[' ArrSizeOpc ']'
+            | EPSILON
+
+ArrSizeOpc  = ArrSizeObg
+            | EPSILON
+
+ArrSizeObg  = 'nameId'
+            | 'cteInt'
 
 OpParCl     = '(' Param ')'
-
-OpSentCl    = '{' Sent '}'
-
-ParVar      = VarType DeclArrOpc 'nameId'
 
 Param       = ParamList
             | EPSILON
 
 ParamList   = ParVar ',' ParamList
             | ParVar
+
+ParVar      = VarType DeclArrOpc 'nameId'
+
+OpSentCl    = '{' Sent '}'
 
 Sent        = DeclVar Sent
             | FunCall Sent
@@ -52,17 +41,12 @@ Sent        = DeclVar Sent
             | Return ';' Sent
             | EPSILON
 
-Atr         = '=' Ec
-            | '=' '[' EcList ']'
-            | EPSILON   
-            
-EcList      = EcListValues
+DeclVar     = VarType DeclArrObg 'nameId' ';'
+            | VarType DeclArrObg 'nameId' '=' Ec ';'
+            | VarType DeclArrObg 'nameId' '=' '[' EcList ']' ';'
+
+DeclArrObg  = '[' ArrSizeObg ']'
             | EPSILON
-
-EcListValues= Ec EcListR
-
-EcListR     = ',' EcListValues
-            | EPSILON            
 
 FunCall     = 'funcId' OpParCallCl ';'
 
@@ -90,6 +74,8 @@ GetComm     = 'get' '(' GetVarList ')' ';'
 GetVarList  = Var ',' GetVarList
             | Var
 
+Var         = 'nameId' DeclArrObg
+
 IfComm      = 'if' Eb OpSentCl ElseComm
 
 ElseComm    = 'else' OpSentCl
@@ -99,43 +85,52 @@ FromComm    = 'from' Var '=' Ea 'to' Ea 'increment' Ea OpSentCl
 
 DuringComm  = 'during' Eb OpSentCl
 
+Atr         = '=' Ec
+            | '=' '[' EcList ']'
+            | EPSILON   
+            
+EcList      = EcListValues
+            | EPSILON
+
+EcListValues= Ec EcListR
+
+EcListR     = ',' EcListValues
+            | EPSILON
+
 Return      = 'return' Ec 
             | 'return' '[' EcList ']'
             | 'return'
 
-Ec          = Eb Ecr
-Ecr         = '&' Eb Ecr
-            | EPSILON
+Main        = 'Main' OpParCl OpSentCl
 
-Eb          = Tb Ebr
-Ebr         = 'opOr' Tb Ebr
-            | EPSILON
+Ec          = Ec '&' Eb
+            | Eb
 
-Tb          = Fb Tbr 
-Tbr         = 'opAnd' Fb Tbr
-            | EPSILON
+Eb          = Eb 'opOr' Tb
+            | Tb
 
-Fb          = Fc Fbr            
-            | 'opNot' Fb    
+Tb          = Fb Tbr
+
+Tb          = Tb 'opAnd' Fb
+            | Fb
+
+Fb          = Fb 'RelLtGt' Fc
+            | 'opNot' Fb
             | 'cteBool'
-Fbr         = 'RelLtGt' Fc Fbr
-            | EPSILON
+            | Fc
 
 Fc          = 'cteString'
             | 'cteChar'
             | Ra
 
-Ra          = Ea Rar             
-Rar         = 'opEq' Ea Rar
-            | EPSILON
+Ra          = Ra 'opEq' Ea
+            | Ea
 
-Ea          = Ta Ear 
-Ear         = 'AddSub' Ta Ear
-            | EPS1ILON
+Ea          = Ea 'AddSub' Ta
+            | Ta
 
-Ta          = Fa Tar
-Tar         = 'Mult' Fa Tar
-            | EPSILON
+Ta          = Ta 'Mult' Fa
+            | Fa
 
 Fa          = '(' Ec ')'
             | 'UnNeg' Fa        

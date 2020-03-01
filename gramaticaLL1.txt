@@ -5,17 +5,43 @@ S           = 'int' SR
 SR          = 'Main' '(' Param ')' OpSentCl
             | Decl S
 
-Decl        = '[' DeclR
-            | DeclAux
+Param       = ParamList
+            | EPSILON
 
-DeclR       = ']' DeclFun
-            | ArrSize ']' DeclAux
+ParamList   = ParVar ParamListR
 
-DeclAux     = DeclFun
-            | DeclVar
+ParVar      = VarType OptFnArray 'nameId'
 
-DeclFun     = 'funcId' '(' Param ')' OpSentCl
- 
+VarType     = 'int'
+            | 'float'
+            | 'string'
+            | 'bool'
+            | 'char'
+
+OptFnArray  = '[' OptFnArrayR
+            | EPSILON
+
+OptFnArrayR = ArrSize ']'
+            | ']'
+
+ArrSize     = 'nameId'
+            | 'cteInt'
+
+ParamListR  = ',' ParamList
+            | EPSILON
+
+OpSentCl    = '{' Sent '}'
+
+Sent        = VarType OptArray DeclVar Sent
+            | FunCall ';' Sent
+            | Commands Sent
+            | Var Atr ';' Sent
+            | 'return' ReturnParam ';' Sent
+            | EPSILON
+
+OptArray    = '[' ArrSize ']'
+            | EPSILON
+
 DeclVar     = 'nameId' Atr ';'
 
 Atr         = '=' AtrR
@@ -30,54 +56,6 @@ EcList      = EcListValues
 EcListValues= Ec EcListR
 
 EcListR     = ',' EcListValues
-            | EPSILON
-
-Var         = 'nameId' OptArray
-
-ArrSize     = 'nameId'
-            | 'cteInt'
-
-NotIntType  =  'float'
-            | 'string'
-            | 'bool'
-            | 'char'           
-
-VarType     = 'int'
-            | 'float'
-            | 'string'
-            | 'bool'
-            | 'char'
-
-OpSentCl    = '{' Sent '}'
-
-Param       = ParamList
-            | EPSILON
-
-ParamList   = ParVar ParamListR
-
-ParamListR  = ',' ParamList
-            | EPSILON
-
-ParVar      = VarType OptFnArray 'nameId'
-
-OptFnArray  = '[' OptFnArrayR
-            | EPSILON
-
-OptFnArrayR = ArrSize ']'
-            | ']'
-
-Sent        = VarType OptArray DeclVar Sent
-            | FunCall ';' Sent
-            | Commands Sent
-            | Var Atr ';' Sent
-            | 'return' ReturnParam ';' Sent
-            | EPSILON
-
-OptArray    = '[' ArrSize ']'
-            | EPSILON
-
-ReturnParam = Ec
-            | '[' EcList ']'
             | EPSILON
 
 FunCall     = 'funcId' '(' ParCall ')'
@@ -101,12 +79,36 @@ PrintOpt    = ',' ParCallList
 
 GetVarList  = Var GetVarListR
 
+Var         = 'nameId' OptArray
+
 GetVarListR = ',' GetVarList
             | EPSILON
+
 ElseComm    = 'else' OpSentCl
             | EPSILON
 
+ReturnParam = Ec
+            | '[' EcList ']'
+            | EPSILON
+
+NotIntType  =  'float'
+            | 'string'
+            | 'bool'
+            | 'char'  
+
+Decl        = '[' DeclR
+            | DeclAux
+
+DeclR       = ']' DeclFun
+            | ArrSize ']' DeclAux
+
+DeclFun     = 'funcId' '(' Param ')' OpSentCl
+
+DeclAux     = DeclFun
+            | DeclVar
+
 Ec          = Eb Ecr
+
 Ecr         = '&' Eb Ecr
             | EPSILON
         
