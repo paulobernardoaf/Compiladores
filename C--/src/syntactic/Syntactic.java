@@ -161,9 +161,9 @@ public class Syntactic {
 
     private void DeclVar() {
         if(checkToken(CategoryList.TnameId)) {
-            production("DeclVar", "'nameId' Atr ';'");
+            production("DeclVar", "'nameId' AtrOpc ';'");
             token = getNextToken();
-            Atr();
+            AtrOpc();
             if(checkToken(CategoryList.TsemiCol)) {
                 token = getNextToken();
             } else {
@@ -174,13 +174,22 @@ public class Syntactic {
         }
     }
 
-    private void Atr() {
+    private void AtrObg() {
         if(checkToken(CategoryList.TopAtr)) {
-            production("Atr", "'=' AtrR");
+            production("AtrObg", "'=' AtrR");
             token = getNextToken();
             AtrR();
         } else {
-            production("Atr", "EPSILON");
+            Error("Unexpected token '" + token.getId() + "'. Expected 'TopAtr'.");
+        }
+    }
+
+    private void AtrOpc() {
+        if(checkToken(CategoryList.TopAtr)) {
+            production("AtrOpc", "AtrObg");
+            AtrObg();
+        } else {
+            production("AtrOpc", "EPSILON");
         }
     }
 
@@ -385,9 +394,9 @@ public class Syntactic {
             Commands();
             Sent();
         } else if(checkToken(CategoryList.TnameId)) {
-            production("Sent", "Var Atr ';' Sent");
+            production("Sent", "Var AtrObg ';' Sent");
             Var();
-            Atr();
+            AtrObg();
             if(checkToken(CategoryList.TsemiCol)) {
                 token = getNextToken();
                 Sent();

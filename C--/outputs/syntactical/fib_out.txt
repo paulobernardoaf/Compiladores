@@ -22,9 +22,10 @@
           VarType = 'int'
               [0003, 0005] (0002,                 Tint) {int}
           OptArray = EPSILON
-          DeclVar = 'nameId' Atr ';'
+          DeclVar = 'nameId' AtrOpc ';'
               [0003, 0009] (0041,              TnameId) {a}
-          Atr = '=' AtrR
+          AtrOpc = AtrObg
+          AtrObg = '=' AtrR
               [0003, 0011] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
@@ -50,9 +51,10 @@
           VarType = 'int'
               [0004, 0005] (0002,                 Tint) {int}
           OptArray = EPSILON
-          DeclVar = 'nameId' Atr ';'
+          DeclVar = 'nameId' AtrOpc ';'
               [0004, 0009] (0041,              TnameId) {b}
-          Atr = '=' AtrR
+          AtrOpc = AtrObg
+          AtrObg = '=' AtrR
               [0004, 0011] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
@@ -78,9 +80,9 @@
           VarType = 'int'
               [0005, 0005] (0002,                 Tint) {int}
           OptArray = EPSILON
-          DeclVar = 'nameId' Atr ';'
+          DeclVar = 'nameId' AtrOpc ';'
               [0005, 0009] (0041,              TnameId) {next}
-          Atr = EPSILON
+          AtrOpc = EPSILON
               [0005, 0013] (0015,             TsemiCol) {;}
     6
     7      if value == 0 {
@@ -193,11 +195,11 @@
               [0013, 0024] (0017,             TendBrac) {)}
               [0013, 0025] (0015,             TsemiCol) {;}
     14          next = a + b;
-          Sent = Var Atr ';' Sent
+          Sent = Var AtrObg ';' Sent
           Var = 'nameId' OptArray
               [0014, 0009] (0041,              TnameId) {next}
           OptArray = EPSILON
-          Atr = '=' AtrR
+          AtrObg = '=' AtrR
               [0014, 0014] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
@@ -229,11 +231,11 @@
           Ecr = EPSILON
               [0014, 0021] (0015,             TsemiCol) {;}
     15          a = b;
-          Sent = Var Atr ';' Sent
+          Sent = Var AtrObg ';' Sent
           Var = 'nameId' OptArray
               [0015, 0009] (0041,              TnameId) {a}
           OptArray = EPSILON
-          Atr = '=' AtrR
+          AtrObg = '=' AtrR
               [0015, 0011] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
@@ -257,11 +259,11 @@
           Ecr = EPSILON
               [0015, 0014] (0015,             TsemiCol) {;}
     16          b = next;
-          Sent = Var Atr ';' Sent
+          Sent = Var AtrObg ';' Sent
           Var = 'nameId' OptArray
               [0016, 0009] (0041,              TnameId) {b}
           OptArray = EPSILON
-          Atr = '=' AtrR
+          AtrObg = '=' AtrR
               [0016, 0011] (0029,               TopAtr) {=}
           AtrR = Ec
           Ec = Eb Ecr
@@ -346,9 +348,9 @@
           VarType = 'int'
               [0027, 0005] (0002,                 Tint) {int}
           OptArray = EPSILON
-          DeclVar = 'nameId' Atr ';'
+          DeclVar = 'nameId' AtrOpc ';'
               [0027, 0009] (0041,              TnameId) {value}
-          Atr = EPSILON
+          AtrOpc = EPSILON
               [0027, 0014] (0015,             TsemiCol) {;}
     28
     29      get(value);
@@ -421,4 +423,3 @@
               [0034, 0001] (0021,           TendCrBrac) {}}
     35  EOF
           S = EOF
-

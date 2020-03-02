@@ -87,15 +87,12 @@ DuringComm  = 'during' Eb OpSentCl
 
 Atr         = '=' Ec
             | '=' '[' EcList ']'
-            | EPSILON   
             
 EcList      = EcListValues
             | EPSILON
 
-EcListValues= Ec EcListR
-
-EcListR     = ',' EcListValues
-            | EPSILON
+EcListValues= Ec ',' EcListValues
+            | Ec
 
 Return      = 'return' Ec 
             | 'return' '[' EcList ']'

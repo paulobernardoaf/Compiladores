@@ -35,16 +35,18 @@ OpSentCl    = '{' Sent '}'
 Sent        = VarType OptArray DeclVar Sent
             | FunCall ';' Sent
             | Commands Sent
-            | Var Atr ';' Sent
+            | Var AtrObg ';' Sent
             | 'return' ReturnParam ';' Sent
             | EPSILON
 
 OptArray    = '[' ArrSize ']'
             | EPSILON
 
-DeclVar     = 'nameId' Atr ';'
+DeclVar     = 'nameId' AtrOpc ';'
 
-Atr         = '=' AtrR
+AtrObg      = '=' AtrR
+
+AtrOpc      = AtrObg
             | EPSILON
 
 AtrR        = Ec
